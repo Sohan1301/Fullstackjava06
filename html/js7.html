@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script>
+           function show(){
+            var result="";
+            if(frmtest.chkstatus.checked==true){
+                document.getElementById("result").innerHTML="present...".fontcolor("green");
+            }else{
+                document.getElementById("result").innerHTML="absent...".fontcolor("red");
+
+            }
+           }
+        </script>
+    </head>
+    <body>
+        <form name="frmtest">
+            <center>
+                status:
+                <input type="checkbox" name="chkstatus" onchange="show()"/><br/><br/>
+                <span id="result"></span> 
+            </center>
+        </form>
+    </body>
+</html>

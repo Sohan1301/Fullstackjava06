@@ -1,0 +1,29 @@
+<html>
+    <head>
+     <script>
+        function show(){
+            var result="";
+        if(frmtest.chksai.checked==true){
+            result+="sohan is present ...<br/>".fontcolor=("green");
+        }else{
+            result+="sohan is absent<br/>",fontcolor=("red");
+        }
+        document.getElementById("reslut").innerHTML= result;
+        }
+     </script>
+    </head>
+    <body>
+        <form name="frmtest">
+            <center>
+         <input type="checkbox" name="chksai" onchange="show()"/>sai<br/>
+         <input type="checkbox" name="chkshiv" onchange="show()"/>shiv<br/>
+         <input type="checkbox" name="chkravi" onchange="show()"/>ravi<br/>
+        </center>
+
+
+
+
+        </form>
+
+    </body>
+</html>
