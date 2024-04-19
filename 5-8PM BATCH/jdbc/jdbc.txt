@@ -1,0 +1,111 @@
+jdbc 
+---------------
+jdbc stands for java data base connectivity
+-->the purpose of jdbc is to enable connectionf from java app to any relational database
+---and perform crud operations
+c-create db and tables ,
+read-retriving records-->select,
+u-updating records(dml)
+d-->delete
+
+the jdbc lib includes apis for each of the tasks commonly associated with db usage:
+-->making a connection to db
+-->creating sql r mysql stmts
+-->executing that sqlor my sql queries in db
+-->viewing&modifying the resulting records
+----------------------------------------------------
+Api
+Api stands for application programming interfaces
+it is a software which is used to communicte one application to another applications and exchange the information between them
+
+-->api consists with predefined interfaces,classes and methods with implementation these are ready to use
+ex:jdbc api,servlet api,jsp api
+------------------------------------------------
+jdbc api:
+the jdbc api present in java.sql package
+it consists with predefined interfaces,classes and implemented methods are common for all end user
+-----------------------------------------------------
+jdbc api components:
+1.interfaces--->a.connection
+                         b.statement
+                         c.prpeparedstatement
+                         d.callablestatement
+                        e.Resultset
+                       f.resultsetmeta data
+
+2.classes are:----a.classes
+                          b.drivermanager
+                          c,blob
+                          d.clob
+3.implemented methods are:
+a.forname()
+ b. getConnection()
+c.createstatement()
+d.preparestatement()
+e.preparecall()
+f.executeupdate()
+g.executequery()
+h.execute()
+i.close()
+setter methods are:setint,set string..etc..
+getters are:getint,getstringetc...
+
+jdbc connection===========
+5 steps
+1.regiester the driver
+2.create connection
+3.create statement
+4.execute sql quaries
+5.close the conection
+
+1.register the driver class
+---------------------------
+to load the driver class forname() method of class class is used to register the driver class in jjava program at run time dynamicalyy loaded.
+statement 1
+----------class.forName("com.mysql.cj.jdbc.driver")
+----------------------------------------------------------------------------------
+2.create connection-:
+Connection con=drivermanager.getconnection(url,username,password);
+
+statemnet2;
+Connection con=drivermanager.getconnection("jdbc:mysql://localhost:3306/db_name","root","root");
+---------------------------------------------------------------------------------
+
+3.create statement-:
+a.statement:stattic queries=create,alter,drop...etc..(DDL)
+the createstatement()method of connection interface is used to create statement
+the object of statement is responsible to execute the static queries with db
+----statement stmt=con.createstatement()
+
+b.prepared statement:dml queries:Dml quereies(insert,updte and delete)Dynamically
+the preparedsttmt()method of connection interface is iused to create statement.
+-->the object of prepared statement is responsible to execute dynamic queries with db
+--->preparedstatemement ps=con.preparestatement("insert into emp(?,?,?)");
+
+
+
+c.callable statement:storedprocedure(Dynamically
+-----------------------------------------)
+callabalestatement cs=con.preparecall("stored procedure");
+-----------------------------------------------------------------
+4.EXECUTE SQL QUERIES IN DB
+DDL:create,alter,drop
+DML:insert,update and delete(executeupdate method is used)
+syntax:
+int i=stmt.executeupdate();dml operations
+
+DRL:select (executequery() method is used and this method returns the object of resultset that can be used to get  all the records of  a table)
+syantax:
+Resultset rs=stmt.executeQuery();//selectoperations
+
+TCL:
+
+for tcl and ddl (execute() is used)
+
+-----------------------------------------------------------
+5.close the connection
+---
+the close()method of connection interface is used to close th connection of db
+
+con.close();
+ 

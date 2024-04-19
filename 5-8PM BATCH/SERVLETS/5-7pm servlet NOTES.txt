@@ -1,0 +1,302 @@
+servlet------
+servlet tech is a java program that runs on a web server.
+its basic aim is to devleop and create web app
+------------------------
+--->it is a tech is robust and scalable beacuase of java language.
+2.there are many interfaces and classes in the servlet
+3.Api such as servlet,generic servlet,httpservlet,servlet request,servlet response.etc..
+----------------------------------------------------------------------------------------------
+Q1<>what is web application?
+The application designed with dynamic web pages,run in browser through internet is known as web based application.
+ex--amzon,bookmyshow..
+-----------------------------------
+web apps are of two types
+1.static web app
+2.dynamic web app
+---------------------------------------
+1.static web application;
+-->the static web app directly delivers content to the end users browser without fetching any data from the server.
+-->most static web app are having fixed data.
+-->which languages are used to devlop static web app?
+    html,css
+------------------------------------------------------------------------------------
+2.Dynamic web app
+a web app that generates the data in real time based on the users req and server response is known as a dynamic web app
+--------------------------------------------------------------------------------------------------------------------
+
+what is Browser-->it is a application software which is used for to send http request to the server and get response from server side i.e http response
+ex---moxilla firefox,chrome,saffari..etc.
+note:.html(html),.css(css) and js run in browser
+-----------------------------------------------------------------------------------------------
+wht is server?
+server also application software which is used to takes http req from browser(client side machine)and prpepare response and sen back to browser i.e http response
+ex---apache tomcat,glassfish,jetty,jboss
+
+note:.java(servlet class) and .jsp(jsp)files always run in server side only
+-----------------------------------------------------------------------------------------------
+HTTP-hyper text transfer protocal
+-->the purpose of http is to enabled connection from client side machine to server side machine and transfer data with the help of http req and http response
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------\
+***16-04-2024
+1.presentation layer
+2.business logic layer
+3.data acess layer
+--------------------------------------------
+****http request cn send to server in 3 ways;
+1.by using url(www.amazon.com) through header
+2.by using hyper link
+ex:<a href="www.amazon.com">amazon<a/>
+
+3.by using submit button
+<input type="submit" value="login">
+----------------------------------------------------------
+*****servlet api
+___>>>it has two types of packages
+1.javax.servlet.*;
+--->protocal independent
+-->http,smtp,ftp..etc
+--->1% downloading application
+___><<<<<>>>>in this Interfaces are;
+/sevlet
+/servletrequest
+/servletresponse
+/servletconfig
+/servletcontext
+/servletdispatcher
+***>>>it has a class that is: GENERIC SERVLET
+INN 1ST PACKAGE THE IMPLEMENTED METHODS ARE 5 they are;
+a)public void init()
+b)public void service()
+c.public void destroy()
+4.public servletconfig getservletconfig()
+5. public string getservletinfo()
+
+
+
+
+2.javax.servlet.http.*;
+--->protocal dependent 
+--->http
+--->99% downloading appn
+
+-->in this the interfaces are;
+*HttpServletREquest
+*HttpServletResponse
+*HttpSession
+
+--->class:HttpServlet
+
+Httpservlet class implemented methods are
+a.public void service(httpservletRequest req,HttpServletResponse response)
+b.proteccted void service(httpservletRequest req,HttpServletResponse response)
+c.proteccted void doGet(httpservletRequest req,HttpServletResponse response)
+d.proteccted void doPost(httpservletRequest req,HttpServletResponse response)
+e.proteccted void doHead(httpservletRequest req,HttpServletResponse response)
+f.proteccted void doPut(httpservletRequest req,HttpServletResponse response)
+g.proteccted void doDelete(httpservletRequest req,HttpServletResponse response)
+-------------------------------------------------------------------------------------------------------------
+
+
+
+
+*******creating servlet class
+
+basically servlet class can create with 3 ways:
+1.by implementing servlet interfaces
+2.by extends genericservlet
+3.by extends Http servlet class
+---------------------------------------------------------------
+approach numm 1:by implemengting servlet interfaces
+import javax.servlet.*;
+public class Myservlet implements servlet
+{
+public void service(serviceREquest request,ServletResponse response)
+}
+{
+//pl(presentation logic)(input statements)
+//bl(business logic processing stmnts)
+//dal(data access logic(jdbc 5 lines code)
+//pl(presentation logic)(output stmtn)
+}
+}
+-----------------------------------------------------------------------------
+approach numm 2:by extending genericservlet class
+import javax.servlet.*;
+public class Myservlet extends  Genericservlet
+{
+public void service(serviceREquest request,ServletResponse response)
+}
+{
+//pl(presentation logic)(input statements)
+//bl(business logic processing stmnts)
+//dal(data access logic(jdbc 5 lines code)
+//pl(presentation logic)(output stmtn)
+}
+}
+-----------------------------------------------------------------
+approach numm 2:by extends Httpservlet class
+import javax.servlet.Http.*;
+public class Myservlet extends Httpservlet
+{
+protected void doGet/doPost(HttpserviceREquest request,HttpServletResponse response)
+}
+{
+//pl(presentation logic)(input statements)
+//bl(business logic processing stmnts)
+//dal(data access logic(jdbc 5 lines code)
+//pl(presentation logic)(output stmtn)
+}
+}
+-----------------------------------------------------------------------------------
+>>>>>for every servlet web application required softwares are:
+1.jdk(java software)
+2.browser(run client side code)
+3.tomcat server(to run server side code)
+4.eclipse ide(java code editor) 
+5.data base(mysql db)
+-----------------------------------------------------------
+***********required files are
+-->.html(files)
+---->.java(files)(servlet classes)
+---->web.xml(file)(it is used for mSapping purpose)
+----->servlet-api.jar+mysqlconnector.jar
+-----------------------------------------------------------------
+@@@@  Steps to crate a servlet web app in eclipse ide-:
+step-1.open eclipse ide go to-->new->dynamic web project
+here configure apache tomcat then click next and next button
+step-2.here select check box for web.xm; file then click finish button
+---------------------------------------------------------------------------------------------------------
+**********servlet web app project  folder structure
+------------------------------------------------------------------
+code of welcome and input values
+@WebServlet("/Welcome")
+public class Welcome extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+  
+    public Welcome() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+	  int rollno=120;
+	  String name="excelr";
+	  out.println("<h1>Welcome to servlet web application</h1>");
+	  out.println(rollno);
+	  out.println(name);
+	}
+
+}
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+17-04-2024
+
+create a servlet web app to print your full name?
+
+output:
+first name:______________                            req files:html,java,web.xml                     *******form tag has two attributes:action and method
+
+lastname:_________________
+
+           --------------
+           printFullName
+          ----------------
+ html  code:
+<html>                                                                        
+
+<head>
+<title>FullName<Title>
+</head>
+<body>
+<form action="FullName" method="get">
+Firstname:
+<input type="text" name="fname"><br>
+Lastname:
+<input type="text" name="lname"><br>
+
+<input type="submit" value="printfullname">
+</form>
+
+
+</body>
+</html>
+
+
+java file code:
+public class Full/name extends HttpServlet
+{
+protected void doGet(httpServlet req,httpServlet response)
+{
+respone.setContentType("html/text");
+PrintWriter out=response.getWriter();
+String fname=request.getParameter("fname");
+String lname=request.getParameter("lname");
+String fullname=fname+lmname
+//businesslogic
+out.Println("first name="+fname+"<br>");
+out.Println("lastname name="lname+"<br>");
+out.Println("Fullname="+fullname+"<br>");
+}
+}
+--------------------------------------
+webxml
+<welcome-file>name.html<?welcome-file>
+----------
+
+Q2:create a servlet web app login page details
+
+
+
+
+
+
+
+Q3:to print product invoice
+product details:                                         conditions:total<5000 -->12%,   total>=5000 and total<20000  --->21%,   total>=20000 --->disc-->35%, gst=18%
+                                                                    
+product id:
+product name:
+price:
+quantity:
+             
+           ------------------
+            printbill
+           -----------------
+
+
+output:
+product id:333
+product name:dell
+price:600000.00
+quantity:1
+discount:2500.00
+gst:450.00
+invoice bill;57950.00
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

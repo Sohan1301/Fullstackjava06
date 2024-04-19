@@ -1,0 +1,177 @@
+JDBC
+--------
+--> JDBC Stands for Java Data Base Connectivety
+--> The puprpose of JDBC is to enable connection from
+java applications to any relational data Bases.
+MYSQL data Base ,Oracle DataBase...etc
+--> and perform CRUD operations 
+C--> create DataBase and Tables also
+R--Retriving Records ---> select
+U--> update and Insert   (DML) 
+D--> deleting    (delete)
+-------------------------------------------------------------------------------
+The JDBC library includes APIs for each of the tasks commonly associated 
+with database usage: 
+ Making a connection to a database 
+ Creating SQL or MySQL statements 
+ Executing that SQL or MySQL queries in the database
+ Viewing & Modifying the resulting records.
+----------------------------------------------------------------------------------------------
+API:
+-------
+API stands Application Programing interface
+API is a software ,which is used to communicate one application
+to another applications and exchange the information between them
+
+:API consist with predefined interface ,classes and methods
+with implementation. these are ready use.
+Ex:
+JDBC API
+Servlet API
+JSP API
+--------------------------------------------------------------------------------------
+JDBC API
+--------------
+The JDBC API prasent in java.sql packages.
+import java.sql.*;
+
+JDBC API consist with fixed predefined interface ,classes and 
+Implemented Method
+These are common for All End user.
+
+
+=========================================================
+JDBC API components
+-----------------------------------
+JDBC 5 Steps
+--------------------
+The connection with Java Application to any relational Data Bases
+JDBC given us 5 steps 
+1. Register The Driver 
+2. Create connection
+3. create Statement 
+4. execute SQL Queries
+5. close The connection
+-----------------------------------------------------------------------------------------
+
+1. Register The driver class
+---------------------------------------
+the forName() method of Class class is used to
+register ther driver class in  Java Program at run time
+or dynamically loaded.
+
+Statement1
+----------------
+Class.forName("com.mysql.cj.jdbc.Driver");
+
+
+2. create Connection
+-------------------------------
+
+The getConnection() method of Drivermanager class is responsible for
+create a connection with data base at run time.
+
+syntax
+-----------
+Connection con=DriverManager.getConnection(URL,userName,password);
+
+statement2:
+-----------------
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/db_name","root","root");
+-----------------------------------------------------------------------------------------------------------------------------------
+3. create Statement
+------------------------------
+
+Statement: static Queries  --> create,alter,drop..etc  (DDL commands)
+PreparedStatement: DML queries  (insert,update and Delete) Dynamically
+CallableStatement: storedProcedure  (Dynamically)
+---------------------------------------------------------------------------------
+1). The createStatement() method of Connection interface is used to create 
+statement. 
+The object of statement is responsible to execute static
+queries with the database. 
+
+statement3:
+-----------------
+Statement stmt=con.createStatement();
+======================================================
+1). The prepareStatement() method of Connection interface is used to create 
+statement. 
+The object of PreparedStatement is responsible to execute dynamic 
+queries with the database. 
+
+statement3:
+------------------
+PreparedStatement ps=con.prepareStatement("insert into emp values(?,?,?)");
+========================================================================
+1). The prepareCall() method of Connection interface is used to create 
+statement. 
+The object of CallableStatement is responsible to execute stored Procedure
+queries with the database. 
+
+stament3:
+--------------
+CallableStatement cs=con.preparaCall("stored procedure");
+--------------------------------------------------------------------------------------------
+4. Execute SQL Queries In data base
+------------------------------------------------------
+To execute sql query in data base by using 2 methods 
+1. The executeQuery() method of Statement interface is used to execute 
+queries to the database. 
+This method returns the object of ResultSet that can be used to get all the 
+records of a table.
+
+statement4:
+---------------
+ResultSet rs=stmt.executeQuery("select *from emp");
+ResultSet rs=stmt.executeQuery(); // select operations
+
+2. executeUpdate() method of Statement interface is used to execute 
+insert,update and delete queries in database. 
+
+Syntax: statement4:
+-----------------------------
+int i=stmt.executeUpdate("insert into emp values(111,'aryan')"); // DML operations(insert,update and delete)
+==============================================================================================
+5. close the connection
+----------------------------------
+The close() method of Connectio interface is used to close The connection Data Base.
+
+con.close();
+===================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

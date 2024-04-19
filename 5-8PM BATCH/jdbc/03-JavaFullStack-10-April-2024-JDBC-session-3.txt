@@ -1,0 +1,201 @@
+JDBC
+---------
+--> JDBC API
+-----------------------
+PreparedStatement
+----------------------------
+--> PreparedStatement interface is a sub interface of Statement
+it is used to execute parametrazied queries.
+
+ex:
+---
+String query="insert into employee values(?,?,?)";
+
+As you can see we are passing parameter for the values.its value
+will be set by calling the setters methods of PreparedStatement
+interface
+-------------------------------------------------------------------------------------------------
+Note: Improve performance The application, compare with Statement
+interface it is faster. no need compile every , just compile once
+run many times.
+==============================================================
+create Table : JDBC code
+-------------------------------------
+product Table
+-------------------
+
+mysql> create table product(pid int(38),pname varchar(40),quantity int(38),price float(38,2));
+Query OK, 0 rows affected, 3 warnings (0.15 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> desc product;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| pid      | int         | YES  |     | NULL    |       |
+| pname    | varchar(40) | YES  |     | NULL    |       |
+| quantity | int         | YES  |     | NULL    |       |
+| price    | float(38,2) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.05 sec)
+==============================================================
+Write a JDBC Code to Insert Product Records Dynamicaly at Run time by Using 
+PreparedStatement.
+----------------------------------------------------------------------------------------------------------------
+
+package com.excelr;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class InsertProduct {
+
+	public static void main(String[] args) {
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Enetr PID,PNAME,QUANTITY AND PRICE");
+			int pid=sc.nextInt();
+			String pname=sc.next();
+			int quantity=sc.nextInt();
+			double price=sc.nextDouble();
+			PreparedStatement ps=con.prepareStatement("insert into product values(?,?,?,?)");
+			ps.setInt(1, pid);
+			ps.setString(2, pname);
+			ps.setInt(3, quantity);
+			ps.setDouble(4, price);
+			int i=ps.executeUpdate();
+			System.out.println(i+"New Product reecord Inserted Successfully.......");
+			con.close();
+			
+			}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+	}
+
+}
+=======================================================================================
+Write A JDBC Code for Update Product Details by using PreparedStatement
+---------------------------------------------------------------------------------------------------------
+package com.excelr;
+import java.util.Scanner;
+import java.sql.*;
+public class UpdateProduct {
+
+	public static void main(String[] args) {
+	
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Enetr PID,PNAME AND PRICE");
+			int pid=sc.nextInt();
+			String pname=sc.next();
+			double price=sc.nextDouble();
+			PreparedStatement ps=con.prepareStatement("update product set pname=?,price=? where pid=?");
+			ps.setString(1, pname);
+			ps.setDouble(2,price);
+			ps.setInt(3, pid);
+			int i=ps.executeUpdate();
+			System.out.println(i+"Record Updates Successfully.....");
+			con.close();
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+	}
+}
+
+=================================================================
+Jdbc Code for Delete Record from Product table Dynamically At run time
+PreparedStatement
+--------------------------------------------------------------------------------------------------------
+("delete from product where pid=?")
+--------------------------------------------------
+
+======================================================================
+create
+insert
+update
+delete
+Statement
+PreparedStatement
+------------------------------------------------------------------------------------------------------------------
+Select operations With JDBC in Java 
+-------------------------------------------------------
+package com.excelr;
+import java.sql.*;
+public class SelectEmployee {
+
+	public static void main(String[] args) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Statement stmt=con.createStatement();
+			ResultSet rs=stmt.executeQuery("select *from employee");
+			// with if current potion record only retried
+			//if(rs.next())
+			// to print all records from table then use while loop
+			while(rs.next())
+			{
+			for(int i=1; i<=4; i++)
+			{
+				System.out.println(rs.getString(i));
+			}
+			}
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
