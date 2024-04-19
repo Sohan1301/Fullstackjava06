@@ -1,0 +1,319 @@
+servlet  delete operation with mysql data base
+--------------------------------------------------------------
+delete.html
+---------------
+
+<body>
+<center>
+<h1 style="color:green">User Delete Form</h1>
+<form action="DeleteCode" method="post">
+User Name:<input type="text" name="uname"><p></p>
+<input type="submit" value="Delete">
+</form>
+</center>
+</body>
+</html>
+==============================
+
+DeleteCode.java
+-----------------------
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class DeleteCode
+ */
+@WebServlet("/DeleteCode")
+public class DeleteCode extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public DeleteCode() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try
+		{
+			response.setContentType("text/html");
+			PrintWriter out=response.getWriter();
+			String name=request.getParameter("uname");
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			PreparedStatement ps=con.prepareStatement("delete from register where name=?");
+			ps.setString(1, name);
+			int i=ps.executeUpdate();
+			out.print(i+"Record deleted sucessfully");
+			con.close();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+}
+
+==========================================================
+servlet web application for update user details
+-------------------------------------------------------------------
+update.html
+-----------------
+
+<body>
+<center>
+<h1>UPDATE USER DETAILS HERE</h1>
+<form action="UpdateCode" method="post">
+Name:<input type="text" name="uname"><p></p>
+Password:<input type="password" name="psw"><p></p>
+Email:<input type="email" name="mail"><p></p>
+Address:<input type="text" name="address"><p></p>
+<input type="submit" value="Update">
+</form>
+</center>
+</body>
+</html>
+==============================================
+UpdateCode.java
+------------------------
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class UpdateCode
+ */
+@WebServlet("/UpdateCode")
+public class UpdateCode extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UpdateCode() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		try
+		{
+			String name=request.getParameter("uname");
+			String password=request.getParameter("psw");
+			String email=request.getParameter("mail");
+			String address=request.getParameter("address");
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection
+					("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			PreparedStatement ps=con.prepareStatement
+					("update register set password=?,email=?,address=? where name=?");
+			
+			ps.setString(1, password);
+			ps.setString(2, email);
+			ps.setString(3, address);
+			ps.setString(4, name);
+			int i=ps.executeUpdate();
+			out.print(i+"user details updated successfully....");
+		}
+		catch(Exception ex)
+		{
+			out.print(ex);
+		}
+	}
+
+}
+=============================================================
+select.html
+-------------------
+<center>
+<h1 style="color:yellow">View User Details</h1>
+<form action="SelectCode" method="post">
+Name:<input type="text" name="uname"><p></p>
+<input type="submit" value="Select">
+</form>
+</center>
+===============================
+SelectCode.java
+-------------------
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.sql.*;
+/**
+ * Servlet implementation class SelectCode
+ */
+@WebServlet("/SelectCode")
+public class SelectCode extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SelectCode() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try
+		{
+			response.setContentType("text/html");
+			PrintWriter out=response.getWriter();
+		String name=request.getParameter("uname");
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+		PreparedStatement ps=con.prepareStatement("select * from register where name=?");
+		ps.setString(1,name);
+
+		ResultSet rs=ps.executeQuery();
+		ResultSetMetaData rss=rs.getMetaData();
+
+		int n=rss.getColumnCount();  // n=5
+out.print("<table border='1'>");
+		for(int i=1;i<=n;i++)   //rss. 
+			
+			out.println("<td> <font color=blue size=3> "+"<br>"+rss.getColumnName(i));
+			
+			out.println("<tr>");
+			
+			while(rs.next())
+			{
+			for(int i=1;i<=n;i++)
+				
+			out.println("<td><br> "+rs.getString(i));
+			out.println("<tr>");
+			}
+			out.println("</table>");
+			
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+	}
+
+}
+
+========================================================
+ResultSetMetaData Interface
+------------------------------
+The metadata means data about data i.e. we can get further 
+information from the data.
+-->If you have to get metadata of a table like total number 
+of column, column name, column type etc., 
+ResultSetMetaData interface is useful because 
+it provides methods 
+to get metadata from the ResultSet object.
+-----------------------------------------------------------------
+ResultSetMetaData interface implemented Methods
+------------
+getColumnCount(): it returns the total number 
+of columns in the ResultSet object.
+getColumnName(): it returns the column name 
+of the specified column index.
+getColumnTypeName():  it returns the column type name 
+for the specified index.
+getTableName(): it returns the table name.
+
+*****-->  getString() method of ResultSet Interface 
+method is used to 
+retriew data and print on view  layer (.JSP or .html ) file. 
+Note: it is a defualt method of all data type data.
+
+-----------
+Syntax
+-----------
+  Statement stmt=con.createStatement();
+  ResultSet rs=stmt.executeQuery("select * from emp"); 
+ ResultSetMetaData rsmd=rs.getMetaData(); 
+int n=rsmd.getColumnCount();       // count column
+for(int i=1; i<=n; i++)
+{
+rsmd.getColumnName(i);      // print column name
+}
+while(rs.next())
+{
+for(int i=1; i<=n; i++)
+rs.getString(index);       // print column value
+}
+======================================
+search.html
+--------------
+<center>
+<h1 style="color:red">EMPLOYEE MANAGEMENT SYSTEM</h1>
+<a href="home.html">Home</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="about.html">About</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="contact.html">Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="login.html">Login</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="reg.html">Register</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<h1 style="color:grey">View Your Details</h1>
+
+<form action="SelectCode" method="post">
+Name:<input type="text" name="uname"><p></p>
+<input type="submit" value="Search">
+<input type="reset" value="Clear">
+</form>
+</center>
+</body>
+</html>
+==================================================
+
+-----------------------------------
+status code will reprasent the status of the request that is sent .
+The status code element is a 3 digit number
+where fisrt digit defines the types of response and remaining 2 digit 
+do not have any categorization.
+-------------------------------------------------------
+
+1xx		--information
+2xx		--> success
+3xx 		---> redirection
+4xx            ---> client Error(request)
+5xx             ---> server error(response)
+-------------------------------------------------------
+
+  
+
+
+
+
+
