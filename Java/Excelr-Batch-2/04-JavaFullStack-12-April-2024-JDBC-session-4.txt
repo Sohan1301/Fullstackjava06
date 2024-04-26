@@ -1,0 +1,268 @@
+Select Operations with JDBC
+-------------------------------------------
+select ---> Statement Interface
+ResultSet rs=stmt.executeQuery("select *from emp");
+
+rs object by default point first Record Only
+------------------------------------------------------------------
+while(rs.next())
+{
+for(int i=1; i<=4; i++)
+{
+SOP(rs.getString(i);// here getString method is a default method 
+of all Data types
+}
+}
+-----------------------------------------------------------------
+write JDBC Code for Select Operation with PreparedStatement
+-------------------------------------------------------------------------------------------
+Retrivew One record With Dynamic Input
+----------------------------------------------------------
+empId: 
+as input at run time am providing empId 
+------------------------------------------------------------
+package com.excelr;
+ import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.*;
+import java.util.Scanner;
+public class SelectEmployeeDynamically {
+
+	public static void main(String[] args) {
+try
+{
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+Scanner sc=new Scanner(System.in);
+System.out.println("Enter employee id");
+String empname=sc.next();
+PreparedStatement ps=con.prepareStatement("select *from employee where empname=?");
+ps.setString(1, empname);
+//Retriew Employee Records by using Name
+ResultSet rs=ps.executeQuery();
+while(rs.next())
+{
+for(int i=1; i<=4; i++)
+{
+System.out.println(rs.getString(i));
+}
+}
+con.close();
+			
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+
+	}
+
+}
+
+===========================================================
+Jdbc Code for Login Page
+------------------------------------
+package com.excelr;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Scanner;
+
+public class LoginPageCode {
+
+	public static void main(String[] args) {
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Enter employee id name empname");
+			int empId=sc.nextInt();
+			String empname=sc.next();
+			PreparedStatement ps=con.prepareStatement("select *from employee where empId=? and empname=?");
+			ps.setInt(1, empId);
+			ps.setString(2, empname);
+			
+			ResultSet rs=ps.executeQuery();
+			if(rs.next())
+			{
+				System.out.println("Your Logined successfully...........");
+			}
+			else {
+				System.out.println("Please Insert valid empId and empname");
+			}
+			con.close();
+			
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+
+	}
+
+}
+=======================================================================
+Write a JDBC Code for Save The Product Invoice Details
+----------------------------------------------------------------------------------
+Table: product
+create table product(pid int(38),
+pname varchar(40),
+price float(40,2),
+quantity int(40),
+total float(40,2),
+discount float(40,2),
+gst float(40,2),
+invoice_bill float(40,2));
+------------------------------------------------------------
+mysql> create table product(pid int(38),
+    -> pname varchar(40),
+    -> price float(40,2),
+    -> quantity int(40),
+    -> total float(40,2),
+    -> discount float(40,2),
+    -> gst float(40,2),
+    -> invoice_bill float(40,2));
+Query OK, 0 rows affected, 7 warnings (0.07 sec)
+
+mysql> desc product;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| pid          | int         | YES  |     | NULL    |       |
+| pname        | varchar(40) | YES  |     | NULL    |       |
+| price        | float(40,2) | YES  |     | NULL    |       |
+| quantity     | int         | YES  |     | NULL    |       |
+| total        | float(40,2) | YES  |     | NULL    |       |
+| discount     | float(40,2) | YES  |     | NULL    |       |
+| gst          | float(40,2) | YES  |     | NULL    |       |
+| invoice_bill | float(40,2) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+8 rows in set (0.03 sec)
+
+mysql> select *from product;
+Empty set (0.00 sec)
+=========================================================================
+Conditions Are
+----------------------
+if total<5000  ---------> discount 12%
+if total>=5000   and total<30000 ---------> discount 22%
+if total>=30000  ---------> discount 33%
+gst---> 18% on total amount
+----------------------------------------------------------------------------------------------------------------------------
+
+package com.excelr;
+import java.sql.*;
+import java.util.Scanner;
+public class ProductInvoice {
+
+	public static void main(String[] args) {
+	try
+	{
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter PID,PNAME,PRICE and QUANTIY");
+		int pid=sc.nextInt();
+		String pname=sc.next();
+		double price=sc.nextDouble();
+		int quantity=sc.nextInt();
+		double total=0.0,discount=0.0,gst=0.0,invoice_bill=0.0;
+		total=price*quantity;
+		if(total<5000)
+		{
+			discount=(total*12)/100;
+		}
+		else if(total>=5000 && total<30000)
+		{
+			discount=(total*22)/100;
+		}
+		else if(total>=30000)
+		{
+			discount=(total*32)/100;
+		}
+		gst=(total*18)/100;
+		invoice_bill=(total-discount)+gst;
+		PreparedStatement ps=con.prepareStatement("insert into product values(?,?,?,?,?,?,?,?)");
+		ps.setInt(1, pid);
+		ps.setString(2, pname);
+		ps.setDouble(3, price);
+		ps.setInt(4, quantity);
+		ps.setDouble(5, total);
+		ps.setDouble(6, discount);
+		ps.setDouble(7, gst);
+		ps.setDouble(8, invoice_bill);
+		int i=ps.executeUpdate();
+		System.out.println(i+"Product Invoice Deatila Saved Successfully..................");
+		con.close();	
+	}
+catch(Exception ex)
+	{
+	System.out.println(ex);
+	}
+	}
+
+}
+
+====================================
+output
+-------------
+Enter PID,PNAME,PRICE and QUANTIY
+102
+lenove
+35000.99
+1
+1Product Invoice Deatila Saved Successfully..................
+
+=======================================================
+mysql> select *from product;
++------+--------+----------+----------+----------+----------+----------+--------------+
+| pid  | pname  | price    | quantity | total    | discount | gst      | invoice_bill |
++------+--------+----------+----------+----------+----------+----------+--------------+
+|  101 | dell   | 60000.99 |        1 | 60000.99 | 19200.32 | 10800.18 |     51600.85 |
+|  102 | lenove | 35000.99 |        1 | 35000.99 | 11200.32 |  6300.18 |     30100.85 |
++------+--------+----------+----------+----------+----------+----------+--------------+
+============================================================================
+Write a JDBC Code For Student Marks Result
+=============================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

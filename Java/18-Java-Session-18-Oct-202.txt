@@ -1,0 +1,117 @@
+Abstarct Key word
+---------------------
+
+--> Abstract is a java key word, used to hide the data. that is also
+partially menas not completelty.
+--> This abstract key used along with method and class. 
+==================================================================
+abstract method
+---------------
+--> which method define with abstract key word such type of methods are 
+abstracted method. 
+--> it is also partially implementd not completelty.
+--> every abstract method define with abstrcat key word, end with semicolon and
+with out any body.
+
+ex:
+---
+public abstract void m1();   // abstracted method
+
+public abstract void m2()   //  even not abstracted method or non-abstracted method
+{
+
+}
+
+public void m1(); { }  // not a abstracted method  
+
+public void m2()    // non-abstrcated method
+{
+}
+========================================================================
+Abstract class
+------------
+--> if you class define as a abstract key word
+abstract class.
+--> abstract class is a partially implemented class
+--> every abstract class having a abstracted methods
+and non-abstracted methods also.
+--> for abstract class instansiation not possible.
+--> every abstrcat method ends with semicolon 
+and no body.
+--> every abstract method implements in derived 
+class.
+--> every non-abstract method completelty implemented
+and having a method body.
+
+============================================================================
+
+abstract class Bank
+{
+	abstract void rateOfInterest();
+	public void about()
+	{
+		System.out.println("Bank used for providing for money services");
+	}
+}
+class SBI extends Bank
+{
+	public void rateOfInterest()
+	{
+	System.out.println("The SBI personal Loan Rate is=8%");	
+	}
+}
+class HDFC extends Bank
+{
+	public void rateOfInterest()
+	{
+	System.out.println("The SBI personal Loan Rate is=12%");	
+	}	
+}
+class ICICI extends Bank
+{
+	public void rateOfInterest()
+	{
+	System.out.println("The SBI personal Loan Rate is=14%");	
+	}	
+}
+
+public class AbstractExample {
+
+	public static void main(String[] args) {
+		Bank sbi=new SBI();
+		//SBI sbi1=new SBI();
+		sbi.rateOfInterest();
+		HDFC hdfc=new HDFC();
+		hdfc.rateOfInterest();
+		ICICI icici=new ICICI();
+		icici.rateOfInterest();
+		sbi.about();
+		hdfc.about();
+		icici.about();
+		
+		
+	}
+}
+
+=====================================================
+Bank
+------
+withdrawal();
+deposit();
+mini_statament();
+rateOfIntererest();
+------------------------------------
+SBI
+HDFC
+ICICI
+====================================
+
+
+
+
+
+
+
+
+
+

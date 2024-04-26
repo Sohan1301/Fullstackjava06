@@ -1,0 +1,89 @@
+Required Files Are
+------------------
+1. ProductBean.java
+2.ProductConfig.java= @Configuration+@Bean
+3.App.java
+----------------------
+Required Jars Are
+-----------------
+1. spring core
+2. spring context
+-------------------
+ProductBean.java
+------------------
+public class ProductBean
+{
+private int pid;
+private String pname;
+private double price;
+private int quantity;
+//PDC+PPC+BM
+public void printProducts()
+{
+sop(pid);
+sop(pname)
+sop(price)
+sop(quantity);
+double total=0.0,discount=0.0,gst=0.0,bill=0.0;
+total=price*quantity;
+if(total<2500)
+{
+discount=(total*15)/100;
+}
+else if(total>=2500 && total<10000)
+{
+discount=(total*25)/100;
+}
+else if(total>=10000)
+{
+discount=(total*31)/100;
+}
+gst=(total*18)/100;
+bill=(total-discount)+gst
+sop("Total="+total);
+sop("Discount="+discount);
+sop("GST="+gst);
+sop("Invoice Bill="+bill);
+}
+=======================
+ProductConfig.java
+----------------------
+package com.yakub;
+
+import java.util.Scanner;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class ProductConfig
+{
+@Bean("id1")
+public ProductBean getProduct()
+{
+	Scanner sc=new Scanner(System.in);
+	System.out.println("Enter PID,PName,price and quantity");
+	int pid=sc.nextInt();
+	String pname=sc.next();
+	double price=sc.nextDouble();
+	int quantity=sc.nextInt();
+ProductBean p1=new ProductBean(pid,pname,price,quantity);
+return p1;
+}
+}
+
+=========================
+App.java
+-------------
+public class App
+{
+PSVM(String args[])
+{
+ApplicationContext ctx=new AnnotationConfigApplicationContext(ProductConfig.class);
+ProductBean pb=(ProductBean)ctx.getBean("id1");
+pb.printProducts();
+}
+}
+
+
+

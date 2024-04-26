@@ -1,0 +1,177 @@
+Spring Framework
+--------------
+1. spring core
+2. Spring jdbc(DAo)
+3. Spring ORM
+6.Spring WEB_Mvc
+---------------------
+6. Spring WEB_MVC
+-------------------
+A Spring MVC is a Java framework which is used to build web applications. It follows the Model-View-Controller design pattern. It implements all the basic features of a core spring framework like Inversion of Control, Dependency Injection.
+
+MVC
+---
+public class Employee
+{
+id;
+name;
+salary;
+}
+----------------------------------------------------
+Spring Web Application Execution Flow (WEB_MVC execution Flow)
+------------------------------------------
+preparation of Controller class
+-----------------------------------
+--> In spring we can prepare controller class in 3 ways
+1. By implements Controller Interface
+2. by extends AbstractCommandController abstract class
+3. By using @Controller Annotation 
+---------------------------------------------------
+Approach-1:By implements Controller Interface
+
+public class MyController implements Controller
+{
+public ModelAndView handleRequest(HttpServletRequest request,HttpServletResponse response)
+{
+ModelAndView obj=new ModelAndView("viewName","modelKey","ModelValue");
+return obj;
+}
+}
+
+Here ModelAndView Object return 3 properties
+a) ViewName 
+Here View Name is nothing but .jsp file name/.html file name.
+b) ModelKey and c) ModelValue it is
+key:value pair like a Map object.
+***-> handleRequest() method is a Functional Interface 
+method in Controller Interface.
+--------------------------------------------------------------
+Approach-2:by extends AbstractCommandController abstract class
+--------------------------------------------------------------
+public class MyController  extends AbstractCommandController
+{
+public ModelAndView  handle(HSR request,HSR response)
+{
+ModelAndView  ob=new ModelAndView("ViewName","ModelKey",ModelValue);
+//logic of Controller1
+return  ob;
+}
+}
+===============================================================
+Approach-3:by Using @Controller Annotation
+----------------------------------------
+@Controller
+public class MyController
+{
+public ModelAndView myMethod(HSR request,HSR response)
+{
+ModelAndView  ob=new ModelAndView("ViewName","ModelKey",ModelValue);
+//logic of Controller1
+return  ob;
+}
+===================================
+@Controller   // Web Application
+public class MyController
+{
+@RequestMapping(/"req1")
+public String myMethod()
+{
+return "home","name","Yakub";
+}
+}
+==================================================
+home.jsp
+---------
+My Name is=${name}   --> Yakub
+===================================================
+@Controller Annotation
+-------------------------
+--> @Controller annotation is used to create a conntroller class.
+--> @Controller annotation is a Class level annotation to handle 
+the http request and Http response and return the 
+model object to view (.jsp/.html) file.
+--> In Spring and Spring Boot controller can prepare in following way.
+---------------------------------------------------------------------
+Exp1:
+---
+
+@Controller   // Web Application
+public class MyController
+{
+@RequestMapping(/"req1")
+public String myMethod()
+{
+return "home","name","Yakub";
+}
+}
+-------------------------------
+@RestController   // REST API Application
+public class MyController
+{
+@RequestMapping(/"req1")
+public String myMethod()
+{
+return Obj;
+}
+}
+=================================================
+Preparation of Service class
+---------------------------------
+--> The purpose of Service class is To Prepare Business Logics in Web applications
+and Rest API Applications
+--> To Prepare Service class with @Service Annotaion
+--> @Service is a annotation, which is used to create service class.
+--> @Service annotation is class level annotation , used
+to prepare for all business logic for Spring and Spring Boot Applications.
+
+ex:
+----
+@Service
+public class MyService
+{
+public void myBusinessMethod()
+{
+// Your Business Code
+}
+}
+============================================================
+Preparation of Repository Interface
+----------------------------------------
+--> The pupose of Repository interface in to enable connection form spring/spring boot
+web application/rest applications to any Relational Data bases.
+and perform CRUD operations
+--> to prepare Repository by using @Repository Annotaion.
+--> @Repository annotation is used to create repository interface.
+--> @Repository annotation is class level annotation. to perform 
+CRUD operations with data base.
+
+Ex:
+--
+@Repository    // POJI
+public interface EmployeeRepo extends CrudRepository<Employee,Integer>
+{
+}
+-------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

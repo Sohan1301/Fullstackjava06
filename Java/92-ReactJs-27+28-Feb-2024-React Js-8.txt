@@ -1,0 +1,251 @@
+React Forms With Event Handling
+===============================
+forms
+-----
+--> form is collection of elements.
+--> here elements are called <input>,<textarea>,<select>
+--> The purpose of forms are to takes user inputs 
+and submit to sever.
+--> user provides data from form with text box,password,
+email field , login form, registration ...to the server
+
+HTML form elements work a little bit differently from other DOM 
+elements in React, because form elements naturally keep some internal state.
+In HTML, form elements such as <input>, <textarea>, 
+and <select> typically maintain their own state and update it based on user input. 
+In React, mutable (changeable) state is typically kept in the state 
+property of components, and only updated with setState().
+
+1.Controlled Component 
+2.Uncontrolled Component 
+============================================================================
+React Application For Creating Forms In Component (Function based component)
+------------------------------------------------
+1. Registration.jsx
+2. main.jsx
+3. index.html
+----------------------------------------------------
+
+Register.jsx
+==============
+import React from 'react'
+const Register=()=>{
+
+return(<>
+<div>
+    <table border={0}>
+        <thead><h1>New User Register Here</h1></thead>
+    <tbody>
+        <tr>
+            <td> Name:</td>
+            <td><input type="text" name="name"></input></td>
+        </tr>
+        <tr>
+            <td> Password:</td>
+            <td><input type="password" name="psw"></input></td>
+        </tr>
+ <tr>
+    <td> Email:</td>
+    <td> <input type="email" name="mail"></input></td>
+ </tr>
+  <tr>
+    <td>Address:</td>
+    <td> <input type='text' name="address"></input></td>
+  </tr>
+   <tr>
+    <td>Gender:</td>
+    <td><input type="radio" value="male" name="gender" />Male
+    <input type="radio" value="male" name="gender" />Female</td>
+   </tr>
+     <tr>
+        <td></td>
+        <td><input type="submit" value="Register"></input> </td>
+     </tr>
+</tbody>
+</table>      
+</div>
+</>)
+
+}
+export default Register;
+====================================
+Login.jsx
+------------
+import React from 'react'
+const Login=()=>{
+
+return(<>
+<div>
+    <table border={0}>
+        <thead><h1>New User Login Form</h1></thead>
+    <tbody>
+        <tr>
+            <td> Name:</td>
+            <td><input type="text" name="name"></input></td>
+        </tr>
+        <tr>
+            <td> Password:</td>
+            <td><input type="password" name="psw"></input></td>
+        </tr>
+ 
+     <tr>
+        <td></td>
+        <td><input type="submit" value="Login"></input> </td>
+     </tr>
+</tbody>
+</table>      
+</div>
+</>)
+
+}
+export default Login;
+==============================
+main.jsx
+-----------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import Register from './Register'
+import Login from './Login'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <Register />
+    <Login />
+  </React.StrictMode>,
+)
+
+=============================
+index.html
+-----------
+<div id="root"> </div>
+=======================================================
+Reat Application To Print Full Name
+-----------------------------------
+1. Name.jsx
+2. main.jsx
+3. index.html
+=======================
+Name.jsx
+------------
+import React,{useState} from 'react'
+const Name=()=>{
+
+    const [data,setData]=useState({
+        FirstName:'',
+        LastName:''
+    })
+    const [FullName, setFullName] = useState('')
+    const {FirstName,LastName}=data;
+    const Change=(e)=>{
+        setData({...data,[e.target.name]:e.target.value})
+    }
+   
+    const displayName=(e)=>{
+        e.preventDefault();
+        setFullName("Welcome To   "+FirstName + " " + LastName)
+    }
+    return (
+        <>
+        <div>
+            
+            <form onSubmit={displayName}>
+              Enter First Name :<input type="text" name='FirstName' value={FirstName} onChange={Change} placeholder="Enter FirstName"/><br></br><br></br>
+              Enter Last Name :<input type="text"  name='LastName' value={LastName} onChange={Change} placeholder="Enter LastName"/><br></br><br></br>
+               <input type="submit"value="submit"/>
+            </form>
+        </div>
+        <div>
+           <h1>{FullName}</h1>
+        </div>
+        </>
+    );
+
+}
+export default Name;
+=============================================================
+main.jsx
+========
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+import Name from './Name'
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+<Name />
+  </React.StrictMode>,
+)
+==============================
+index.html
+---------------
+   <div id="root"></div>
+===============================
+React Application For To Check the Given Number Is Even or Odd?
+---------------------------------------------------------------
+EvenNumber.jsx
+----------------
+import React, { useState } from 'react';
+
+const EvenNumber = () => {
+
+const [data,setData]=useState({
+    number:''
+});
+const [Number,setNumber]=useState();
+const {number}=data;
+const change = (e) =>{
+    setData({...data,[e.target.name]:e.target.value});
+}
+const submit = (e) =>{
+  e.preventDefault();
+  if(number%2==0){
+      setNumber(number+" is Even Number");
+  }
+  else
+  {
+    setNumber(number+" is Odd Number");
+  }
+}
+return(<>
+    <div>
+        <center>
+            <u><h3>Check The Given Number is Even Or Odd</h3></u><p/><p/>
+            <form onSubmit={submit}>
+                <b>Enter a Value :</b>
+                <input type="text" name='number' value={number} onChange={change} placeholder="Enter Number"/><p/><p/>
+                <input type="submit" value="Check Even Or Odd"/>
+            </form>
+        </center>
+        </div>
+        <div>
+            <center>
+                <h3>
+                    {Number}
+                </h3>
+            </center>
+        </div>
+        </>);
+}
+export default EvenNumber;       
+==================================
+main.jsx
+---------
+import EvenNumber from './EvenNumber.jsx';
+
+
+<EvenNumber />
+================================================
+index.html
+============
+<div id="root"></div>
+=============================
+
+
+
+
+
+
+
+
+
+
+

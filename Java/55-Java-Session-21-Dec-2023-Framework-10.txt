@@ -1,0 +1,246 @@
+Spring Frame work Modules
+--------------------------
+Types of Annotations in Annotation Based Confifuration
+-------------------------------------------------------------
+--> In Spring we have two type of annotations
+1. Stereotype annotation (Bean creation)
+2. Data type annotations
+
+1. Stereotype annotation (Bean creation)
+------------------------------------------
+--> These annotations are auto detect by spring ioc container
+and create the object for them so it is called Stereotype.
+
+ Stereotype annotation  5 
+1  @Component
+2. @Controller
+3. @Service
+4. @Repository
+5. @RestController
+-----------------------------------------------------------------------
+2. Data type annotations
+-----------------------------
+--> these annotations are used to inject the data into our bean classes
+these are 2 types
+1. @Autowired
+2. @Value
+================================================================
+Spring Core Module is completed
+-------------------------------------
+IOC
+IOC-life Cycle
+Dependency Injection
+   --> setter Injection
+   --> constrcutor Injection
+   --> interfacr injection
+Bean Config ways
+a) xml based Config (.xml)
+b) Java Based Config(.java) @Configuration+@Bean
+3) Annotation Based Configuration 
+   	1  @Component
+	2. @Controller
+	3. @Service
+	4. @Repository
+	5. @RestController
+@Autowired+ @Qualifier+@Scope+@Required
+-------------------------------------------------------------------------
+2. Spring JDBC (DAO)
+3. Spring (ORM) Hibernate
+=====================================
+Spring JDBC Introduction
+--------------------------
+-->spring jdbc directlty connect with data base without using connetion 
+objects.
+--> In Spring application to connect with any Ralational Data bases
+by using spring jdbc module and perform CRUD operations
+--> To Create Sql queries and execute SQL queries in data base
+by using JdbcTemplate class is given in
+org.springframework.jdbc.core.* package for executing
+SQL query in DB.
+
+--> JdbcTemplate class Provides the following 
+3 types of methods to execute sql query in Data Base.
+1.execute() --> DDL+DML+DRL --> for all static queries
+2. update()  -->DML (i,u,d) --> static +Dynamic
+3. query() -->DRL ( select)  -> static +Dynamic 
+-------------------------------------------------
+Flow of execution in Spring Dao (JDBC):
+================================
+Step1: Configure DriverManagerDataSource with 4 properties  ("id1")
+	->driverClassName ("oracle.jdbc.driver.OracleDriver")
+	->db url        ("jdbc:oracle:thin:@localhost:1521:xe")
+	->db name    ("db_name")
+	->db pswd    ("db_password")
+Step2: Configure JdbcTemplate with 1 property  ("id2")
+	->dataSource  ("id1")
+Step3: Configure UserBean with JdbcTemplate property  ("id3")
+	->jdbcTemplate  ("id2")
+===================================================================
+Steps to prepare Spring application which integreting  
+Spring Jdbc(DAO):
+=============================================
+Step1: Create a maven project
+
+Step2: Add following depedency in pom.xml
+	->Spring core
+	->Spring context
+	->Spring jdbc
+	->Mysql connector  /oracle connector
+www.mvnrepository.com
+
+Step3: Create Bean class which have business methods
+jt.execute("your query");  //create,alter,drop,insert,update,delete,select
+jt.update("your query");    // insert,update,delete
+jt.query("your query");      // select
+
+Step4: Create configuration file & 
+configure following 3 classes   (.xml)
+-> Configure DriverManagerDataSource with 4 properties
+ (DCN,URL,UN,PSW)
+-> Configure JdbcTemplate with DriverManagerDataSource property.
+-> Configure Bean with JdbcTemplate property.
+
+Step5: Create main class & get bean object from container then 
+call ur business methods.   (TestClass.java).
+
+
+
+
+
+
+=================================================================
+Example Application for Spring JDBC with
+User static CRUD operations
+---------------------------------------------
+Requied files are
+------------------------
+1. UserBean.java
+2. spconfig.xml
+3. App.java
+===================
+Requied jars Are
+-0----------------
+1. spring core
+2. spring context
+3. spring jdbc
+4. mysql Connector
+-----------------------------------
+UserBean.java
+-----------------------------------
+package com.excelr;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+
+public class UserBean {
+
+	private JdbcTemplate jt;
+	
+	public void setJt(JdbcTemplate jt)
+	{
+		this.jt=jt;
+	}
+	public void createTable()
+	{
+		jt.execute("create table users(user_id int(30),uname varchar(40),email varchar(40))");
+		System.out.println("New User Table is created.........");
+	}
+	public void insertRecord()
+	{
+		int i=jt.update("insert into users values(101,'aryan','aryan@gmail.com')");
+		System.out.println(i+"New record Inserted..........");
+	}
+}
+
+==============================================================================================
+spconfig.xml
+---------------
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+  
+<bean id="ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
+<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />  
+<property name="url" value="jdbc:mysql://localhost:3306/excelrdb" />  
+<property name="username" value="root" />  
+<property name="password" value="root" />  
+</bean>  
+  
+<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
+<property name="dataSource" ref="ds"></property>  
+</bean>  
+
+<bean id="edao" class="com.excelr.UserBean">  
+<property name="jt" ref="jdbcTemplate"></property>  
+</bean>  
+  
+</beans>  
+========================================================
+App.java
+----------------
+package com.excelr;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+        ApplicationContext ctx=new ClassPathXmlApplicationContext("spconfig.xml");
+        UserBean u=(UserBean)ctx.getBean("edao");
+        //u.createTable();
+        u.insertRecord();
+    }
+}
+
+=========================================================================
+ysql> desc users;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| user_id | int         | YES  |     | NULL    |       |
+| uname   | varchar(40) | YES  |     | NULL    |       |
+| email   | varchar(40) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.05 sec)
+
+mysql> select *from users;
++---------+-------+-----------------+
+| user_id | uname | email           |
++---------+-------+-----------------+
+|     101 | aryan | aryan@gmail.com |
++---------+-------+-----------------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,134 @@
+React Application For Templte Desing with
+Headder+Body+Footer
+-------------------------------------------------
+Headder.jsx
+Headder.css
+------------------
+Headder.jsx
+------------
+import React from "react";
+import './Headder.css';
+const Headder=()=>{
+    return(<>
+    <div className="cls">
+    <h1 id="h1">Sathya Technologies Pvt Ltd</h1>
+    <a href="">Home</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <a href="">Login</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <a href="">Register</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <a href="">Contact</a> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    </div>
+    </>)
+   
+}
+export default Headder;
+====================================================================
+Headder.css
+-------------
+#h1{
+color: red;
+font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.cls{
+    background-color: bisque;
+}
+================================================================
+Body.jsx +Body.css
+--------------------
+import React from "react";
+import './Body.css';
+const Body=()=>{
+    return(<>
+    <body id="b">
+    <h1> Welcome Content Area</h1>
+    <h1> here display required component</h1>
+    </body>
+    </>)
+}
+export default Body;
+==============================================
+Body.css
+------------
+#b{
+    background-color: blueviolet;
+}
+=========================================
+Footer.jsx+Footer.css
+---------------------------
+import React from "react";
+import './Footer.css';
+const Footer=()=>{
+    return(<>
+    <h4 className="footer">@Copy rights-Sathya Tech=2024</h4>
+    </>)
+}
+export default Footer;
+=======================================================
+Footer.css
+-----------
+.footer{
+color:green ;
+font-size: xx-large;
+}
+=======================================
+App.jsx
+------
+import React from "react";
+import Headder from "./Headder";
+import Body from "./Body";
+import Footer from "./Footer";
+import './App.css';
+const App=()=>{
+  return(<>
+  <div id="div1">
+    <Headder />
+  </div>
+  <div id="div2">
+    <Body />
+  </div>
+  
+  <div id="div3">
+    <Footer />
+  </div>
+  
+  </>)
+}
+export default App;
+============================================
+App.css
+---------
+#div1 {
+  width: 100%;
+  height: 5%;
+border-style: dotted;
+  text-align: left;
+}
+#div2{
+  width: 100%;
+  height: 90%;
+border-style: double;
+  text-align: center;
+}
+#div3{
+  width: 100%;
+  height: 5%;
+border-style: dashed;
+
+  text-align: center;
+}
+
+=========================================
+main.jsx
+--------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+========================================
+index.html
+----------
+<div id="root"></div>
+======================================

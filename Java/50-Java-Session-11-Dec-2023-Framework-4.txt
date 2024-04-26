@@ -1,0 +1,230 @@
+Prerequisites spring core from core Java
+------------------------------------------
+1. Class Types
+      --> Default class or prototype class
+     --> singleton class
+Default class: class allows you create multiple objects
+    each object can take unique location in (JVM)
+2. singleton class: class allows you create only one inatace 
+for global access (cutomizing)
+
+2. How many ways inject object into class?
+ 4 ways inject object into class
+   1. by instance variables
+    2. by uisng class methods
+3 by uisng constructors
+4. by using setters methods
+---------------------------------------
+Rules for SingleTon class
+---------------------------------------
+Rule-1: create private static final object for current class
+Rule-2: create prvate default constructor
+Rule-3: create public static method return with current class object
+(i.e Rule-1).
+ex:
+---
+public class Singleton
+{
+//R1
+private static final Singleton obj=new Singleton();
+//R2
+private Singleton()
+{
+}
+public static Singleton getSingleton()
+{
+return obj;
+}
+public static void main(String args[])
+{
+Singleton s1=Singleton.getSingleton();
+Singleton s2=Singleton.getSingleton();
+Singleton s3=Singleton.getSingleton();
+//Here s1,s2 and s3 object all are store in single localtion 
+i.e obj location'
+}
+=======================================================================
+--> 2000 design pattrens  --> application performnace purpose
+----------------------------------------------------------------------
+3. setters vs constrcutors
+---------------------------
+4. List,Set, Map and properties
+--------------------------------
+===========================================
+Spring core
+------------
+IOC
+----
+Spring IoC Container is the core of Spring Framework. 
+It creates the objects, configures and assembles 
+their dependencies, manages their entire life cycle. 
+The Container uses Dependency Injection(DI) to manage the 
+components that make up the application. 
+It gets the information about the objects from a 
+configuration file(XML) or Java Code or Java Annotations and Java POJO class. 
+These objects are called Beans. Since the Controlling 
+of Java objects and their lifecycle is not done by the
+ developers, hence the name Inversion Of Control. 
+---------------------------------------------------------------------
+IOC-Life Cycle
+--------------
+The process of creating implicit object by spring container
+,initalize object into bean class with dependency injection,
+processing objects and destroyee the object is known as IOC-life Cycle.
+
+========================================================
+Dependency Injection
+--------------------------------------------------------
+--> The process of inject implicit object into beanclass (POJO class).
+with the help of setters methods or constcructors is known as
+Dependency Injection.
+
+--> Dependency Injection is a design pattren ,purpose is easy to manage
+,process and test the application and it makes programming loosely coupled.
+
+--> Dependency Injection are 3 types
+1. setter Injection  <property> xml tag
+2. constructor Injectio <construtor-arg> xml tag
+3. interface injection
+
+------------------------------------------------
+1. setter Injection  
+----------------------
+The process of inject implicit object into bean class.
+with setter methods is known as setter Injection
+
+ex:
+---
+<property name="empId" value="120"/>
+
+=============================================================
+1. Constcructor Injection  
+----------------------
+The process of inject implicit object into bean class.
+with Constcructors methods is known as Constcructors Injection.
+
+ex:
+---
+<constructor-arg value="120"/>
+==============================================================
+Required files for every Spring application:
+--------------------------------------------------------------
+1. BeanClass (.java) ---> POJO class
+2. Configuration file
+     In spring can do 3 ways configuration
+     a) XML based configutaion (.xml) file
+     b) java Based Configuration (.java) file
+     c) Annotation Based Configuration
+
+3. App.java  ---> test class ---> main() { ....}
+-----------------------------------------------------
+Required Jars
+-----------------
+1. Spring core
+2. spring Context
+
+--> the above jars copy from www.mvnrepository.com and paste
+into pom.xml file . between <dependencies> xml tags
+===============================================================
+1. Preparation of Bean Class
+---------------------------
+1. class must be public
+2. All instance variables are private
+3. must having a public default constructor
+4. All public settres and gettres methods
+5. Bean class won't force extends or implements 
+with predefined classes or interfaces.
+
+---------------------------------------------------------------
+Preparation of XML Configuration file ---> XML file
+-------------------------------------------------------------------
+spconfig.xml
+------------
+
+	1.Declare bean class object name / identity
+	2.Declare values to for bean object
+<xml>
+<DTD>
+<beans>
+<bean class="BeanClassName" id="BeanClassObjectName">
+<property name="filedName1" value="valu1"></property>
+<property name="filedName2" value="valu2"></property>
+<property name="filedName3" value="valu3"/>
+</bean>
+</beans>
+
+===========================================================
+3. Preparation of TestClass or App.java
+-------------------------------------
+1.Load the Spring Config file into Spring Container
+2.Get object from Spring Container
+3.Call the business methods
+
+ex:
+---
+public class App
+{
+public static void main(String args[])
+{
+ApplicationContext ctx=new ClassPathXmlApplicationContext("spconfig.xml");
+BeanClass obj=(BeanClass)ctx.getBean("BeanClassObjectName");
+obj.callYourBusinessMethod();
+}
+}
+===================================================================
+Basically Spring Containers Are 2 types
+1. BeanFactory   --> 1.x and 2.x version only  --> lazy loader/ not support to annotaion
+2. ApplicationContext --> 3.x ,4.x ,5.x and 6.x  --> eagger loader/ support annotation
+========================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

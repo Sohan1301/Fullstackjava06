@@ -1,0 +1,127 @@
+
+spring boot Rest Application with H2 data base
+------------------------------------------------
+H2 data Base
+-------------
+--> h2 data base is default data base of spring boot framework
+--> the purpose is to test our application.
+--> h2 data base is in momory data base , data store
+tempararly.
+
+--> In the case of the in-memory database, data store in the system memory. 
+It lost the data when the program is closed. It is helpful for POCs (Proof of 
+Concepts), not for a production application. The widely used in-memory 
+database is H2.
+
+-----------------------------------------------------------
+User.java --> @Entity +@Generatedvalue+@Id
+UserRepo.java (I)
+UserController.java --> @RestController
+application.properties --> port no code+ Db Conn Stmt+JPa properties
+Application.java
+------------------------------------------------
+spring web
+spring boot dev tools
+spring data jpa
+H2 Driver
+--------------------------------------------------------
+Users.java
+-------------
+package com.rest.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Users {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private String name;
+	private String address;
+	//PDC+PPC+PSM+PGM+toString()
+	public Users() {
+		super();
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	@Override
+	public String toString() {
+		return "Users [id=" + id + ", name=" + name + ", address=" + address + "]";
+	}
+	
+	
+}
+
+===============================================
+UsersRepo.java
+------------------
+package com.rest.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.rest.model.Users;
+
+@Repository
+public interface UsersRepo extends JpaRepository<Users, Integer> {
+
+}
+=======================================================
+application.properties
+------------------------
+server.port:9000
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+
+======================================================================
+UserController.java
+-----------------------
+package com.rest.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.rest.model.Users;
+import com.rest.repo.UsersRepo;
+
+@RestController
+public class UserController {
+	
+	@Autowired
+	private UsersRepo repo;
+
+	@PostMapping("/save")
+	public Users saveUser(@RequestBody Users users)
+	{
+		return repo.save(users);
+	}
+	
+}
+
+================================================================
+

@@ -1,0 +1,282 @@
+Data Base
+---------
+SQL Commands
+-----------
+1. Create 
+2. insert
+----------------------------------
+3. update
+--> the use of update command is to modify existing record values
+syntax:
+------
+update <table_name> set column_name=value,col_name='value' where col_name=value;
+
+ex:
+---
+update employee set name='aryan',password='aryan123',address='hyderbad',email='aryan@gmail.com' where eid=102;
+
+
+mysql> update employee set name='aryan',password='aryan123',address='hyderbad',email='aryan@gmail.com' where eid=102;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from employee;
++------+-------+----------+----------+-----------------+------------+
+| eid  | name  | password | address  | email           | dob        |
++------+-------+----------+----------+-----------------+------------+
+|  101 | ravi  | ravi123  | hyd      | ravi@gmail.com  | 2000-06-01 |
+|  102 | aryan | aryan123 | hyderbad | aryan@gmail.com | 2001-07-09 |
++------+-------+----------+----------+-----------------+------------+
+2 rows in set (0.00 sec)
+=========================================================================================
+4. delete  command
+
+The use of delete command is to delete existing record from data base 
+table.
+
+syntax:
+-----
+delete from <table_name> where column_name=value;
+
+ex:
+---
+delete from employee where eid=101;
+
+ex:
+---
+mysql> delete from employee where eid=101;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from employee;
++------+-------+----------+----------+-----------------+------------+
+| eid  | name  | password | address  | email           | dob        |
++------+-------+----------+----------+-----------------+------------+
+|  102 | aryan | aryan123 | hyderbad | aryan@gmail.com | 2001-07-09 |
++------+-------+----------+----------+-----------------+------------+
+1 row in set (0.00 sec)
+
+========================================================================
+5. select   command
+----------------------------
+The use of select command is to retriev existing tables record.
+
+syntax
+------
+select *from <table_name>;
+
+exp1: to get all records from table 
+
+select *from employee;
+
+mysql> select *from employee;
++------+-------+----------+----------+-----------------+------------+
+| eid  | name  | password | address  | email           | dob        |
++------+-------+----------+----------+-----------------+------------+
+|  102 | aryan | aryan123 | hyderbad | aryan@gmail.com | 2001-07-09 |
+|  103 | suman | suman123 | delhi    | suman@gmail.com | 2000-10-25 |
+|  104 | prem  | prem123  | delhi    | prem@gmail.com  | 2002-10-25 |
+|  105 | karna | karna123 | panjob   | karna@gmail.com | 2022-12-20 |
++------+-------+----------+----------+-----------------+------------+
+4 rows in set (0.00 sec)
+
+
+exp2: to get two column values   (suppose get values name and password)
+select name,password from employee;
+
+
+mysql> select name,password from employee;
++-------+----------+
+| name  | password |
++-------+----------+
+| aryan | aryan123 |
+| suman | suman123 |
+| prem  | prem123  |
+| karna | karna123 |
++-------+----------+
+4 rows in set (0.00 sec)
+=========================================================
+mysql> select eid,email from employee;
++------+-----------------+
+| eid  | email           |
++------+-----------------+
+|  102 | aryan@gmail.com |
+|  103 | suman@gmail.com |
+|  104 | prem@gmail.com  |
+|  105 | karna@gmail.com |
++------+-----------------+
+4 rows in set (0.00 sec)
+==============================================================
+case3: display name and password with given eid
+----------------------------------------------------------
+select name,password from employee where eid=102;
+
+mysql> select name,password from employee where eid=102;
++-------+----------+
+| name  | password |
++-------+----------+
+| aryan | aryan123 |
++-------+----------+
+1 row in set (0.00 sec)
+===============================================================
+SQL--> logical operators
+-------------------------
+and or not 
+-------------------------
+Mobile
+------
+modelNo
+modelName
+RAM_size
+ROM_SIZE
+os_name
+processor_name
+price
+compamyName
+-------------------------------------
+create Mobile Table
+insert 5 Records 
+update 2 Records
+delete 1 reocrds
+select 1 Record by using ModelNo
+select All Records
+====================================================
+JDBC
+----
+1. JDBC Stands for Java Data Base connectivety.
+2. JDBC is a API given by java programming languguage.
+3. The pupose of JDBC is to establish connection from Java application
+to any Relational Data Bases. ie(Oracle data Base, Mysql database....ect).
+4. and perform CRUD operations.
+C--> create --> creating database and tables
+R-Reading --> select
+U--> update and insert 
+D-Delete 
+-------------------------------------------------------------
+The JDBC library includes APIs for each of the tasks commonly associated 
+with database usage: 
+--> Making a connection to a database 
+--> Creating SQL or MySQL statements 
+--> Executing that SQL or MySQL queries in the database
+--> Viewing & Modifying the resulting records
+============================================================================
+API
+----
+--> API stands for Application Programming Interface.
+--> API consist with predefined insterfaces, classes and methods
+which having a some common functionalities. 
+these functinalities not change from one user to another unser.
+
+--> API is a one software component. the purpose is to communicate one 
+application another application and inter chage information 
+between those two application
+
+API examples are
+---------------
+1. JDBC API
+2. Servlet API
+3. JSP API
+===============================================================
+JDBC API Components or
+Implemented interfaces ,classes and method
+----------------------------------------------------------------
+Interfaces-
+-------------------------
+--> Connection
+--> Statement
+--> PreparedStatement
+--> CallableStatement
+--> ResultSet
+--> ResultSetMetaData 
+
+Classes Are
+      --> Class
+      --> DriverManager
+      --> Clob
+      --> Blob
+Implemented Methods Are
+      --> forName() 
+      --> getConnection()
+      --> createStatement()
+      --> prepareStatement()
+      --> prepareCall()
+      --> executeUpdate()
+      --> executeQuery()
+      --> execute()
+      --> close()
+      --> commit()
+      getters methods: getInt(),getString(),getDouble,getFloat()............
+     setters Methods: setInt(),setString(), setDouble(),setFloat()....etc
+=======================================================================================
+ 
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

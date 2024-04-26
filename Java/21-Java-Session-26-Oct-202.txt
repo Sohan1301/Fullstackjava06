@@ -1,0 +1,27 @@
+Java Encapsulation
+-------------------
+The process of hidding and wrapping properties and behivaiours with in a single section is known as encapulation.
+
+
+
+Encapsulation in Java is a process of wrapping code and data together into a single unit, for example, a capsule which is mixed of several medicines.
+
+encapsulation in java
+We can create a fully encapsulated class in Java by making all the data members of the class private. Now we can use setter and getter methods to set and get the data in it.
+
+exp1:
+------
+//A Java class which is a fully encapsulated class.  
+//It has a private data member and getter and setter methods.   
+public class Student{  
+//private data member  
+private String name;  
+//getter method for name  
+public String getName(){  
+return name;  
+}  
+//setter method for name  
+public void setName(String name){  
+this.name=name  
+}  
+}  

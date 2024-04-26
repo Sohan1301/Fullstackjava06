@@ -1,0 +1,269 @@
+What is data base?
+-------------------
+Data base is a collection of tables,functions,
+stored procedures, views and triggers.
+
+2. what is data base servers?
+Ans: Data Base servers are collections of data bases , and provide tightly securty to our data bases.
+--> the purpose of data bases are managing, stored,
+manipulate data in data bases.
+--> every data in data base can arrange tablar format. (rows and column).
+ex:
+Data Base servers
+----------------
+1. Oracle Data Base server
+2. MySql Data Base Server
+3. IBM2 data Base server
+4. postGreSql Data Base servers
+5.H2 Data Base Server
+5. Mongo DB  (no sql Data Base)
+6. casandra (no sal data base)
+================================================
+---> SQL --> Structure Query Language
+--> PL/SQL
+To Manipulate ,manage data in database server we must use SQL and PLSQL 
+programing langiages.
+============================================================================
+
+2. MySql Data Base Server (workbench)
+----------------------------------
+command Line argument + GUI mode also
+
+How to download and install MySql workbench 
+
+--> By deafult Mysql Server User Name is=root
+--> while installation time mysql serevr will ask you password: root  (cutomized password)
+------------------------------------------------------------------------------------------
+How to Open Data base server with Command line Arguments
+------------------------------------------------------------
+windows --> serach box and type "mysql Command Line client "
+then click on
+it ask you enter password:root    --> click on enter key word
+mysql>
+
+3. What is Tables in Data Base?
+Ans: Table is collection of rows and columns Here columns are used to reprasent column name 
+Rows reprasents are tabale records or data 
+ex:
+--
+empId     empName     salary
+----------------------------
+101        sairam    9000.99
+102        prem      8000.99
+103        ravi      7000.00
+
+
+empId,empName and salary are column names
+
+101        sairam    9000.99  are called table Records
+---------------------------------------------------------------------------
+SQL 
+----
+--> SQL Stands for Structure Query Language 
+--> purpose SQL is to manage , manipulate data in 
+data bases.
+--> to manipulate data in databases SQL Having following commands
+1. DDL (Data Defination Language: create,alter,drop,truncate
+2. DRL or DQL (data retrivel Langauage)  --> select
+3. DML (Data Manipulation Language)--> insert, update and delete
+5. TCL (Transaction Control Language)--> commit, rollback ,savepoint.
+--------------------------------------------------------------------
+1. create,insert,update,delete select
+-------------------------------------------------------------------
+1. create    command
+------------------------------------------------------------------
+--> the use of create command is to create new databases and to create
+new tables also.
+
+Creating DataBase in Mysql Server
+--------------------------------
+syntax
+------
+create database <data_base_name>;
+
+ex:
+---
+create database excelrdb;
+
+--> to view your data base then apply following commands
+
+mysql> show databases;
+
+
+mysql> create database excelrdb;
+Query OK, 1 row affected (0.21 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| excelrdb           |
+| information_schema |
++--------------------+
+
+----------------------------------------------------------
+to use your own data base the use following command
+
+mysql> use excelrdb;
+data base changed
+-------------------------------------------------------------
+II. Create new Table
+----------------------
+for create table here also using create command only
+
+syntax
+------
+create table <Table_name>(col_Name1 data_type(size),col_Name2 data_type(size),
+col_Name3 data_type(size));
+
+ex:
+---
+
+
+
+mysql> create table employees(eid int(30),name varchar(40),password varchar(40),address varchar(40),email varchar(40),dob date);
+
+mysql> create table employee(eid int(30),name varchar(40),password varchar(40),address varchar(40),email varchar(40),dob date);
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+--------------------------------------------------------------
+To Display All Tables in our data base the use following command
+
+mysql> show tables;
+--------------------------------------------------------------
+
+mysql> show tables;
++--------------------+
+| Tables_in_excelrdb |
++--------------------+
+| employee           |
+| employees          |
++--------------------+
+2 rows in set (0.03 sec)
+====================================================================
+TO display Table description (Table information i.e column names, type of data type, key information (primary key,forign keys)..etc).
+
+mysql> desc <table_name>;
+
+ex:
+--
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| eid      | int         | YES  |     | NULL    |       |
+| name     | varchar(40) | YES  |     | NULL    |       |
+| password | varchar(40) | YES  |     | NULL    |       |
+| address  | varchar(40) | YES  |     | NULL    |       |
+| email    | varchar(40) | YES  |     | NULL    |       |
+| dob      | date        | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.03 sec)
+============================================================================================
+2. insert command
+-------------------------------------------------------------------------
+--> the insert command is used to insert new records in existing data base tables.
+
+syntax:
+-------
+
+insert into <table_name> values(value1,value2,'value3','2020-Jan-12'....);
+
+ex:
+---
+insert into employee values(101,'ravi','ravi123','hyd','ravi@gmail.com','2021-July-01');
+
+mysql> insert into employee values(101,'ravi','ravi123','hyd','ravi@gmail.com','2000-06-01');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values(102,'ram','ram123','pune','ram@gmail.com','2001-07-09');
+Query OK, 1 row affected (0.01 sec)
+============================================================================================
+mysql> select *from employee;
++------+------+----------+---------+----------------+------------+
+| eid  | name | password | address | email          | dob        |
++------+------+----------+---------+----------------+------------+
+|  101 | ravi | ravi123  | hyd     | ravi@gmail.com | 2000-06-01 |
+|  102 | ram  | ram123   | pune    | ram@gmail.com  | 2001-07-09 |
++------+------+----------+---------+----------------+------------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,248 @@
+
+
+How To Confiure NetFlix 
+Eureka Server in Spring Boot REST API application
+------------------------------------------------------------
+Steps to Configure Eureka Server for REST Application
+--------------------------------------------------------
+Step1: create spring boot Application
+
+with following dependencies
+---------------------------
+1. spring web
+2. Spring boot Dev Tools
+3. Eureka Server
+
+---------------------------
+--> After Created Spring Boot Application
+to enable eureka server into our application
+--> Application.java   class Annotate with
+@EnableEurekaServer  annotation 
+--> By Default Eureka Server running 8761   port number
+--> to enable eurak server we need to privide 
+configuration 
+details 
+in application.properties or application.yml   file.
+
+
+
+
+
+
+
+
+==================================================
+Required files Are
+--------------------
+Application.java     @SpringBootApplication+@EnableEurekaServer
+application.ymp     --> configure eureka server name and port number
+----------------------------------------------------------------
+package com.cloud;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+
+@SpringBootApplication
+@EnableEurekaServer
+public class MyeurekaServerApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MyeurekaServerApplication.class, args);
+	}
+
+}
+
+=============================================================
+application.yml
+--------------------
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+server:
+  port: 8761
+spring:
+  application:
+    name : MYEUREKA-SERVER
+
+
+===========================================
+finally Run spring boot Application
+it will give 8761 port
+Then display eureka dash Board In Browser
+
+
+
+=======================================================
+Step2: Create Micro serivice and Register into Eureka Server
+-------------------------------------
+service Name is:  MY-PAYMENT-SERVICE
+------------------------------------
+Requred Files Are
+-------------------
+1. MyPayMentController.java  --> @RestController+@RequestMapping+@GetMapping
+2. Application.java  --> @SpringBootApplication+@EnableEurekaClient --> (Client)
+3. application.yml file
+===============================================
+Required Jars Are
+--------------------
+1. spring web
+2. spring boot Dev Tools
+3. Discovery Client  (Eureka Discovery Client)
+
+
+
+===============================================
+MypaymentServiceApplication.java
+---------------------------------
+
+
+package com.payment;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+
+@SpringBootApplication
+@EnableEurekaClient
+public class MypaymentServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(MypaymentServiceApplication.class, args);
+	}
+
+}
+
+=======================================================
+MyPaymentController.java
+----------------------------
+
+package com.payment.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/payment")
+public class MyPaymentController {
+
+	@GetMapping("/pay/{price}")
+	public String payAmout(@PathVariable double price)
+	{
+		return "My Payment Amout is"+price+"success fully paid";
+	}
+	
+}
+
+=======================================================
+application.yml
+------------------------
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serverUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+server:    
+  port: 9090
+spring:
+  application:
+    name : MYPAYMENT-SERVICE
+====================================================================
+step3: create a My-Shopping-Service and Register 
+in to eureka cloud server
+service name is=my-shopping-service
+--------------------------------------------------------------------
+Required Files Are
+-------------------
+1. Application.java   --> @SpringBootAppliation+@EnableEurekaClient
+2. MyShoppingController.java  --> @RestController
+3. application.yml    file
+
+============================================================
+Required Jars Are
+----------------------
+1. Spring web
+2. spring dev tools
+3. Eureka Discovery Client
+----------------------------------------
+
+
+Application.java
+---------------
+package com.product;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
+
+@SpringBootApplication
+@EnableEurekaClient
+public class MyproductServiceApplication {
+
+	@LoadBalanced
+	@Bean
+	public RestTemplate getTemplate()
+	{
+		return new RestTemplate();
+	}
+	public static void main(String[] args) {
+		SpringApplication.run(MyproductServiceApplication.class, args);
+	}
+
+}
+
+=======================================================================
+MyProductController .java
+------------------------
+@RestController
+@RequestMapping("/product")
+public class MyProductController {
+
+	@Autowired
+	private RestTemplate restTemplate;
+	@GetMapping("/amazonpay/{price}")
+	public String invokePaymentService(@PathVariable int price)
+	{
+		
+		//String url="http://localhost:9090/payment/pay/"+price; //2st way
+		String url="http://MYPAYMENT-SERVICE/payment/pay/"+price; //2st way
+		return restTemplate.getForObject(url, String.class);
+	}
+	
+}
+===============================================================================
+application.yml
+--------------------
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serverUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+server:    
+  port: 9000
+spring:
+  application:
+    name : MYPRODUCT-SERVICE
+
+=========================================================================
+
+
+
+
+
+

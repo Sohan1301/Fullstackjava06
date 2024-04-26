@@ -1,0 +1,128 @@
+Static CRUD Application With Mysql Data Base
+with Spring Data JPA
+--------------------------------------------------
+package com.web;
+import java.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.web.entity.Employee;
+import com.web.repo.EmployeeRepo;
+
+@SpringBootApplication
+public class Application implements CommandLineRunner{
+
+	@Autowired
+	private EmployeeRepo repo;
+	
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+	@Override
+	public void run(String... args) throws Exception {
+		//Employee e1=new Employee(1,"naidu",3000.99);
+//		Employee e2=new Employee(2,"ramu",6000.99);
+//		repo.save(e1);
+//		repo.save(e2);
+//		System.out.println("New Employee Record Inseted....");
+//		System.out.println("==DELETE OPERATION=======");
+//		repo.deleteById(102);
+//		System.out.println("Record deleted ...");
+//		System.out.println("===GET ONE RECORD=========");
+//		Employee get=repo.findById(2).get();
+//		System.out.println(get);
+//		
+//		System.out.println("===GET ALL RECORDS=========");
+//		List<Employee> getAll=(List<Employee>) repo.findAll();
+//		System.out.println(getAll);
+		
+		System.out.println("====UPDATE RECORDS=============");
+		Employee oldRecord=repo.findById(1).get();
+		Employee newRecord=new Employee();
+		
+		newRecord.setEmpName("mourya");
+		newRecord.setSalary(90000.99);
+		//oldRecord.setEmpId(newRecord.getEmpId());
+		oldRecord.setEmpName(newRecord.getEmpName());
+		oldRecord.setSalary(newRecord.getSalary());
+		repo.save(oldRecord);
+		System.out.println("One Record updatd......");
+	
+	}
+
+}
+===========================================================================
+Create a Spring Boot Static CRUD Operations for Mobile Details
+------------------------------------------------------------
+Entity Class Name is:Mobile
+fileds are
+-----------
+modelNo
+modelName
+company_Name
+ram_size
+rom_size
+os_name
+processr_name
+price
+imei_no
+f_cam_size
+b_cam_size
+----------------------------------------------------------
+1. create 
+2. insert --> 10 records
+3. update --> 2 records
+4. getOneRecors --> 1
+5. getAllRecords --> All 
+6. delete --1
+----------------------------------------------------------------------
+2. Create a Spring boot Static CRUD Operation for Book Details
+--------------------------------------------------------------
+Entity class Name=Book
+fields Are
+-------------
+bookId
+bookName
+isbn_no
+author_name
+publisher_name
+price
+publishing_year
+-----------------------------
+1. create 
+2. insert --> 10 records
+3. update --> 2 records
+4. getOneRecors --> 1
+5. getAllRecords --> All 
+6. delete --1
+=======================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

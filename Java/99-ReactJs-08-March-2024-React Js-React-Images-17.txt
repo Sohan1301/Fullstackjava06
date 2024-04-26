@@ -1,0 +1,134 @@
+React Application for Images
+-----------------------------
+Required Files Are
+---------------------
+Images Saved in following folder
+---------------------------------
+
+src---> directly save images--> lilly.jpg
+src--> images folder---> inside --> save --the images--> rose.jpg/nature.png/mouse.JPEG  ..etc
+-------------------------------------------------------------------------------------
+App.jsx
+--------
+import React from 'react'
+import puppy from './2.jpg';
+import lion from './4.jpg'
+import './App.css'
+const App=()=>{
+  return(<>
+  <body className='body'>
+  <div>
+  <h1>Welcome To React Application</h1>
+  <img src={puppy} alt="puppy" title='puppy' width="200px" height="200px"></img>
+  <img src={lion} alt="Lion" width={500} height={500}></img>
+  <img className='image'></img>
+  </div>
+  </body>
+  </>)
+}
+export default App;
+
+====================================================================
+App.css
+----------
+img {
+  width: 500px;
+  height: 500px;
+  margin-left: 10px;
+}
+.image{
+  background-image: url(./images/nature2.JPG);
+ 
+}
+.body{
+background-image: url(./images/nature.JPG);
+background-repeat: no-repeat;
+background-size: contain;
+ 
+}
+
+==================================================================
+main.jsx
+========
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+
+========================================
+index.html
+----------
+<div id="root"><div>
+============================================
+Technical Topics 
+--------------------
+1. Narendra: JavaScript ES6 Features
+-------------------------------------
+2. Rajendra : 
+What is React Js
+Advantages of reat JS
+Creation Steps
+React Elements
+React Components
+-----------------------------
+3. Venkates
+props
+states
+difference between props and states
+----------------------------------------
+4. Sai Ram
+---------
+React Hooks
+React Forms
+=========================================
+5. Sandeep
+React Hooks
+React Forms
+==========================================
+6. Ram 
+Even handling
+
+7. Anil Reddy
+-------------
+CSS in React JS
+Single Page applications
+---------------------------------------------
+8. Gopala Krishna
+Even handling
+================================================
+9. SaiKiran
+
+--> Axios
+--> React Forms
+--> Event handling
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

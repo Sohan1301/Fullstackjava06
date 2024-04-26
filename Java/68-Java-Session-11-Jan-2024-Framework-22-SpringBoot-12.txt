@@ -1,0 +1,67 @@
+Framework?
+------------
+A framework may include predefined classes and functions that can be used to process input, manage hardware devices, and interact with system software.
+The purpose of the framework is to allow developers to focus on building a unique feature for their Projects rather than writing code from scratch.
+
+Why use Framework
+-------------------
+Collection of tools
+No need to start from scratch
+Save Time
+Improve Productivity
+Clean Code
+Reusable Code
+Testing
+Debugging
+=======================================================
+Web Framework
+-----------------------
+A Web Framework (WF) or Web Application Framework (WAF) which helps to build Web Applications. 
+Web frameworks provide tools and libraries to simplify common web development operations. This can include web services, APIs, and other resources. 
+Web frameworks help with a variety of tasks, from templating and database access to session management and code reuse. 
+More than 80% of all web app frameworks rely on the Model View Controller architecture.
+
+===========================================================================
+Some Web Framework
+====================
+Spring
+Spring Boot
+Hibernate
+Django
+Laravel
+==============================================================================
+Model View Controller (MVC)
+============================
+The MVC is an architectural pattern that separates an application into three main logical components Model, View, and Controller. 
+Each of these component has their own role in a Project.
+MVC model was first introduced in 1987 in the Smalltalk programming language.
+More than 90% of all web app frameworks rely on the Model View Controller architecture.
+
+==============================================================================
+What is web Service?
+--------------------
+Ans : which API created for to communicate one web 
+application to another webapplications
+ans interchange information/data(XML,JSON) 
+between them . and provide data service with 
+web applications is called web services.
+=====================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

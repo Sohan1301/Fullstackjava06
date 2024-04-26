@@ -1,0 +1,60 @@
+React Js Application Delete Operation with axios
+--------------------------------------------------
+DeleteExp.jsx
+-----------
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+const DeleteExp=()=>{
+    const [num,setNum]=useState(null);
+    const ref1=useRef(null);
+    const deleteData=async ()=>{
+        const res=await axios.delete("http://localhost:7000/delete",{"empId":ref1.current.value});
+        const {status}=res;
+        setNum(status);
+    }
+    const delete_data=()=>{
+        deleteData();
+    }
+    return(
+        <>
+ <input type="text" ref={ref1}></input> <br></br><br></br>
+   <button onClick={delete_data}>DeleteRecord</button>
+            <h1>{num}</h1>
+        </>
+    )
+}
+export default DeleteExp;
+=====================================
+PostExp.jsx
+----------------
+import axios from "axios";
+import {useRef,useState} from "react";
+const PostExp=()=>{
+    const [res,setRes]=useState({});
+    const ref1=useRef(null);
+    const ref2=useRef(null);
+    const ref3=useRef(null);
+    const ref4=useRef(null);
+    const post_data=()=>{
+        postEx();
+    }
+    const postEx=async ()=>{
+        const res=await axios.post("https://localhost:7000/save",{"empId":ref1.current.value,
+        "empName":ref2.current.value,
+        "salary":ref3.current.value,
+        "designation":ref4.current.value});
+        const {data}=res;
+        setRes(data);
+    }
+    return(
+        <>
+       Employee Id: <input type="text" ref={ref1}></input> <br></br><br></br>
+       Employee Name: <input type="text" ref={ref2}></input> <br></br><br></br>
+        Salary:    <input type="text" ref={ref3}></input> <br></br><br></br>
+         Designation:   <input type="text" ref={ref4}></input> <br></br><br></br>
+            <button onClick={post_data}>Post</button>
+            <p>{JSON.stringify(res)}</p>
+        </>
+    )
+}
+export default PostExp;

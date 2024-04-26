@@ -1,0 +1,264 @@
+Spring boot Rest API CRUD Application For Book Details
+------------------------------------------------------
+Required Files Are
+-------------------
+1.Book.java    --> @Entity+@GeneratedValue+@Id+@Column
+2.BookRepo.java (i)@Repository
+3. BookService.java (I) --> abstracted methods
+4. BookServiceImp.java (C) --> @Service
+5. BookController.java (C) --> @RestController
+6. application.properties --> port no code+Db Conn Stmt+Jpa Dailect Properties
+7. Application.java --> @SpringBootApplication
+******use post man or React JS/Angular JS for View
+===================================================
+Required Starters Are
+---------------------
+1.Spring web
+2. spring boot dev Tools
+3. Spring boot Data JPA
+4. Mysql Driver
+=================================================
+Book.java
+------------
+package com.rest.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class Book {
+
+	@Id
+	@Column(name = "bookId")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	@Column(name="isbn",unique=true,columnDefinition = "varchar(40)",nullable = false)
+	private String isbn;
+	@Column(name="title",columnDefinition = "varchar(40)",nullable = false)
+	private String title;
+	@Column(name="author",columnDefinition = "varchar(30)",nullable = false)
+	private String author;
+	@Column(name="status",nullable = false)
+	private boolean status;
+	@Column(name="price",columnDefinition = "float check(price>0 and price<1000) ",nullable = false)
+	private Double price;
+	//PDC+PPC+PSM+PGM+toString()
+}
+}
+=============================================================================================
+BookRepo.java
+----------------
+package com.rest.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.rest.model.Book;
+
+@Repository
+public interface BookRepo extends JpaRepository<Book, Integer> {
+
+}
+======================================================================
+application.properties
+--------------------------
+
+server.port:9000
+
+# Database related properties
+spring.datasource.url=jdbc:mysql://localhost:3306/excelrdb?useSSL=false&serverTimezone=UTC
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.username=root
+spring.datasource.password=root
+
+# Jpa properties/ HB related properties
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.ddl-auto=update
+#spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+
+
+
+===========================================================================
+BookService.java
+---------------------
+package com.rest.service;
+
+import com.rest.model.Book;
+import java.util.*;
+public interface BookService {
+
+ public Book saveBook(Book book);
+ public Book updateBook(Book book,int id);
+ public void deleteBook(int id);
+ public Book getOneBook(int id);
+ public List<Book> getAllBook();
+
+}
+==============================================================================
+BookServiceImp.java
+---------------------
+package com.rest.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.rest.model.Book;
+import com.rest.repo.BookRepo;
+
+@Service
+public class BookServiceImp implements BookService {
+
+	@Autowired
+	private BookRepo repo;
+	@Override
+	public Book saveBook(Book book) {
+		Book saveBook=repo.save(book);
+		return saveBook;
+	}
+	@Override
+	public Book getOneBook(int id) {
+		Book getOne=repo.findById(id).get();
+		return getOne;
+	}
+
+	@Override
+	public List<Book> getAllBook() {
+		List<Book> listOfBooks=repo.findAll();
+		return listOfBooks;
+	}
+	@Override
+	public void deleteBook(int id) {
+		repo.deleteById(id);
+	}
+	@Override
+	public Book updateBook(Book book,int id) {
+		Book oldRecord=repo.findById(id).get();
+		oldRecord.setAuthor(book.getAuthor());
+		oldRecord.setPrice(book.getPrice());
+		oldRecord.setTitle(book.getTitle());
+		return repo.save(oldRecord);
+	}
+
+	
+
+	
+	
+
+}
+===============================================================================================
+BookController.java
+-------------------------
+package com.rest.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.*;
+import com.rest.model.Book;
+import com.rest.service.BookService;
+
+@RestController
+public class BookController {
+	
+	@Autowired
+	public BookService bookService;
+
+	@PostMapping("/save")
+	public String save(@RequestBody Book book)
+	{
+		Book b=bookService.saveBook(book);
+		String message=null;
+		if (b!=null)
+		{
+			message="Data Saved Successfully";
+		}
+		else
+		{
+			message="Data is failed";
+		}
+		return message;
+	}
+	@GetMapping("/get/{id}")
+	public Book  getBook(@PathVariable int id)
+	{
+		Book b=bookService.getOneBook(id);
+		return b;
+	}
+	@GetMapping("/getAll")
+	public List<Book>  getAll()
+	{
+		List<Book> bookList=bookService.getAllBook();
+		return bookList;
+	}
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable int id)
+	{
+		bookService.deleteBook(id);
+	}
+	@PutMapping("edit/{id}")
+	public Book update(@RequestBody Book book,@PathVariable int id)
+	{
+		Book edit=bookService.updateBook(book, id);
+		return edit;
+	}
+}
+=============================================================================================
+OutPut
+---------
+mysql> select *from book;
++---------+-----------------+-------+--------+----------------+------------+
+| book_id | author          | isbn  | price  | status         | title      |
++---------+-----------------+-------+--------+----------------+------------+
+|       1 | Rod Jhonson     | SB123 | 499.99 | 0x01           | SpringBoot |
+|       2 | Veer            | HB121 | 499.99 | 0x01           | Hibernate  |
+|       3 | Bala Guru Swamy | CB12  | 499.99 | 0x01           | C          |
+|       4 | Shakespear      | L123  | 699.99 | 0x01           | Love Story |
++---------+-----------------+-------+--------+----------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select *from book;
++---------+-----------------+-------+--------+----------------+------------+
+| book_id | author          | isbn  | price  | status         | title      |
++---------+-----------------+-------+--------+----------------+------------+
+|       1 | Rod Jhonson     | SB123 | 499.99 | 0x01           | SpringBoot |
+|       3 | Bala Guru Swamy | CB12  | 499.99 | 0x01           | C          |
+|       4 | Shakespear      | L123  | 699.99 | 0x01           | Love Story |
++---------+-----------------+-------+--------+----------------+------------+
+3 rows in set (0.03 sec)
+
+mysql> select *from book;
++---------+-----------------+---------+--------+----------------+-------------+
+| book_id | author          | isbn    | price  | status         | title       |
++---------+-----------------+---------+--------+----------------+-------------+
+|       1 | Rod Jhonson     | SB123   | 499.99 | 0x01           | SpringBoot  |
+|       3 | Bala Guru Swamy | CB12    | 499.99 | 0x01           | C           |
+|       4 | Shakespear      | L123    | 699.99 | 0x01           | Love Story  |
+|      52 | brahmnandm      | Nenu123 | 399.99 | 0x01           | NenNa Story |
++---------+-----------------+---------+--------+----------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select *from book;
++---------+-------------------+---------+--------+----------------+------------+
+| book_id | author            | isbn    | price  | status         | title      |
++---------+-------------------+---------+--------+----------------+------------+
+|       1 | Rod Jhonson       | SB123   | 499.99 | 0x01           | SpringBoot |
+|       3 | Bala Guru Swamy   | CB12    | 499.99 | 0x01           | C          |
+|       4 | Shakespear        | L123    | 699.99 | 0x01           | Love Story |
+|      52 | brahmnandm telugu | Nenu123 | 499.99 | 0x01           | Nenu       |
++---------+-------------------+---------+--------+----------------+------------+
+4 rows in set (0.01 sec)
+
+mysql>
+===================================================================================
+

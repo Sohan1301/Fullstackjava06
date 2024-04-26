@@ -1,0 +1,53 @@
+Java	->	1990(started->OAK)	
+		1995(1st version is released->Java)	by 	James Gosling	at	Sun Micro System(www.sun.com)
+		Oracle acquired Sun Microsystems in 2010(www.oracle.com)
+Java certification exam:SCJP/OCJP
+==========================================================
+Java langauge:
+============
+Java software:	jdk(java development kit)	(www.oracle.com)
+	
+Programming environments:
++++++++++++++++++++++++++
+approach1:(learners)	Editor	=>	Notepad,Notepad++,Editplus,Sublime Text,...........
+					(Only Write code environments)
+					(Compile & Run is done from command prompt/terminal)
+
+approach2:(developers)	IDE	=>	Eclipse	(**)
+					Netbeans
+					BlueJ
+					.....
+					(Write code environments)
+					(Compile & Run Environments)
+==============================================================================
+what jdk consist ?:
+================
+	jdk	=	Java compiler(javac)	+	Java Interpreter(jvm)	+	Java libraries(jre)
+
+
+1.Java compiler converts source code to byte code at a time
+2.Java Interpreter converts byte code to bit code line by line
+3.Java libraries provides required libraries to prepare java code
+
+jdk editions:
+===========
+	1.jdk	primary		level(testers)	:	jdk1.0	to 	jdk1.1.8
+	2.jdk	secondary	level(users)	:	jdk1.2	to 	jdk1.21(latest)
+
+jdk	secondary	level is present in 3 levels:
+=================================================
+1.J2SE	(Standard)->Core	=>Console & Standalone applications
+2.J2EE	(Enteprise)->Adv	=>Distributed applications
+3.J2ME	(Mobile & Micro)	=>Mobile & Micro applications
+=========================================================================
+Java Application Types:
+====================
+1.Console applications	=>install & run on cmd promt		(CUI)	:	mkdir,cd,dir,rmdir,copy,del,ren.........
+			Ex:billing system,atm machines,hackers applications,...
+2.Standalone applications	=>install & run on single system	(GUI)	:	frame,menus,button,...
+			Ex:vlc player,ms-office...
+3.Distributed applications	=>install on remote server system & provide services to client through internet
+			Ex: fb,gmail,....
+4.Mobile applications	=>install & run on mobile & tablet devices
+5.Micro applications		=>install & run on small scale devices
+			Ex:gps tracker,traffic control,lift system,sensors,robotics,...

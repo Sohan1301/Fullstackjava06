@@ -1,0 +1,206 @@
+Java strings
+-------------
+Example 1: Java program to check if two strings are anagrams
+------------------------------------------------------------
+
+import java.util.Arrays;
+
+class Main {
+  public static void main(String[] args) {
+    String str1 = "Race";
+    String str2 = "Care";
+    
+    str1 = str1.toLowerCase();
+    str2 = str2.toLowerCase();
+
+    // check if length is same
+    if(str1.length() == str2.length()) {
+
+      // convert strings to char array
+      char[] charArray1 = str1.toCharArray();
+      char[] charArray2 = str2.toCharArray();
+
+      // sort the char array
+      Arrays.sort(charArray1);
+      Arrays.sort(charArray2);
+
+      // if sorted char arrays are same
+      // then the string is anagram
+      boolean result = Arrays.equals(charArray1, charArray2);
+
+      if(result) {
+        System.out.println(str1 + " and " + str2 + " are anagram.");
+      }
+      else {
+        System.out.println(str1 + " and " + str2 + " are not anagram.");
+      }
+    }
+    else {
+      System.out.println(str1 + " and " + str2 + " are not anagram.");
+    }
+  }
+}
+============================================================================
+Example: Find Frequency of Character
+----------------------------------------
+public class Frequency {
+
+    public static void main(String[] args) {
+        String str = "This website is awesome.";
+        char ch = 'e';
+        int frequency = 0;
+
+        for(int i = 0; i < str.length(); i++) {
+            if(ch == str.charAt(i)) {
+                ++frequency;
+            }
+        }
+
+        System.out.println("Frequency of " + ch + " = " + frequency);
+    }
+}
+==========================================================================
+Java Program to find the frequency of characters
+-----------------------------------------------------
+/*Java Program to find the frequency of characters in a string*/
+public class Main  
+{  
+     public static void main(String[] args) 
+     {  
+        String str = "Welcome To Excelr";  
+        int[] freq = new int[str.length()];  
+        System.out.println("The entered string is "+str);
+        //Convert the given string into character array  
+        char str1[] = str.toCharArray();            
+        for(int i = 0; i <str.length(); i++) 
+        {  
+            freq[i] = 1;  
+            for(int j = i+1; j <str.length(); j++) 
+            {  
+                if(str1[i] == str1[j])
+                {  
+                    freq[i]++;  
+                      
+                    //Set str1[j] to 0 to avoid printing visited character  
+                    str1[j] = '0';  
+                }  
+            }  
+        }            
+        //Displays the characters and their corresponding frequency  
+        System.out.println("Frequencies of the characters in the string are as below: "); 
+        System.out.println("Characters  frequencies");  
+        for(int i = 0; i <freq.length; i++) 
+        {  
+            if(str1[i] != ' ' && str1[i] != '0')  
+                System.out.println(str1[i] + "              " + freq[i]);  
+        }  
+    }  
+}  
+
+========================================================================================
+
+
+String str="welcome to excelr";
+======================================================
+Java String class methods
+The java.lang.String class provides a lot of methods to work on string. By the help of these methods, we can perform operations on string such as trimming, concatenating, converting, comparing, replacing strings etc.
+Length(), toUpperCase(), toLowerCase(), trim(), 
+ equals(), eaqualsIgnoreCase(), charAt(n), compareTo(), concat(), substring(n), indexOf(), valueOf()
+Java String is a powerful concept because everything is treated as a string if you submit any form in window based, web based or mobile application.
+
+
+--------------------------------------------------
+toUpperCase() and toLowerCase() method
+The java string toUpperCase() method converts this string into uppercase letter and string toLowerCase() method into lowercase letter.
+Ex:
+String s="Sachin"; 
+ System.out.println(s.toUpperCase. ());//SACHIN 
+ System.out.println(s.toLowerCase());//sachin 
+ System.out.println(s);//Sachin
+
+ex:
+----
+public static void main(String[] args) {
+		String s1="Excelr";
+		System.out.println(s1);  //Excelr
+		System.out.println(s1.toUpperCase());  // EXCELR
+		System.out.println(s1.toLowerCase()); //excelr
+		System.out.println(s1); // immutable
+
+}
+==================================================================
+2. trim() method
+-----------------------
+
+Java String trim() method
+The string trim() method eliminates white spaces before and after string
+Ex:
+String s="  Sachin  ";  
+System.out.println(s);//  Sachin    
+System.out.println(s.trim());//Sachin 
+Out put
+      Sachin 
+Sachin
+=========================================================
+3. 
+Java String startsWith() and endsWith() method
+String s="Sachin";   
+System.out.println(s.startsWith("Sa"));//true   
+System.out.println(s.endsWith(“n"));//true 
+
+ex1
+---
+
+public class CaseChange {
+
+	public static void main(String[] args) {
+		String s1="Welcome To Excelr";
+		System.out.println(s1.startsWith("W"));  // True
+		System.out.println(s1.startsWith("Welcome"));  // True
+		System.out.println(s1.endsWith("r"));
+		System.out.println(s1.endsWith("t"));  // false
+		
+	}
+
+}
+===========================================================
+Java String charAt() method
+The string charAt() method returns a character at specified index.
+
+ex:
+---
+
+public class CaseChange {
+
+	public static void main(String[] args) {
+		String s1="Welcome To Excelr";
+		System.out.println(s1.charAt(2));  // 
+		System.out.println(s1.charAt(7));  //
+		System.out.println(s1.charAt(9));
+		
+	}
+
+}
+
+================================================================
+Java String valueOf() method
+	The string valueOf() method coverts given type such as int, long, float, double, boolean, char and char array into string.
+
+
+public class CaseChange {
+
+	public static void main(String[] args) {
+		int x=100;
+		float f=9000.00f;
+		System.out.println(x+f);
+		String s=String.valueOf(x);
+		System.out.println(200+s);
+		String s2=String.valueOf(f);
+		System.out.println(s+s2);	
+	}
+
+}
+========================================================
+
+
+

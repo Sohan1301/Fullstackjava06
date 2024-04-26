@@ -1,0 +1,355 @@
+Create A Single Page Application With React JS
+--------------------------------------------------
+We need Add 2 Dependencies
+1. npm install react-router
+2. npm install react-router-dom --save
+------------------------------------------
+Home.jsx
+============
+const Home=()=>{
+    return(<>
+    <h1>This is a Home Page Component</h1>
+    <p>
+    A BrowserRouter stores the current location in the browser's 
+    address bar using clean URLs and navigates 
+    using the browser's built-in history stack.
+    </p>
+    </>)
+}
+export default Home;
+===============================
+About.jsx
+-----------
+import React from 'react'
+const About=()=>{
+    return(<>
+    <div>
+        <h1>This is a About Page</h1>
+        <u>About</u>
+        <p>Picking a Router
+While your app will only use a single router, 
+several routers are available depending on the environment your app 
+is running in. This document should help you figure out which one to use.</p>
+    </div>
+    </>)
+}
+export default About
+=================================================
+Contact.jsx
+--------------
+import React from "react";
+
+const Contact=()=>{
+    return(<>
+    <div>
+        <h1> This is Contact Componet</h1>
+        <h1>
+            Company Name:Excelr
+            Conatact Number:987654321,
+            mail: Excelr@gmail.com
+        </h1>
+    </div>
+    </>)
+}
+export default Contact;
+============================================
+Login.jsx
+--------
+const Login=()=>{
+    return(<>
+    <div>
+        <h1>Login Page</h1>
+        <form>
+            User Name:<input type="text" name="uname"/><p></p>
+            Password:<input type="password" name="psw"/><p></p>
+            <input type="submit" value="Login"/>
+        </form>
+    </div>
+    </>)
+}
+export default Login
+=============================================
+Register.jsx
+------------
+const Register=()=>{
+    return(<>
+    <div>
+    <form>
+            User Name:<input type="text" name="uname"/><p></p>
+            Password:<input type="password" name="psw"/><p></p>
+            Email:<input type="email" name="mail"/><p></p>
+            Address:<input type="text" name="address"/><p></p>
+            <input type="submit" value="Register"/>
+        </form>
+    </div>
+    
+    
+    
+    </>)
+}
+export default Register;
+====================================================
+App.jsx
+---------
+import React from "react";
+import About from "./Components/About";
+import Contact from "./Components/Contact";
+import Login from "./Components/Login";
+import Register from "./Components/Register";
+import Home from "./Components/Home";
+
+import {Link,Route,Routes} from 'react-router-dom'
+const App=()=>{
+  return(<>
+  <Link to="/" style={{marginRight:100}}>
+    Home
+  </Link>
+  <Link to="/about" style={{marginRight:100}}>
+    About
+  </Link>
+  <Link to="/login" style={{marginRight:100}}>
+    Login
+  </Link>
+  <Link to="/contact" style={{marginRight:100}}>
+    Contact
+  </Link>
+  <Link to="/register" style={{marginRight:100}}>
+    Register
+  </Link>
+
+  <br></br>  <br></br>  <br></br>  <br></br>
+  <Routes>
+<Route path="/" element={<Home />}></Route>
+<Route path="/about" element={<About />}></Route>
+<Route path="/login" element={<Login />}></Route>
+<Route path="/contact" element={<Contact />}></Route>
+<Route path="/register" element={<Register />}></Route>
+  </Routes>
+  </>)
+}
+export default App;
+=====================================================
+main.jsx
+--------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+import { BrowserRouter } from 'react-router-dom'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+    <App />
+    </BrowserRouter>
+ 
+  </React.StrictMode>,
+)
+
+================================================
+index.html
+----------
+<div id="root"> </div>
+==============================
+Sigle Page Application Level-2
+--------------------------------
+We need Add 2 Dependencies
+1. npm install react-router
+2. npm install react-router-dom --save
+
+===========================================
+Home.jsx
+----------
+import React from "react";
+const Home = () => {
+  return (
+    <div>
+      <h1>Welcome To Home Page</h1>
+   </div>
+  );
+}
+
+export default Home;
+========================================
+About.jsx
+------------
+import React from "react";
+const About = () => {
+  return (
+    <div>
+        <h1>Welcome To About Page</h1>
+    </div>
+  )
+}
+export default About
+==================================
+Contact.jsx
+=============
+import React from "react";
+
+const Contact=()=>{
+    return(<>
+    <div>
+        <h1> This is Contact Componet</h1>
+        <p>
+            Company Name:Excelr
+            Conatact Number:987654321,
+            mail: Excelr@gmail.com
+        </p>
+    </div>
+    </>)
+}
+export default Contact;
+==================================
+Login.jsx
+----------
+const Login=()=>{
+    return(<>
+    <div>
+        <h1>Login Page</h1>
+        <form>
+            User Name:<input type="text" name="uname"/><p></p>
+            Password:<input type="password" name="psw"/><p></p>
+            <input type="submit" value="Login"/>
+        </form>
+    </div>
+    </>)
+}
+export default Login
+=====================================================
+Register.jsx
+----------------
+const Register=()=>{
+    return(<>
+    <div>
+    <form>
+            User Name:<input type="text" name="uname"/><p></p>
+            Password:<input type="password" name="psw"/><p></p>
+            Email:<input type="email" name="mail"/><p></p>
+            Address:<input type="text" name="address"/><p></p>
+            <input type="submit" value="Register"/>
+        </form>
+    </div>
+    
+    
+    
+    </>)
+}
+export default Register;
+======================================
+Headder.jsx
+===============
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Header = () => {
+  return (<>
+  <h4>Excelr Software Pvt Ltd</h4>
+    <div style={{backgroundColor:'aliceblue', display:"flex", justifyContent:"space-between"}} className="row">
+   
+    <span className="col-md-1">
+    <Link to="/">Home</Link>
+    </span>
+    
+    <span className="col-md-1">
+        <Link to="/about">About</Link>
+    </span>
+    <span className="col-md-1">
+        <Link to="/login">Login</Link>
+    </span>
+    
+    <span className="col-md-1">
+        <Link to="/register">Register</Link>
+    </span>
+    
+    <span className="col-md-1">
+        <Link to="/contact">Contact</Link>
+    </span>
+    </div>
+    </> );
+}
+
+export default Header
+================================================
+Body.jsx
+==========
+import React from "react";
+import Home from "./Home";
+import Login from "./Login";
+import Register from "./Register";
+import About from "./About";
+import Contact from "./Contact";
+import {Route,Routes} from 'react-router-dom'
+
+const Body=()=>{
+    return(<>
+     <div className="text-center">
+    <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route path="/contact" element={<Contact />}></Route>
+    </Routes>
+    </div>
+    </>)
+}
+export default Body;
+======================================================
+Footer.jsx
+============
+import React from "react";
+
+const Footer = () => {
+  return (
+    <>
+    <div className="text-center">
+        <h4>@CopyRights 2024#-Excelr</h4>
+    </div>
+    </>
+  )
+}
+
+export default Footer;
+================================================
+App.jsx
+-------
+
+import React from "react";
+import Header from "./Components/Headder";
+import Body from "./Components/Body";
+import Footer from "./Components/Footer";
+const App = () => {
+  return(<>
+  <div>
+    <Header/>
+    <Body/>
+    <Footer/>
+  </div>
+  </>);
+}
+export default App;
+================================================
+main.jsx
+----------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+import {BrowserRouter} from 'react-router-dom'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+    <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+)
+
+=========================================
+index.html
+==========
+<div id="root"> </div>
+=============================
+
+

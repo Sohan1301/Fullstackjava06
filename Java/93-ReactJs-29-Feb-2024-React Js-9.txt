@@ -1,0 +1,260 @@
+1. useRef() Hook
+----------------------
+The useRef Hook allows you to persist values between renders.
+It can be used to store a mutable 
+value that does not cause a re-render when updated.
+It can be used to access a DOM element directly.
+
+--> useRef is React Hook that lets you reference a value
+that's not need for rerendering.
+
+sytax
+--------
+import React,{useRef} from 'react'
+const App=()=>{
+const userName=useRef("");
+const password=useRef("");
+}
+--------------------
+case1: useRef() hook for current Element value focus
+-------------------------------------------------
+import React,{useState,useRef} from "react";
+const Ref=()=>{
+
+    const userName= useRef();
+    const password = useRef();
+    const focusInput = () => {
+        userName.current.focus();
+        password.current.focus();
+      };
+    
+      return (
+        <>
+        Name:  <input type="text" ref={userName}/>
+        Password:<input type="password" ref={password}></input>
+          <button onClick={focusInput}>Focus Input</button>
+        </>
+      );
+}
+export default Ref;
+======================================================
+Real wolrd Example for Login Page
+----------------------------------------
+
+import { useRef,useState } from "react";
+const Login=()=>{
+    const username=useRef(null);
+    const password=useRef(null);
+
+    const [msg,setMsg]=useState("");
+
+    const loginPage=()=>{
+        username.current.value=="admin" && password.current.value=="admin123"?setMsg("Login Success"):setMsg("Login Fail");
+    }
+    return(
+        <>
+        <fieldset>
+           <legend>
+            Login form
+           </legend>
+           <h3>Login Page</h3>
+           <table>
+                <tbody>
+                    <tr>
+                        <td>User name:</td>
+                        <td><input type="text" ref={username}></input></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type="password" ref={password}></input></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Login" onClick={loginPage}></input></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+           </table>
+           <h1>{msg}</h1>
+        </fieldset>
+     </>
+    )
+}
+export default Login;
+
+============================================================
+Main.jsx
+-------------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+import Login from './components/Login.jsx'
+import Ref from './components/Ref.jsx';
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <Login />
+  </React.StrictMode>,
+)
+====================================================
+Ex2 for regitration Page by using useRef() Hook
+------------------------------------------
+import { useRef,useState } from "react";
+
+const Registration=()=>{
+    const ref1=useRef(null);
+    const ref2=useRef(null);
+    const ref3=useRef(null);
+    const ref4=useRef(null);
+    const [msg1,setMsg1]=useState("");
+    const [msg2,setMsg2]=useState("");
+    const [msg3,setMsg3]=useState("");
+    const [msg4,setMsg4]=useState("");
+
+    const reg=()=>{
+        setMsg1(ref1.current.value);
+        setMsg2(ref2.current.value);
+        setMsg3(ref3.current.value);
+        setMsg4(ref4.current.value);
+    }
+
+    return(
+        <>
+              <div className="row">
+               <h3>Registration</h3>
+                <div className="col-6">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>UserName:</td>
+                            <td><input type="text" ref={ref1}></input></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Mobile:</td>
+                            <td><input type="number" ref={ref2}></input></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><input type="mail" ref={ref3}></input></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Address:</td>
+                            <td><input type="text" ref={ref4}></input></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                    <button onClick={reg}>Register</button>
+                </div>
+                <div className="col-6">
+                    <h5> User Name:{msg1}</h5>
+                    <h5>Mobile:{msg2}</h5>
+                    <h5>Email:{msg3}</h5>
+                    <h5>Address:{msg4}</h5>
+                </div>
+            </div>
+        </>
+    )
+}
+export default Registration;
+==================================
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+import Registration from './components/Registration.jsx'
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <Registration />
+  </React.StrictMode>,
+==================================
+index.html
+--------------
+<div id="root"></div>
+================================================
+Application4: Login Application With Component to another Component Rendering
+-----------------------------------------------------------------------------
+1. LoginPage.jsx
+2. Display.jsx
+3.main.jsx
+4. index.html
+===================
+import { useRef,useState } from "react";
+const LoginPage=()=>{
+    const ref1=useRef(null);
+    const ref2=useRef(null);
+    const [msg,setMsg]=useState("");
+    const login=()=>{
+        ref1.current.value=="admin" && ref2.current.value=="admin@123" ? setMsg("Login Success") : setMsg("Login Fail");
+    }
+    return(
+        <>
+            <fieldset>
+                <legend>LOGIN FORM</legend>
+                <input type="text" ref={ref1}></input> <br></br>
+                <input type="password" ref={ref2}></input> <br></br>
+                <button onClick={login}>Login</button>
+                <br></br>
+                <h1>{msg}</h1>
+            </fieldset>
+        </>
+    )
+}
+export default LoginPage;
+========================================
+Display.jsx
+-----------
+import { useRef,useState } from "react";
+const Display=()=>{
+    const ref1=useRef(null);
+    const ref2=useRef(null);
+    const [msg1,setMsg1]=useState("");
+    const [msg2,setMsg2]=useState("");
+    const display=()=>{
+        setMsg1(ref1.current.value);
+        setMsg2(ref2.current.value);
+    }
+    return(
+        <>
+            <div className="row">
+                <div className="col-6">
+                    <br></br><br></br>
+                   
+                    <input type="text" ref={ref2}></input>
+                    <br></br><br></br>
+                    <button onClick={display}>Display</button>
+                </div>
+                <div className="col-6">
+                    <h5>{msg1}</h5>
+                    <h5>{msg2}</h5>
+                </div>
+            </div>
+        </>
+    )
+}
+export default Display;
+======================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

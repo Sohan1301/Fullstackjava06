@@ -1,0 +1,146 @@
+state object inside the function component
+-------------------------------------------
+--> to create a state obj in side function component by using
+Hooks
+--> In react we have many hooks
+1) useState() Hook
+2) useEffect() Hook
+3) useRef() Hook
+4) useContext() Hook
+5) customHook() Hook
+=============================================================
+1) useState() Hook
+---------------------
+--> The puprose of useState() hook is to declare state object inside
+the function components
+
+syntax:
+------
+step1: import useState() hook from React libarary
+import React, {useState} from 'rect'
+
+Step2: create Your Function component
+
+const App=()=>{
+return(<>
+
+</>);
+}
+
+step3: create a state Object top of the function component
+
+const [name,setName]=useState("Excelr"); 
+==============================================================
+
+const [name,setName]=useState("Excelr"); 
+const [no,setNo]=useState(120);
+const [salary,setSalary]=useState(120);
+const [flag,setFlag]=useState(true)
+const [arr,setArr]=useState([100,200,300,400,600]);
+
+const [obj,setObj]=useState({"key1":"value1","key2":"value2","key3":"value3"});
+    
+
+const [products,setProducts]=useState([{"p_id":111,"p_name":"p_one","p_cost":10000},
+                                           {"p_id":222,"p_name":"p_two","p_cost":20000},                                          {"p_id":333,"p_name":"p_three","p_cost":30000}]);
+==============================================================
+UseState() Hook With All types Values and Objects
+-----------------------------------------------
+User.jsx
+main.jsx
+index.html
+==================================================
+User.jsx
+----------
+import React,{useState} from "react";
+
+const User=()=>{
+    const [str,setStr]=useState('ReactJS');
+    const [num,setNum]=useState(100);
+    const [flag,setFlag]=useState(true);
+    const [salary,setSalary]=useState(90000.99)
+    const [arr,setArr]=useState([10,20,30,40,50]);
+    const [obj,setObj]=useState({"id":"444","name":"prem","fee":"50000.99"});
+    const [products,setProducts]=useState([{"p_id":111,"p_name":"p_one","p_cost":10000,"company_name":"Lenovo"},
+                                           {"p_id":222,"p_name":"p_two","p_cost":20000,"company_name":"Dell"},
+                                           {"p_id":333,"p_name":"p_three","p_cost":30000,"company_name":"samsung"}]);
+    return(<>
+    <div>
+        <h3>My Name is={str}</h3>
+        <h3>My Number is={num}</h3>
+        <h3>My Number is={salary}</h3>
+        <h5>{JSON.stringify(flag)}</h5>
+     </div>
+     <div>
+     {
+                arr.map((element,index)=>{
+                    return(<h5>{element}</h5>)
+                })
+            }
+     </div>
+     <div>
+     <h5>{obj.id},{obj.name},{obj.fee}</h5>
+     </div>
+     <div>
+     <table border={1}
+                   align="center"
+                   cellPadding={10}
+                   cellSpacing={10}>
+                <thead>
+                    <tr>
+                        <th>p_id</th>
+                        <th>p_name</th>
+                        <th>p_cost</th>
+                        <th>company_name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        products.map((element,index)=>{
+                            return(<tr key={index}>
+                                <td>{element.p_id}</td>
+                                <td>{element.p_name}</td>
+                                <td>{element.p_cost}</td>
+                                <td>{element.company_name}</td>
+                            </tr>);
+                        })
+                    }
+                </tbody>
+                <tfoot></tfoot>
+            </table>
+     </div>
+
+    </>)
+}
+export default User
+=============================================
+main.jsx
+------------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import User from './User'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+ <User />
+  </React.StrictMode>,
+)
+
+=========================================
+index.html
+------------
+<div id="root"></div>
+===========================
+Create A React Application for state Object with hooks
+for Employee Records
+=======================================================
+
+
+
+ 
+
+
+
+
+
+

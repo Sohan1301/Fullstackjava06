@@ -1,0 +1,203 @@
+Spring Boot
+-----------
+how many ways create a spring boot web application?
+Ans:
+we can create a spring boot web application in 2 ways
+1. By using spring initializer
+2. by using STS (spring tool suite)
+-----------------------------------------------------
+1. By using spring initializer
+------------------------------
+1. visit www.spring.start.io web site (spring initializaer)
+2. Add spring boot web application artifact details with Meta Data
+3. add dependencies  (spring web)
+4. download ready made maven project in .zip folder
+5. Extract maven zip folder in our PC
+6. Deployee Maven project in to eclipse IDE or Intillij IDE
+---------------------------------------------------------------
+=========================================================================
+Create a Spring Boot web Application for To display WelCome Message in Browser
+----------------------------------------------------------------------------
+Reuired Files Are
+--------------------
+1. MyController.java   --> @controller
+2.application.properties   --> port no code
+3. Application.java --> @SpringBootapplication
+----------------------------------------------------
+Required Jars are
+------------------
+1. spring web
+2. tom cat jasper
+---------------------
+package com.web.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+public class MyController {
+
+	@RequestMapping("/req1")
+	//@ResponseBody
+	public String home()
+	{
+		//return "<h1>Welcome To Spring Boot Web Application </h1>";
+		return "index"; // here index is View file (.jsp file)
+	}
+	
+}
+============================================================
+application.properties
+--------------------------
+#Port Number Code
+server.port:7000
+
+#View Resolver Code
+spring.mvc.view.prefix=/views/
+spring.mvc.view.suffix=.jsp
+
+=======================================
+Application.java
+-----------------------
+package com.web;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+
+===================================================================
+Create Spring Boot Web Application for Multiple Views
+---------------------------------------------------
+Required  files Are
+------------------
+1. Mycontroller.java  --> @Controller
+2.application.properties  --> port nNo code+ ViewResolver Code
+3. Jsp files
+    index.jsp
+    about.jsp
+    contact.jsp
+     login.jsp
+     reg.jsp
+4. Application.java  --> @SpringBootApplication
+===============================================
+Requied Jars Are
+=-------------------
+1. Spring Web
+2. tomcat jasper
+--------------------------------
+MyController.java
+--------------------
+package com.web.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+public class MyController {
+
+	@RequestMapping("/")
+	public String home()
+	{
+		return "index"; // here index is View file (.jsp file)
+	}
+	@RequestMapping("/aboutUrl")
+	public String aboutPage()
+	{
+		return "about";
+	}
+	@RequestMapping("/contactUrl")
+	public String contactPage()
+	{
+		return "contact";
+	}
+	@RequestMapping("/loginUrl")
+	public String loginPage()
+	{
+		return "login";
+	}
+	@RequestMapping("/register")
+	public String registrationPage()
+	{
+		return "reg";
+	}
+	
+}
+
+======================================================
+application.properties
+---------------------
+#Port Number Code
+server.port:7000
+
+#View Resolver Code
+spring.mvc.view.prefix=/views/
+spring.mvc.view.suffix=.jsp
+============================================
+index.jsp
+-------------
+<h1 style="color:red">Welcome To Spring Boot Web Application</h1>
+<h1 style="color:blue">Welcome To Spring Boot Web Application</h1>
+<h1 style="color:green">Welcome To Spring Boot Web Application</h1>
+<h1 style="color:pink">Welcome To Spring Boot Web Application</h1>
+================================================================
+about.jsp
+--------------
+<h1 style="color:blue">Welcome To About Page</h1>
+==================================================
+contact.jsp
+-------------
+<h1 style="color:"green">Welcome To Contact Page</h1>
+=========================================================
+login.jsp
+------------
+<h1 style="color:grey">Welcome To Login Page</h1>
+================================================
+reg.jsp
+----------
+<h1 style="color:yellow">Welcome To Registration Page</h1>
+=======================================================
+Application.java
+------------------
+package com.web;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+
+==============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

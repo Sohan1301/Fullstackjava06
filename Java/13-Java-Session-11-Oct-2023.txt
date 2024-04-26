@@ -1,0 +1,245 @@
+Java Constructors
+-------------------
+--> In Java, a constructor is a block of codes 
+similar to the method. It is called when an instance 
+of the class is created. 
+--> At the time of calling constructor, 
+memory for the object is allocated in the memory.
+
+--> It is a special type of method which is 
+used to initialize the object.
+
+--> Every time an object is created using the new() 
+keyword, at least one constructor is called.
+
+Employee e1=new Employee(); 
+Employee e2=new Employee();   
+
+Rules for creating Java constructor
+-----------------------------------
+There are two rules defined for the constructor.
+
+--> Constructor name must be the same as its class name
+--> A Constructor must have no explicit return type
+--> A Java constructor cannot be abstract, 
+static, final, and synchronized.
+
+
+Ex:
+----
+
+public class Employee
+{
+
+}
+==============================
+Note: if you are not creating constructor inside the class
+. every class having a one default constructor. created by 
+java compilor.
+--------------------------------------------------
+C:\Java>javac Employee.java
+
+C:\Java>javap Employee
+Compiled from "Employee.java"
+public class Employee {
+  public Employee();
+}
+
+===============================================
+-- Types of Java Contructors
+1. Default Constructors
+2. Parametrazied Constructors
+
+--------------------------------
+1. Default Constructors
+----------------------
+--> which constructor don't having a parameter 
+such type of constructor is called default constructors
+
+
+--> **** The purpose of default constructor is provide deafualt values.
+
+Primitivet Data Types         default values
+-------------------           --------------
+byte				0
+short				0
+int				0
+long				0
+float				0.0
+double				0.0
+String 				null
+char 				_
+------------------------------------------
+ex:
+----
+
+public class Person {
+	
+	int pid;
+	String pname;
+
+	public void print()
+	{
+		System.out.println(pid+"\t"+pname);
+	}
+	public static void main(String[] args) {
+		Person p=new Person();
+		p.print();
+	}
+}
+==================================================
+2. Parametrazied Constructors
+-------------------------
+--> if constructor define with parameter 
+it called Parametrazied Constructors.
+
+--> purpose of Parametrazied Constructors is provide parameter values.
+
+ex2:
+---
+
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Employee {
+	int empId;
+	String empName;
+	double empSalary;
+	String desigantion;
+	//Parametrazied constructor
+	Employee(int id,String name,double salary)
+	{
+		empId=id;
+		empName=name;
+		empSalary=salary;
+
+	}
+	public void printEmployee()
+	{
+		System.out.println(empId+"\t"+empName+"\t"+empSalary+"\t"+desigantion);
+	}
+	public static void main(String[] args) throws IOException{
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter id,name and salary values");
+		int id=sc.nextInt();
+		String name=sc.next();
+		double salary=sc.nextDouble();
+		
+		Employee e1=new Employee(id,name,salary);
+		//Employee e2=new Employee(102,"gopal",29000.00d);
+		e1.printEmployee();
+		//e2.printEmployee();
+	}
+
+}
+--------------------------------------------
+write java Program for to Print ElectriCity Bill
+---------------------------------------------
+cid
+cname
+current_reading
+previous_reading
+------------------------
+cid
+cname
+current_reading
+previous_reading
+units
+service_charges
+total_bill
+----------------------------
+conditions are
+--------------
+units<400  --> rate --> 1.75
+units>=400 and units<700  --> rate is--> 5.25
+units>700 --> rate is 11.25
+servise _charges --> 50
+------------------------------------------------
+
+import java.util.Scanner;
+
+public class ElectricityBill {
+int cid;
+String cname;
+int current_reading;
+int previous_reading;
+ElectricityBill()
+{
+	Scanner sc=new Scanner(System.in);
+	System.out.println("Enter cid , came , current reading and previous reading");
+	cid=sc.nextInt();
+	cname=sc.next();
+	current_reading=sc.nextInt();
+	previous_reading=sc.nextInt();
+}
+public void printBill() {
+	double total=0.0, service_charge=50;
+	int units=0;
+	units=current_reading-previous_reading;
+	if(units<500)
+	{
+		total=units*1.75+service_charge;
+	}
+	else if(units>=500 && units<=700)
+	{
+		total=units*5.75+service_charge;
+	}
+	System.out.println("The Units="+units);
+	System.out.println("Service charges Are+"+service_charge);
+	System.out.println("Total Bill="+total);
+
+}
+	public static void main(String[] args) {
+		ElectricityBill eb=new ElectricityBill();
+		eb.printBill();
+	}
+	
+}
+
+=============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

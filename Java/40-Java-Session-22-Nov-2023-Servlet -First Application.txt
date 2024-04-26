@@ -1,0 +1,239 @@
+Servlet API
+----------------
+--> Servlet API consist with 2 packages
+1. javax.servlet.*;
+2. javax.servlet.http.*;
+
+API:consist with predefined interfaces,classes and methods
+
+===============================================================
+Creating Servlet Class
+----------------------------
+--> Basically servlet class can create in 3 ways
+1. by using Servlet interface
+2. By using exends GenericServlet class
+3. By Using extends HttpServlet Class
+--------------------------------------------------------
+1.By using implements Servlet interface
+-------------------------------------------------------
+import javax.servlet.*;
+public class MyServlet implements Servlet
+{
+
+public void service(ServletRequest request,ServletResponse response)
+{
+//Prasentation Logic  (input statement)
+//BL (processing Statement our business Logic)
+//DAL  (JDBC 5 lines code)
+//prasentation statement (out put statements)
+}
+}
+-----------------------------------------------------------
+2. By using exends GenericServlet class
+===================================================
+import javax.servlet.*;
+public class MyServlet extends GenericServlet
+{
+public void service(ServletRequest request,ServletResponse response)
+{
+//Prasentation Logic  (input statement)
+//BL (processing Statement our business Logic)
+//DAL  (JDBC 5 lines code)
+//prasentation statement (out put statements)
+}
+}
+===========================================================
+3. By using extends HttpServlet class
+-----------------------------------------------------------
+import javax.servlet.http.*;
+
+public class MyServlet extends HttpServlet
+{
+protected void doPost(HttpServletRequest request,HttpServletResponse response)
+{
+//Prasentation Logic  (input statement)
+//BL (processing Statement our business Logic)
+//DAL  (JDBC 5 lines code)
+//prasentation statement (out put statements)
+}
+}
+====================================================================
+Every servlet Web Application Required Softwars And Files
+-----------------------------------------------------------------
+1. JDK   (java software  --to compile+run java code)
+2. Browser --> to run html,css,and js 
+3. tomcat server  (to run servlet  + JSP  code).
+4. Data base  (Mysql DB)
+5. eclipse IDE      --> editor 
+-----------------------------------------------------
+Required Files Are
+----------------------------------------------------
+every servlet and jsp web application 3 type files
+
+1. .java  (Servlet) files
+2. .html    (files)
+3. web.xml    file  --> mapping purpose
+------------------------------------------------------
+Steps To create servlet web application eclipse IDE
+------------------------------------------------------
+Step1: In eclipse IDE 
+Go-to File--->New--> Dynamic wep project
+Here Provide WebApplication folder Name
+and Configure your apache tomcat server only once
+
+Step2: Click Next --> here In Our Project folder one default folder will created
+with src/main/java
+
+then click next
+
+Step3:  here select Deployeement descripter file that is web.xml file.
+then click Next ---? finish
+-----------------------------------------------------------------------------------
+Servlet web application Folder structure
+-----------------------------------------
+create a Servlet Web Application to Print Welcome Message In Browser?
+-------------------------------------------------------------------
+Message.java  (Servlet File)
+web.xml  ( file)
+---------------------------------------------------------------------
+
+Message.java
+---------------
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/Message")
+public class Message extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Message() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		String name="Yakub";
+		out.print("My Name is="+name);
+		out.print("<h1>Welcome To Servlet web application</h1>");
+		
+		
+		
+		
+	}
+
+}
+
+===========================================================================
+web.xml
+----------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+  <display-name>Webappn1</display-name>
+  <welcome-file-list>
+    <welcome-file>Message</welcome-file>
+ 
+  </welcome-file-list>
+</web-app>
+===================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,302 @@
+extends
+---------
+class B extends A
+{
+}
+============================
+5 types of inheritance
+--------------------
+1. single level
+2. multi level
+3. hirarichal 
+4. multiple
+5. hybrid
+------------------------------
+2. multi level
+--------------------------
+
+--> the process of creating new class on existing child class.
+suppose i have class A , to class create class B ,on b create a
+one more child class.
+
+syntax
+------
+class A
+{
+}
+class B extends A
+{
+}
+class C exteds B
+{
+}
+psvm()
+{
+C obj=new C();
+c.a();
+c.b();
+c.c();
+}
+---------------------------------------------------
+Vivo1  --> call(), sms()
+Vivo2 -->  call(), sms(), radio(),mp3()
+Vivo3-->  call(), sms(), radio(),mp3(),youtube(),playStore(),
+----------------------------------------------------------------
+3. Hierarchical Inheritance
+---------------------------
+--> The type of inheritance where many sub classes inherit from one super
+class is known as Hierarchical Inheritance.
+
+--> Hierarchical Inheritance a combination of more that one type of 
+Inheritance and multi  level Inheritance.
+
+Syntax
+-----
+class A
+{
+}
+class B extends A
+{
+}
+class C extends A
+{
+}
+-----------------------------------------------
+class Animal
+{
+	public void eat()
+	{
+		System.out.println("Animals are eating");
+	}
+}
+class Tiger extends Animal
+{
+public void eating()
+{
+	System.out.println("Tiger eating biryani");
+}
+}
+class Lion extends Animal
+{
+public void printLion()
+{
+	System.out.println("eating deer");
+}
+}
+public class HierarichatInheritance {
+
+	public static void main(String[] args) {
+	Tiger t1=new Tiger();
+	t1.eat();
+	t1.eating();
+	Lion l1=new Lion();
+	l1.eat();
+	l1.printLion();
+	}
+
+}
+
+=========================================================
+4. multiple
+------------
+--> to process of create only one child class on two parent classes 
+is known as multiple inheritance.
+--> java won't support multiple inheritance becouse of by using extends 
+key word we can access one class properties and beviours only, but 
+we are using more than one class name so , compilor will get ambigiuty
+and return compile time error.
+
+--> To achive this concept by using interfaces. 
+
+ex:
+---
+class Animal1
+{
+	public void eat()
+	{
+		System.out.println("Father Animals");
+	}
+}
+class Animal2
+{
+	public void eat()
+	{
+		System.out.println("Mother Animals");
+	}
+}
+class Tiger extends Animal1,Animal2
+{
+public void eating()
+{
+	System.out.println("Tiger eating biryani");
+}
+}
+==================================================
+5. Hybrid Inheritance
+----------------------
+This is a combination of multiple and haerarchical inheritance
+is known Hybrid Inheritance
+--> even this one also not support by Java.
+--> achieving with interfaces
+-------------------------------------------------------
+Super Keyword
+-------------------------------------------------------
+--> The super is keyword . which is used to refer immediate
+parent class object (properties).
+
+--> whenever you create the instance of subclass,an intance
+of parent class is created.
+
+supre key word Usages
+-----------------------
+1. super can be used to refer immediate parent claa instance
+variable.
+2. super can be used to invoke immediate
+parent class method
+3. super() can be used to invoke immediate parent class constructors
+-------------------------------------------------------------
+1. super variaable
+------------------------
+--> super can be used to refer immediate parent claa instance
+variable.when super class instance variable name 
+and 
+sub class variable names are same. in that time to deffernciate
+super class variable to sub class variable then go with
+super keyword.
+
+synatax
+------------
+super.variable
+-------------------------------- 
+ex1:
+-----
+class A
+{
+	int x=120;	
+}
+class B extends A
+{
+	int x=200;
+public void print()
+{
+	System.out.println("My X value="+super.x);
+	System.out.println("My X value="+x);
+}
+}
+public class SuperKeword {
+
+	public static void main(String[] args) {
+	B b =new B();
+	b.print();
+}
+}
+
+-----------------------------------------
+2. super can be used to invoke immediate
+parent class method
+
+The super keyword cam also be used to invoke parent class method.
+it should be used if subclass containe the same method as parent class.
+.In other words it is a method overriding.
+
+------------------------------------------------
+super.method();
+================================================
+ex2:
+----
+class Marriage
+{
+	public void mary()
+	{
+		System.out.println("pullama , she has 20 kg glod and color block");
+	}
+}
+class Marriage2 extends Marriage
+{
+	public void mary()
+	{
+		super.mary();  // call super class method
+		System.out.println("kathrika kaif , she has 20 kg glod and very beautiful");
+	}
+}
+public class SuperKeword {
+
+	public static void main(String[] args) {
+		Marriage2 m=new Marriage2();
+		m.mary();
+}
+}
+====================================================
+3. super() can be used to invoke immediate parent class constructors
+-------------------------------------------------------------------
+class Person{  
+	int id;  
+	String name; 
+	
+	Person(int id,String name){  
+		this.id=id;  
+		this.name=name;  
+	}  
+}  
+class Emp extends Person{  
+	float salary;  
+	Emp(int id,String name,float salary){  
+		super(id,name);//reusing parent constructor  
+		this.salary=salary;  
+	}
+	public void display()
+	{
+		System.out.println(id+" "+name+" "+salary);}  
+}
+public class SuperConstructor {
+
+	public static void main(String[] args) {
+		Emp e1=new Emp(1001,"ankit",45000f);  
+		e1.display();  
+
+	}
+
+}
+
+==================================
+Note: super key word use with in th inheritance concept only.
+----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5. Hybrid
+
+
+
+
+
+
+
+
+

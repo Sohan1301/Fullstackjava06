@@ -1,0 +1,233 @@
+JSX with Object Expression
+--------------------------
+<h1>{120+90}</h1>
+<h1>Hell={120+90}</h1>
+
+let name="gopi";
+<p>My Name is={name}</p>
+
+with function expression
+--------------------
+class Student extends Component
+{
+render()
+{
+const myFunction=()=>
+{
+retrun "Aryan";
+}
+return(<>
+<p>My Name is={myFunction()}</p>
+
+</>
+);
+}
+======================
+JSX expression with object and an array object declaration
+--------------------------------------------------------
+class Student extends Component
+{
+render()
+{
+let employee={
+id:120,
+name:"gopal"
+fee:9000.99
+}
+let arr=[10,20,30,40,50]
+
+return(<>
+<p>My Id ={employee.id}</p>
+<p>My Name={employee.name}</p>
+<h2>arr value={arr[0]}</h2>
+<h2>arr value={arr[4]}</h2>
+</>
+);
+}
+========================
+React Application for props with function components
+and class componets
+------------------------------------------------------
+1. Student.jsx  --> function based componnet
+2. Employee.jsx --> class based components
+3. main.jsx
+4. index.html
+--------------------------------------------
+Student.jsx
+------------
+import React, { Component } from "react";
+import Employee from "./Employee";
+
+const Student=(props)=>{
+    return(<>
+    <h1>My Id={props.id}</h1>
+    <h1>My Id={props.name}</h1>
+    <h1>My Id={props.fee}</h1>
+    <Employee id='800' name='sandeep' salary='120000.00' />
+    </>)
+}
+export default Student;
+============================================================
+Employee.jsx
+---------------
+import React, { Component } from "react";
+
+class Employee extends Component
+{
+    constructor(props)
+    {
+    super(props)
+    }
+    render()
+    {
+        return(<>
+        <h1>My Id={this.props.id}</h1>
+    <h1>My Id={this.props.name}</h1>
+    <h1>My Id={this.props.salary}</h1>
+        </>)
+    }
+}
+
+export default Employee;
+========================================
+main.jsx
+-----------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import Student from './Student'
+import Employee from './Employee'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <Student id={'120'} name='aryan' fee='9000.99' />
+    <Employee id='400' name='gopi' salary='80000.00' />
+  </React.StrictMode>,
+)
+
+======================================
+index.html
+------------
+<div id="root"></div>
+========================
+
+--> when we use props with function components for accessing props values 
+with {props.propertyName}.
+
+--> when we use props with class components for accssing props values
+with {this.props.propertyName}
+======================================================================
+Note: props are pur values , used for transfor values from 
+one component to anothe componets.
+=====================================================================
+React state Object
+--------------------
+React Js state is a way to store and manage the information
+or data wihile creating a React Application.
+The state is a javaScript object that contains
+the real time data or information on the web page.
+-->state object wen can defined in class component only.
+--> state is a mutable object. that means values can 
+be changed.
+--> setState() method change and update state object values.
+============================================================== 
+
+State Object with in class and with in constructor  example application
+--------------------------------------------
+Employee.jsx
+--------------
+
+import React, { Component } from "react";
+
+class Employee extends Component
+{
+  /*  state={
+        id:120,
+        name:"aryan",
+        salary:90000.00,
+        rollno:this.props.rollno
+    } */ //this is a inside class state object
+    constructor(props){
+        super(props)
+        this.state={
+            id:120,
+            name:"aryan",
+            salary:90000.00,
+            rollno:this.props.rollno
+        }  // this is inside constructors state object
+    }
+    
+    render()
+    {
+        return(<>
+        <h1>My Id={this.state.id}</h1>
+    <h1>My Id={this.state.name}</h1>
+    <h1>My Id={this.state.salary}</h1>
+    <h1>My Id={this.props.rollno}</h1>
+        </>)
+    }
+}
+
+export default Employee;
+
+========================================
+main.jsx
+-----------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import Student from './Student'
+import Employee from './Employee'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    
+    <Employee rollno='444' />
+  </React.StrictMode>,
+)
+
+========================
+index.html
+------------
+<div id="root"></div>
+===================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,169 @@
+for loop
+---------
+--> for loop also execute statement sevaral times 
+if number iteration if fixed.
+
+syntax:
+------
+for(initaialization; condition; incr/decr)
+{
+stmt1;
+}
+--------------------------------------
+1. write a java program print even number from 1 to 200?
+2. write a java program print multiplication table?
+3. wrirte a java program to print characters from a to z?
+
+public class Table {
+
+	public static void main(String[] args) {
+		
+		for(int i=1; i<=200; i++)
+		{
+			if(i%2==0)
+			{
+		System.out.println(i);
+		}
+	}
+}
+}
+
+==============================================================
+4. nested for *****
+--------------------
+
+--> if for loop inside create one more for loop 
+it is known as nested for loop.
+
+syntax:
+------
+for(initailization; condition; incr/decr)
+{
+	for(initailization; condition; incr/decr)
+	{
+		stmt1;
+         }
+stmt2;
+}
+
+-----------------------------------------------------
+
+public class Nested1 {
+
+	public static void main(String[] args) {
+		for(int r=1; r<=5; r++)
+		{
+			for(int c=1; c<=3; c++)
+			{
+				System.out.println(r+" "+c);
+			}
+		}
+	}
+
+}
+
+-------------------------------------------
+
+ex:
+----
+12345
+12345
+12345
+12345
+12345
+
+public class Nested1 {
+
+	public static void main(String[] args) {
+		
+		for(int r=1; r<=5; r++)
+		{
+			for(int c=1; c<=5; c++)
+			{
+				System.out.print(c);
+			}
+			System.out.println();
+		}
+	}
+
+}
+
+================================
+11111
+22222
+33333
+44444
+55555
+-----------
+
+public class Nested1 {
+
+	public static void main(String[] args) {
+		
+		for(int r=1; r<=5; r++)
+		{
+			for(int c=1; c<=5; c++)
+			{
+				System.out.print(r);
+			}
+			System.out.println();
+		}
+	}
+
+}
+
+--------------------------------------
+*
+* *
+* * *
+* * * *
+* * * * *
+--------------------
+      *
+     **
+    ***
+   ****
+  *****
+ ******
+*******
+---------------------------------
+
+public class Nested1 {
+
+	public static void main(String[] args) {
+		int i,j,row=6;
+		//outter loop for rows
+		for(i=1; i<=row; i++)
+		{
+			//inner loop work for spaces
+			for(j=2*(row-i); j>=0; j--)
+			{
+				System.out.print(" ");
+			}
+			//this loop work for columns
+			for(j=0;j<=i; j++)
+			{
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+	}
+
+}
+
+===========================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

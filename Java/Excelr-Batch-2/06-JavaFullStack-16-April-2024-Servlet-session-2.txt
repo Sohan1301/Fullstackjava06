@@ -1,0 +1,216 @@
+1. prasentation layer
+2.business logic layer
+3. data access layer
+-----------------------------------
+httprequest can send to server in 3 ways
+--------------------------------------------------------------
+1. by using url (www.amazon.com) throgh headder
+2. by using hyper link 
+ex: <a href="www.amazon.com">Amazon</a>
+3. by using submit button
+<input type="submit" value="Login">
+--------------------------------------------------------------------------
+Servlet API
+----------------
+Creating servlet class
+--------------------------------
+Basically Servlet class can create with 3 ways
+-----------------------------------------------------------------
+1.by implemnets Servlet Interface
+2. by extends GenericServlet
+3. By  extends HttpServlet class
+---------------------------------------------------------------
+Approach-No:1:by implemnets Servlet Interface
+-----------------------------------------------------------------------
+import javax.servlet.*;
+public class MyServlet implements Servlet
+{
+public void service(ServletRequest request,ServletResponse response)
+{
+//PL  (input statements)
+//BL   (business logic processing stmts)
+//DAL (jdbc 5 lines code)
+//PL  (out put stmts
+}
+}
+-----------------------------------------------------------------------------------------
+Approach-No:2:by extends GenericServlet class
+-----------------------------------------------------------------------
+import javax.servlet.*;
+public class MyServlet extends GenericServlet
+{
+public void service(ServletRequest request,ServletResponse response)
+{
+//PL  (input statements)
+//BL   (business logic processing stmts)
+//DAL (jdbc 5 lines code)
+//PL  (out put stmts
+}
+}
+===========================================================
+Approach-No:3:by extends HttpServlet class
+-------------------------------------------------------------
+import java.servlet.http.*;
+public class MyServlet extends HttpServlet
+{
+protected void doGet(HttpServletRequest request,HttpServletResponse response)
+{
+//PL  (input statements)
+//BL   (business logic processing stmts)
+//DAL (jdbc 5 lines code)
+//PL  (out put stmts)
+}
+}
+========================================================
+For every servlet web application Required Softwares are
+-----------------------------------------------------------------------------
+1. JDK  (java software)
+2. Browser (run client side code)
+3. Tomcat server   ( To run server side code)
+4. Eclipse IDE ( java editor)
+5. data base  (Mysql DB)
+----------------------------------------------------------------------
+Required files Are
+----------------------------
+-->  .html   (files)
+--> .java   ( files) (servlet classes)
+--> web.xml   (file)
+--> servlet-api.jar + mysqlconnector.jar
+===============================================
+steps To create a servlet web application in eclipse IDE
+--------------------------------------------------------------------------------
+step1: Open eclipse IDE
+goto----> File---> new--> dynamic web project
+here configure apache tomcat then click next 
+and next button
+step2: here select check box for web.xml file
+then click finish button
+=================================================
+servlet web application project folder structure
+----------------------------------------------------------------------
+Create a servlet web application to display welcome message on browser
+-----------------------------------------------------------------------------------------------------
+reuired files are
+----------------------
+1.Welcome.java  (servlet class)
+2. web.xml
+--------------------------------------------
+Welcome.java
+--------------------
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/Welcome")
+public class Welcome extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public Welcome() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		int rollno=120;
+		String name="excelr";
+		out.println("<h1>Welcome to servlet web application</h1>");
+		out.print("My rollno="+rollno+"<br>");
+		out.print("My Name="+name);	
+	}
+
+}
+
+=================================
+web.xml
+-----------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+  <display-name>Webapplication-1</display-name>
+  <welcome-file-list>
+    <welcome-file>Welcome</welcome-file>
+   
+  </welcome-file-list>
+</web-app>
+================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

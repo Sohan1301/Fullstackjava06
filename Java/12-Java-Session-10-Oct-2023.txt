@@ -1,0 +1,283 @@
+Java oops concept
+--------------------
+OPPS 
+1. class
+2. object
+3. inheritence
+4. poly morphism
+5. abstraction
+6. encapsulation
+------------------------------
+1. Class
+------------
+--> class is blue print. or it is a imaganary block.
+--> *****>  class is a collection of properties (variables).
+and bahaviours( methods).
+
+--> when you create a class, class won't get any memory.
+to provide memory to the class we must create an object.
+
+ex:
+----
+Bank
+Employees
+Flower
+Human
+
+-------------------------------
+--> to create java class by using class key word followed by class name.
+
+Syntax:
+------
+public class <Class_Name>
+{
+//variables
+//methods()
+//constructors
+// static blocks
+}
+
+-------------------------------------
+ex:
+---
+public class Bank
+{
+// variables
+//methods
+
+}
+--------------------------------
+Bank.java
+--------------------------------
+creating object for the class
+------------------------------
+--> to create object for the class by using class name with the
+help new keyword.
+syntax
+-----
+
+<Class_name> obj_Name=new <Class_Name>();
+
+
+ex:
+---
+Bank  bank=new Bank();
+====================================================
+2. Object
+----------------------
+--> Object is a Physical entity. 
+an object is a inatnace of class.
+
+ex:
+---
+sbhbank
+gopal
+ram
+sony
+rose_flower
+projector
+----------------------------
+--> every object consist with following 
+things
+
+1. state:properties of object is called state (flower: color,name,shape).
+2. bahaviours: functionality of object is called behaviour.
+ex: smell(),decoration()...etc
+3. Identtity: once you create obeject with class name and
+with new key word jvm provide unique momory location per
+object   it is called identity.
+----------------------------------------------------------
+Note: object creating for class.
+-------------------------------------
+syntax  of object creation
+---------------------------
+<class_name> <obj_name>=new <class_name>();
+----------------------------------------------
+ex:
+---
+SBI_Bank:  state: bank_name,ifsccode,address,location,branhcode..etc
+Behaviours: deposit(),withdraw(), transfor(), mini_statement(),loans()
+id:  
+
+=============================================
+Employee:
+
+properties:
+emp_id
+emp_name
+salary
+designation
+dob
+doj
+------------------------------
+methods:  insert(), view()....
+-------------------------------------------
+Gmail:
+------
+fisrt_name
+last_name
+password
+confirm_password
+mobile_number
+gender
+recovery_email
+country
+
+Methods: register(), login()
+-------------------------------------------
+FaceBook:
+---------
+proeperties: 
+firt_name
+surname
+mobile_number
+password
+dateof_birth
+gender
+
+methods: signup(), login()...etc
+post(), comment(), like(), share(),addfriend()
+------------------------------------------------------------
+ways of Creating objects for the class
+-------------------------------------
+for class we can create a object in 4 ways'
+1. by using inatance variable
+2. by using class method
+3. by using constructors
+4. by using setters methods
+--------------------------------------
+1. by using inatance variable
+---------------------------------
+ex1:
+
+public class Gmail {
+
+	int emailId;  // instance variable
+	String name;  // instance variable
+	
+	public static void main(String[] args) {
+	// creating object
+		Gmail obj=new Gmail();
+		// initailization object
+		obj.emailId=120;
+		obj.name="Gopal";
+		// processing 
+		System.out.println(obj.emailId);
+		System.out.println(obj.name);
+		
+	}
+	
+}
+
+============================================
+2. by using class method
+--------------------------------
+
+public class Gmail {
+
+	int emailId;  // instance variable
+	String name;  // instance variable
+	String password;
+	String email;
+	public void insetRecord(int eid,String n,String psw,String mail)
+	{
+		emailId=eid;
+		name=n;
+		password=psw;
+		email=mail;
+	}
+	public void printRecord()
+	{
+		System.out.println(emailId);
+		System.out.println(name);
+		System.out.println(password);
+		System.out.println(email);
+	}
+
+	public static void main(String[] args) {
+		//creating obj
+		Gmail obj=new Gmail();
+		// initailize object
+		obj.insetRecord(101, "gopal", "gopal123","gopal@gmail.com");
+		// processing methods
+		obj.printRecord();
+		obj.printRecord();		
+	}
+}
+
+=====================================================================
+3. By Constructor
+----------------------------
+
+public class Gmail {
+
+	int emailId;  // instance variable
+	String name;  // instance variable
+	String password;
+	String email;
+	public Gmail(int eid,String n,String psw,String mail)
+	{
+		emailId=eid;
+		name=n;
+		password=psw;
+		email=mail;
+	}
+	public void printRecord()
+	{
+		System.out.println(emailId);
+		System.out.println(name);
+		System.out.println(password);
+		System.out.println(email);
+	}
+
+	public static void main(String[] args) {
+		//creating obj +// initailize object
+		Gmail obj=new Gmail(102,"Ram","ram123","ram@gmail.com");
+		Gmail obj1=new Gmail(103,"srinu","srinu123","srniu@gmail.com");
+		Gmail obj2=new Gmail(104,"akash","aksh123","aksh@gmail.com");
+		// processing methods
+		obj.printRecord();
+		System.out.println("==============");
+		obj1.printRecord();
+		System.out.println("==============");
+		obj2.printRecord();
+	}
+}
+=======================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

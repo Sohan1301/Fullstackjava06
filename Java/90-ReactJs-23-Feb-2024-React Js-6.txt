@@ -1,0 +1,189 @@
+
+React States+Event Handling +setState()
+----------------------------------------
+React Application for state object inside the 
+constructors
+-----------------------------------------------
+Required files Are
+1. Employee.jsx
+2.main.jsx
+3. index.html
+=================
+import React from 'react'
+class Employee extends Component
+{
+constructor(props)
+{
+super(props)
+this.state={
+id:120,
+name:"Aryan",
+salary:90000.00,
+company:this.props.company
+
+}
+}
+render(){
+retrun(<>
+<h1> My Name is={this.state.name}</h1>
+<h1> My Id is={this.state.id}</h1>
+<h1> My salary is={this.state.salary}</h1>
+<p> My Company Name is={this.props.company}</p>
+</>);
+}
+}
+export default Employee
+===================================================
+main.jsx
+--------------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import Employee from './Employee.jsx'
+
+.getElementById("root").render()
+<React.StrictMode>
+<Employee company="excelr" />
+
+</React.StrictMode>
+======================================
+index.html
+--------------
+<div id="root"></div>
+=======================================
+REACT application for Event Handling Method
+----------------------------------------
+Required File Are
+--------------------
+1. User.jsx
+2. main.jsx
+3. index.html
+===================
+User.jsx
+===========
+import React from "react";
+import { Component } from "react";
+class User extends Component
+{
+    constructor(props)
+    {
+        super(props)
+       this.state={n1:120,
+            n2:200
+        }
+    }
+    handleClick=()=>{
+        document.write("Welcome to React Js Application")
+    }
+   
+add=()=>{
+    let addition=this.state.n1+this.state.n2;
+    document.write(addition);
+}
+evenorodd=()=>{
+    if(this.state.n1%2==0)
+    {
+        document.write("The given Number is even");
+    }
+    else{
+        document.write("The given Number is Odd");
+    }
+}
+    render(){
+        return(<>
+        <h1>This is a EVENT Handling Application</h1>
+        <button onClick={this.handleClick}>ClickMe</button><p></p>
+        <button onClick={this.add}>AdditionTwoNumber</button><p></p>
+        <button onClick={this.evenorodd}>CheckEvenOrOddNumber</button><p></p>
+        </>)
+    }
+}
+export default User;
+================================================
+main.jsx
+---------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import User from './User'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    
+    <User />
+  </React.StrictMode>,
+)
+==============================================================
+Update State Object Values
+--------------------------
+setState() method
+------------------
+
+setState ( ) Method is used to update states.
+Ex:- 
+this.state = {
+     name: “Rahul”
+}
+this.setState({name: “Jai”});
+
+==========================================
+this.setState(function(state, props) {
+  return {
+    
+  };
+});
+
+It accepts a function rather than an object.
+It receives the previous state as the first argument, 
+The props at the time the update is applied as the second argument.
+
+========================================
+ex:
+--
+React Application for Update state Object Values
+==============================================
+import React from "react";
+import { Component } from "react";
+class User extends Component
+{
+    constructor(props)
+    {
+        super(props)
+       this.state={
+        id:120,
+            name:"Rajanna"
+        }
+        
+    }
+    handleClick=()=>{
+        this.setState({name:"Rajender"})
+       
+    } 
+
+    render(){
+        return(<>
+        <h1>This is a EVENT Handling Application</h1>
+        <h1>My Name is={this.state.name}</h1>
+        <button onClick={this.handleClick}>ClickMe</button><p></p>
+       
+        </>)
+    }
+}
+export default User;
+=========================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

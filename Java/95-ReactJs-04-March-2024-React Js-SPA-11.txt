@@ -1,0 +1,239 @@
+Single-page application
+------------------------
+An SPA (Single-page application) is a web application implementation 
+that loads only a single web document, and then updates the body 
+content of that single document via JavaScript APIs such 
+as XMLHttpRequest and Fetch when different content is to be shown.
+
+--> This therefore allows users to use websites without loading whole 
+new pages from the server, which can result in performance gains and a 
+more dynamic experience, with some tradeoff disadvantages such as SEO, 
+more effort required to maintain state, implement navigation, 
+and do meaningful performance monitoring.
+==================================================================================================
+Components in React Router(SPA)
+--------------------------     
+There are two types of router components:
+
+<BrowserRouter>: It is used for handling the dynamic URL.in web application
+<HashRouter>: It is used for handling the static request.
+===============================================================================
+Requied Libraries Are
+---------------------
+React Router Installation
+
+React contains three different packages for routing. These are:
+
+react-router: It provides the core routing components and functions for the React Router applications.
+react-router-dom: It is used for web applications design.
+react-router-native: It is used for mobile applications.
+==============================================================================
+SPA Tags
+--------
+1. <Route> Tag:
+--------------
+What is Route?
+---------------
+It is used to define and render component 
+based on the specified path. 
+It will accept components and render to define what should be rendered.
+
+ex:
+---
+import {Routes,Route} from 'react-router-dom';
+<Routes>  
+    <div>  
+      <h1>React Router Example</h1>  
+      <Route path="/" element={App} />  
+      <Route path="/about" element={About} />  
+      <Route path="/contact" element={Contact} />  
+    </div>  
+  </Routes>  
+=========================================================
+=========================================================
+Adding Navigation using Link component
+-----------------------------------
+Sometimes, we want to need multiple links on a single page. When we click on any of that particular Link, it should load that page which is associated with that path without reloading the web page. To do this, we need to import <Link> component in the main.jsx file.
+
+2. What is < Link> component?
+------------------------------
+This component is used to create links which allow to navigate on 
+different URLs and render its content without reloading the webpage.
+
+ex:
+import <Link> from 'react-router-dom'
+const App=()=>{
+return(<>
+<Link to='/'>Home><Link>
+<Link to='/login'>Login</Link>
+</>
+
+====================================================================
+3.BrowserRouter: 
+---------------
+Add an aliased BrowserRouter as a router to your app.js 
+file to wrap all other components. 
+BrowserRouter is a parent component 
+and can have only one child.
+======================================================================
+
+
+
+
+
+
+CReate a React JS Single Page Application
+------------------------------------------
+Required Files Are
+------------------
+1. Com1.jsx  --> Home Page
+2. Com2.jsx  --> Contact Page
+3. Com3.jsx  --> Login Page
+4. Com4.jsx  --> Registration Page
+5.App.jsx
+
+<Router>
+<Links>   </Links>
+<Route path=<Com1 /> </Route>
+
+</Router>
+------------------------------
+6.main.jsx
+-----------
+<Browser-Router>
+ <App />
+</Browser-Router>
+========================================
+Home.jsx
+----------
+const Home=()=>{
+    return(
+        <>
+            <h2>Component1....!</h2>
+            <h2>This a Home Page!</h2>
+        </>
+    )
+}
+export default Home;
+========================================
+COntact.jsx
+-----------------
+const Contact=()=>{
+    return(<>
+    <h1>Component2...................</h1>
+    <h1>Welcome To Contact Page</h1>
+    
+    </>)
+}
+export default Contact;
+=========================================
+Login.jsx
+----------------
+const Login=()=>{
+    return(<>
+    <h1>Component3.......................</h1>
+    <h1>Welcome To Login Page</h1>
+    
+    </>)
+}
+export default Login;
+========================================
+Register.jsx
+---------------------
+const Register=()=>{
+    return(<>
+    <h1>Component4.........................</h1>
+    <h1> Welcome To Registartion Web  Page</h1>    
+    </>)
+}
+export default Register;
+========================================
+App.jsx
+---------------
+import Home from "./Home"
+import Contact from "./Contact"
+import Login from "./Login"
+import Register from "./Register"
+import {Routes,Route,Link} from 'react-router-dom'
+const App=()=>{
+  return(<>
+  <div>
+  <Link to="/" style={{marginRight:100}}>
+                Home
+           </Link>
+           <Link to="/Contact" style={{marginRight:100}}>
+           Contact
+           </Link>
+           <Link to="/Login" style={{marginRight:100}}>
+           Login
+           </Link>
+           <Link to="/Register">
+           Register
+           </Link>
+           </div>
+           <br></br>
+           <div>
+           <Routes>
+           <Route path="/" element={<Home />}></Route>
+                <Route path="/Contact" element={<Contact />}></Route>
+                <Route path="/Login" element={<Login></Login>}></Route>
+<Route path="/Register" element={<Register />}></Route>
+
+           </Routes>
+           </div>
+  </>)
+}
+export default App
+===================================
+Main.jsx
+---------------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+import { BrowserRouter } from 'react-router-dom'
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+    <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+)
+
+==============================================================
+
+Step1: create React Application
+Step2: install React-router
+step3: install React-dom6
+Step4: create Your Componets
+  Home.jsx
+   Contact.jsx
+Login.jsx
+Register.jsx
+--------------------------------------------
+App.jsx
+<Router>  
+    <div>  
+      <h1>React Router Example</h1>  
+      <Route path="/" component={App} />  
+      <Route path="/about" component={About} />  
+      <Route path="/contact" component={Contact} />  
+    </div>  
+  </Router>  
+=========================================
+
+<BrouserRouter>  --> main.jsx
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+==============================================================

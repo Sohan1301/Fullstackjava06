@@ -1,0 +1,137 @@
+name.html
+-------------
+<html>
+<head>
+<title>Fullname Form</title>
+</head>
+<body>
+<form action="FullName" method="get">
+First Name:<input type="text" name="fname"> <br>
+Last Name:<input type="text" name="lname"><br>
+<input type="submit" value="PrintFullName">
+</form>
+</body>
+</html>
+------------------------------------------------------------------------------
+FullName.java
+---------------------
+public class FullName extends HttpServlet
+{
+protected void doGet(HSR request,HSR response)
+{
+response.setContentType("text/html");
+PrintWriter out=reponse.getWriter();
+String firstname=request.getParameter("fname");
+String lastname=request.getParameter("lname");
+//business logic
+String fullName=firstname+" "+lastname;
+out.println("first name="+firstname+"<br>");
+out.println("last name="+lastname+"<br>");
+out.println("fullname="+fullName+"<br>");
+}
+}
+----------------------------------------
+web.xml
+------------
+<welcome-file>name.html</welcome-file>
+-----------------------------------------------------------------
+Product Invoice Application
+
+----------------------------------------
+product.html
+-----------------------
+
+<body>
+<center>
+<h1 style="color:red">Product Details</h1>
+<form action="ProductCode" method="get">
+Product Id:<input type="text" name="pid"><p></p>
+Product Name:<input type="text" name="pname"><p></p>
+Price:<input type="text" name="price"><p></p>
+Quantity:<input type="text" name="quan"><p></p>
+<input type="submit" value="PrintBill">
+</form>
+</center>
+</body>
+
+===========================================
+ProductCode.java
+----------------------------
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class ProductCode
+ */
+@WebServlet("/ProductCode")
+public class ProductCode extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ProductCode() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		int pid=Integer.parseInt(request.getParameter("pid"));
+		String pname=request.getParameter("pname");
+		double price=Double.parseDouble(request.getParameter("price"));
+		int quantity=Integer.parseInt(request.getParameter("quan"));
+		out.print("My Product Id="+pid+"<br>");
+		out.print("My Product Name="+pname+"<br>");
+		out.print("My Price="+price+"<br>");
+		out.print("quantity="+quantity+"<br>");
+		double total=0.0,discount=0.0,gst=0.0,invoice_bill=0.0;
+		total=price*quantity;
+		if(total<5000)
+		{
+			discount=(total*12)/100;
+			
+		}
+		else if(total>=5000 && total<20000)
+		{
+			discount=(total*21)/100;
+			
+		}
+		else if(total>=20000)
+		{
+			discount=(total*35)/100;	
+		}
+		gst=(total*18)/100;
+		invoice_bill=(total-discount)+gst;
+		out.print("Total Bill="+total+"<br>");
+		out.print("Discount Bill="+discount+"<br>");
+		out.print("GSTBill="+gst+"<br>");
+		out.print("Invoice _bill="+invoice_bill+"<br>");
+		
+		}
+
+}
+========================================================
+web.xml
+----------------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+  <display-name>ProductInvoiceWebApplication</display-name>
+  <welcome-file-list>
+    <welcome-file>product.html</welcome-file>
+    
+  </welcome-file-list>
+</web-app>
+===================================================

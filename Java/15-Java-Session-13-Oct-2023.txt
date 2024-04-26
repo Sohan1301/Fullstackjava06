@@ -1,0 +1,182 @@
+3. This() keyword used to invocke current conctructor
+-------------------------------------------------------
+
+public class Customer {
+	
+	int cid;
+	String cname;
+	String address;
+	Customer(int cid,String cname)
+	{
+		this.cid=cid;
+		this.cname=cname;
+	}
+	Customer(int cid,String cname,String address )
+	{
+		this(cid,cname); // to initailize current constrcutor values into another constructor
+		this.address=address;
+	}
+	public void printCustomer()
+	{
+		System.out.println(cid+"\t"+cname+"\t"+address);
+	}
+
+	public static void main(String[] args) {
+		Customer c1=new Customer(101,"Aryan");	
+		Customer c2=new Customer(102,"gopal","Hyderabad");	
+		c1.printCustomer();
+		c2.printCustomer();
+	}
+
+}
+
+===========================================================
+Inheritence
+-----------------
+--> The process of accessing properties and behaviours from parent
+class to child class is known as inheritenace.
+
+--> The process of create new class on existing class is known as Inheritance
+Here new class is called, Child/Sub/derived class , The existing class is 
+called Parent/Super/Base class.
+
+****--> To access parent class Properties into child class by using extends keyword.
+****> By Using extends keyword we cam access only one properties into another.
+--> In heritance is HAS-A Relation Ship.
+-----------------------------------------------------------------
+syntax
+--------------
+class <Parent_Class_Name>
+{
+//Var
+//methods()
+}
+class <Child-Class_Name> extends <Parent_Class_Name>
+{
+//var
+//methods
+}
+=====================================================
+Types Of Inheritance
+-----------------------
+--> In java Having a 5 types of Inheritance
+1. single Level Inheritance
+2. multi level Inheritance
+3. Hirarchical Inheritance
+4. multiple Inheritance
+5. Hybrid Inheritance
+-------------------------------------------------------------
+1. single Level Inheritance
+------------------------------
+Def:
+---
+Suppose to we can access super class variables and methods.
+accessing by only one sub class it  is known as 
+single level Inheritance.
+
+syntax
+---------
+class Super
+
+{
+variables;
+methods()
+{
+}
+}
+class Sub extends Super
+{
+}
+
+================================================
+Exp1
+-----
+
+class Student
+{
+	int stdId;
+	String sname;
+	double fee;
+	public void insertStudent(int stdId,String sname, double fee)
+	{
+		this.stdId=stdId;
+		this.sname=sname;
+		this.fee=fee;
+	}
+	public void printStudent()
+	{
+		System.out.println(stdId+"\t"+sname+"\t"+fee);
+	}
+}
+
+class Marks extends Student
+{
+	int s1,s2,s3;
+	public void insertMarks(int s1,int s2,int s3)
+	{
+		this.s1=s1;
+		this.s2=s2;
+		this.s3=s3;
+	}
+	public void printMarks()
+	{
+		int total=0,avg=0;
+		total=s1+s2+s3;
+		avg=total/3;
+		System.out.println(s1+"\t"+s2+"\t"+s3);
+		System.out.println(total+"\t"+avg);
+	}
+}
+public class ExcelrStudent {
+
+	public static void main(String[] args) {
+//		Student s1=new Student();
+//		s1.insertStudent(101, "aryan", 8000.00d);
+//		s1.printStudent();
+		Marks m1=new Marks();
+		m1.insertStudent(101, "aryan", 8000.00d);
+		m1.insertMarks(70, 80, 90);
+		m1.printStudent();
+		m1.printMarks();
+		
+		
+
+	}
+
+}
+
+=============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

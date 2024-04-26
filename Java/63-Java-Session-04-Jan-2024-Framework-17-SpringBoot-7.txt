@@ -1,0 +1,309 @@
+Spring Data JPA
+--------------
+--> Spring Boot JPA is a Java specification for managing 
+relational data in Java applications. 
+It allows us to access and persist data 
+between Java object/ class and relational database. 
+-->JPA follows Object-Relation Mapping (ORM). 
+It is a set of interfaces. 
+--> It also provides a runtime EntityManager 
+API for processing queries and transactions 
+on the objects against the database. 
+--> It uses a platform-independent object-oriented 
+query language JPQL (Java Persistent Query Language). 
+===============================================
+
+
+Introduction
+---------
+--> spring data jpa is used to establish the connection 
+b/w spring boot appn to any Relational databases.
+-->  And perform Crud operations by using objects.
+--> spring data jpa also ORM tool like a hibernate.
+--> In spring data jpa, hibernate is an abstraction layer.
+that means data jpa also implemented with hibernate frame work.
+--> to perform crud operations with spring data 
+jpa having two main interfaces
+-->CrudRepository
+-->JpaRepository
+Note:
+-----
+ORM : Object Relational Mapping
+JPA: Java Persistence API 
+======================================
+Spring Data JPA implemented interfaces
+------------------------------------
+1. CrudRepository
+2. JpaRepository
+===============================
+
+
+
+1. CrudRepository
+----------------
+--> CrudRepository interface given by Spring Data JPA Module.
+--> The Use of CrudRepository is To Perfrom pure CRUD operations 
+with relational Data bases.
+-> it is Having 11 methods.
+
+
+
+
+
+
+
+
+
+
+
+
+CrudRepository implemented Methods
+-----------------------------
+	1.save(S entity);      
+	2.saveAll(Iterable<S> entities);
+	3.findById(ID id);
+	4.existsById(ID id);
+	5.findAll();
+	6.findAllById(Iterable<ID> ids);
+	7.count();
+	8.deleteById(ID id);
+	9.delete(Entity)
+	10.deleteAll(Iterable<? extends T> entities);
+	11.deleteAll()
+
+PagingAndSortingRepository
+	1.findAll(Sort sort);
+	2.findAll(Pageable pageable);
+
+
+=============================================
+JpaRepository
+------------------
+--> JpaRepository interface given by Spring Data JPA Module.
+--> The Use of JpaRepository is To Perfrom CRUD operations and
+sorting,searching and paginations operation with Any 
+relational Data bases.
+-> it is also Having 11 methods
+Implemented Methods Are
+---------------------------------
+	1.findAll();   
+	2.findAll(Sort sort);
+	3.findAllById(Iterable<ID> ids);
+	4.saveAll(Iterable<S> entities);
+	5.flush();
+	6.saveAndFlush(S entity);
+	7.deleteInBatch(Iterable<T> entities);
+	8.deleteAllInBatch();
+	9.getOne(ID id);
+	10.findAll(Example<S> example);
+	11.findAll(Example<S> example, Sort sort);
+=====================================================================
+Model layer in Spring Boot + DATA JPA (Hibernate(ORM)) implementation steps
+======================================================
+I.DB Connection : write inside the  
+---------------
+	application.properties: file
+   
+i.e (Connection statements with datasourse object)
+
+		#Data Base related properties (4 properties)
+		#Hibernate Dialect related properties
+
+II.CRUD operations:
+Q1.How to construct model layer in Spring Boot ?
+
+Ans:
+Solution:	Spring Boot Data Jpa (internally implemented on hibernate)
+
+		1.CrudRepository interface --> 11 methods
+		2.JpaRepository interface--> 11 methods
+
+Task:U want to perform CRUD operations on Student,Employee tables
+	Step1: Create Entity class--POJO class.java
+	
+	@Entity
+	@Table(name="student_table")
+	class	Student
+	{
+		@id
+		int	id;
+		String	name;
+		float	percentage;
+	//NPC,PC,toS,S+G
+	}
+
+	@Entity
+	class	Employee
+	{
+		@id
+		int	id;
+		String	name;
+		float	salary;
+		//PDC+PPC+PSM+PGM+toString()
+	}
+
+	Step2:	Create Repo interface which extends either 
+	CrudRepository/ Jpa Repository	
+
+	@Repository
+	interface	StudentRepo extends	CrudRepository
+	{
+		//11 methods 	:save(Student), findAll(), findById(id),.......
+	}
+	@Repository
+	interface	EmployeeRepo extends JpaRepository
+	{
+		//11 methods   :save(Employee), findAll(), findById(id),.......
+	}
+
+===========================================================
+Create a Spring Boot Employee Static CRDU Application with Spring Data JPA
+-----------------------------------------------------------------------
+Required Files Are
+--------------------
+1. Employee.java  (POJO class) --> @Entity+@Table+@Id+@Column
+2. EmployeeRepo.java  (I) --> @Repository
+3.application.properties --> port no code+Db Connection statement+JPa Dailect Properties
+4.Application.java --> @SpringBootApplication
+=============================================================
+Required Jars Are
+----------------
+1. Spring web
+2. Sprng Boot dev Tools
+3. Spring Data JPA
+4. Mysql/Oracle Db /H2 DB
+====================================================
+Hibernate: 
+    create table employee (
+        eid integer not null,
+        ename varchar(255),
+        salary float(53) not null,
+        primary key (eid)
+    ) engine=InnoDB
+===================================
+Hibernate: 
+    create table emp_table (
+        eid integer not null,
+        ename varchar(255),
+        salary float(53) not null,
+        primary key (eid)
+    ) engine=InnoDB
+==================================
+Employee.java
+-----------------------
+package com.web.entity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="emp_table")
+public class Employee {
+
+	@Id
+	@Column(name="eid")
+	private int empId;
+	@Column(name="ename")
+	private String empName;
+	private double salary;
+	//PDC+PPC+PSM+PGM+ToString()
+	public Employee() {
+		super();
+	}
+	public Employee(int empId, String empName, double salary) {
+		super();
+		this.empId = empId;
+		this.empName = empName;
+		this.salary = salary;
+	}
+	public int getEmpId() {
+		return empId;
+	}
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", empName=" + empName + ", salary=" + salary + "]";
+	}
+	public String getEmpName() {
+		return empName;
+	}
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+	public double getSalary() {
+		return salary;
+	}
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+	
+}
+
+========================================
+EmployeeRepo.java
+-----------------------
+package com.web.repo;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.web.entity.Employee;
+
+@Repository
+public interface EmployeeRepo extends CrudRepository<Employee, Integer> {
+
+}
+================================================
+application.properties
+----------------------
+server.port:1234
+# Database related properties
+spring.datasource.url=jdbc:mysql://localhost:3306/excelrdb?useSSL=false&serverTimezone=UTC
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.username=root
+spring.datasource.password=root
+
+# Jpa properties/ HB related properties
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+
+
+
+
+=======================================================
+Application.java
+-----------------------
+package com.web;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+

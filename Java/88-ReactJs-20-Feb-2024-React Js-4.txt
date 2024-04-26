@@ -1,0 +1,168 @@
+
+Components 
+-----------
+
+Components are the building blocks of any React app.
+Components let you split the UI into independent, reusable pieces, 
+and think about each piece in isolation.
+Components are like JavaScript functions. They accept arbitrary inputs 
+(called “props”) and return React elements describing what should appear on the screen.
+Always start component names with a capital letter.
+React treats components starting with lowercase letters as DOM tags. 
+For example, <div /> represents an HTML div tag, but <App /> 
+represents a component requires App to be in scope.
+
+--> componets are create in 2 ways
+----------------------------------
+1. class based components
+2. function based components
+=================================
+1. class based components
+----------------------------
+A class component requires you to extend from React.Component. The class must implement a render() member function which returns a React component to be rendered, similar to a return value of a functional component. In a class-based component, props are accessible via this.props.
+
+syntax
+-------
+import React from 'react'
+
+class <ClassName> (App) extends Component
+{
+render()
+{
+return(<>
+
+      Here add elementes
+</>
+);
+}
+}
+
+-------------------------------------------
+To Save file name with App.jsx
+====================================
+ex:
+
+import React from 'react'
+class Login extends Component
+{
+render()
+{
+return(<>
+
+<h1> welcome to React class component</h1>
+<p> here write paragraph data </p>
+</>);
+}
+export default Login;
+----------------------------------------------
+Function Based component
+---------------------------
+It is a JavaScript function which accepts a single 
+“props” object argument with data and returns a React Element.
+
+syntax:
+-------
+// with java script function key word
+
+function <component_Name>(props)
+{
+return (<>
+here add elemenets
+</>
+);
+}
+==============================================
+// with arrow function 
+const component_name=(props)=>{
+return(<>
+here add elements
+</>
+}
+===================================================
+create a React JS application with class based and function based components
+-------------------------------------------------------------------
+1. Employee.jsx  (function based)
+2. Student.jsx    (class based)
+3. main.jsx
+4. index.html
+----------------------------------------
+
+
+
+Functional vs Class Component
+-------------------------------
+
+
+Use functional components if you are writing a presentational component which doesn’t have its own state or needs to access a lifecycle hook. You cannot use setState() in your component because Functional Components are plain JavaScript functions,
+
+Use class Components if you need state or need to access lifecycle hook because all lifecycle hooks are coming from the React.Component which you extend from in class components.
+
+====================================================
+We can put any valid JavaScript expression inside the curly braces in JSX. You can pass any JavaScript expression as children, by enclosing it within {}.
+Syntax:- {expression}
+Ex:- 
+const el = <h1>{10+20}</h1>
+const el = <h1> Value: {10+20}</h1>
+
+const name = “Yakub”;
+const el = <h1>Hello {name}</h1>
+
+const el = <h1>Hello {show()}</h1>
+const el = <h1>Hello {user.firstname}</h1>
+
+
+=========================================
+Ex:
+---
+import React, { Component } from "react";
+class Student extends Component
+{ 
+render()
+{
+    let rollNo=120;
+    let name="Yakub";
+    const x=()=>{
+        return 200;
+    }
+    return(<>
+    <div>
+    <h1>{120+90}</h1>
+    <h2>My Values={800+700}</h2>
+       <h1>My Name is={name}</h1>
+       <p>Hello={x()}</p>
+    </div>
+    </>)
+}
+}
+export default Student;
+===================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,164 @@
+Java Strings
+============
+1. string is a group of characters, or sequence of characters
+2. every string in java enclosed between double quootes.
+For ex:
+
+"ABC", "sandeep", "excelr", "123" "A"
+"#$%^^" "123$%"..etc.
+
+3. in String String declare with .i.e also String
+class object.
+
+4. In some other langiages, String are reprasented as arryas
+of characters. But in java Strings are reaprasented as
+a object of java.lang.String class.
+
+5. In java string declare with 3 classes
+a) String class
+b) StringBuuffer class
+c) StringBuilder class
+
+Above 3 class are given by java,lang.* packages.
+----------------------------------------------------------------
+2. String Declaration with String class
+================================================================
+There are 2 ways we declare The string in Java
+
+1. Using String literals
+
+ex:
+
+String name="SaiRam";
+String company_name="Excelr";
+String mobili_no="+91-09876543210";
+--------------------------------------------------
+2. Using new Key word
+===================================
+ex:
+
+String name=new String("Sandeeep");
+String company_name=new String("Excelr");
+String mobili_no=new String("+91-09876543210");
+
+===========================================================================
+How string objects are stored in the memory
+------------------------------------------
+--> whevever you create string obeject using string literal, those objects 
+will  stored in to string constants pool,
+ 
+--> whevever you create string object using string new keyword operator, 
+those objects will  stored in to heap memory area,
+
+--> string pool is a part of heap memory which is specially dedicated to store
+string objects. JVM allocate pool space to an objects depending upon it's
+content,These will be no objects in the string constant pool with same content.
+
+32 byte--> 
+--------------------------------------------------------------------------------
+s="abc";
+s2="abc";
+=================================================================================
+String Objects are immutable
+----------------------------
+String objects, either created using string literls or using new operators
+,are immutable in nature. that means  once you create a string object
+you con't modify that contents of the objects. 
+if you try to modify the contents of a string objects.
+a new string object is created with modified content.
+
+--> java.lang.String is create immutable string objects.
+--> java.lang.StringBuffer class is create mutable objects
+--> java.lang.StringBuilder class also create mutable objects.
+
+So string is immutable objects. and StringBuffer,StringBuider class
+are mutable Objects.
+---------------------------------------------------------------
+3. String Methods
+-------------------------------------------
+to manipulate String objects values the we need string methods
+
+we can manipulate string objectes in 2 ways
+---------------------------------------
+1. with user defined implemnetd code
+2. predefined methods  (100%) 
+
+
+--> String class Implemented predefined methods
+
+charAt()
+compareTo()
+concat()
+contains()
+contentEquals()
+copyValuOf()
+endWith()
+startsWith()
+equals()
+equalsIgnoreCase()
+format()
+indexOf()
+lastIndexOf()
+intrern()
+isEmpty()
+length()
+matches()
+replace()
+replaceAll()
+replaceFirst()
+split()
+subsequence()
+substring()
+toCharArray()
+toLowerCase()
+toUpperCase()
+trim()
+valueOf()
+=================================================
+1. write a Java program to fined lenght of given chatacters with out using function?
+
+
+public class StringLenght {
+
+	public static void main(String[] args) {
+		String str="WelcomeToExcelr";
+		System.out.println(str);
+		int lenght=0;
+		for(char ch:str.toCharArray())
+		{
+			lenght++;
+		}
+		System.out.println("the length of given string is="+lenght);
+	}
+}
+====================================================================
+2. write java code to change goven string first letters in upper case letters with out methods
+
+String str="welcome to excelr";
+
+output
+-----
+Welcome To Excelr
+------------------------------------------------------------------------------------------
+
+
+
+==========================================================================
+4. String Accessing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

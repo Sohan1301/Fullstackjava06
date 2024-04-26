@@ -1,0 +1,202 @@
+1. HTML PL
+----------
+-> the purpose of HTML programing languguage is
+to design web pages.
+HTML PL given to us some Tags
+-----------------------------
+html
+head
+title
+meta
+body
+p, br,b,i,u,strike,sup, sub
+ul,li,ol,dl,dd
+img,a
+to design forms
+---------------
+form elements
+<form>
+<input >
+<select>
+<text area>
+</form>
+--------------------------------------
+Table Tags
+-------------
+<table>
+<tr>
+<th>
+<td>
+-----------------------------------------
+--> to design web page then go with HTML
+static
+-------------------------------------
+step1: HTML--> static web pages
+Step2: web application
+collection web pages is called web application
+
+types web application
+---------------------
+1. static web application
+2. dynamic web application
+
+--------------------------------
+1. static web application
+which web page content is same for all user. that is user to 
+user content not change (fixed data).
+such kind of application static web application.
+
+ex:
+---
+about.html
+contact.html
+
+to devlop static web application we can
+use  html and css only.
+---------------------------------------------
+CSS: case cade style sheet
+---------------------------
+to add style on web pages then go with CSS
+text color, font color, background color, table border, ..etc
+
+--> HTML and CSS --->no user inter face
+------------------------------------------------------------------
+Java Script
+------------
+--> User interface (UI)---> it can chage the data in web pages
+
+2. dynamic web application
+-------------------------
+which web application content change from one user to another user
+depends on user request such kind of applications are 
+dynamic web application.
+
+ex:
+www.bookmyshow.com
+www.zoomato.com
+www.amazon.com
+===========================================================
+--> To design dynamic web applications we 
+can use Java Scripting Programing languages.
+
+topics
+--------
+variables   --> var, let ,const
+operators--> 
+control statement: 
+conditional control statement 
+if
+if-else
+it-else-if
+nested -if
+swith
+-------------------------------------
+Looping Control Statement
+1. while
+2. do-while
+3. for
+4. for each
+6. for of
+7. for in
+----------------------------------
+functions
+-----------
+--> function key word --> tradational
+--> arrow function
+------------------------------------------
+collection data types
+---------------------
+--> array   []  var rollNos=[10,20,30,40,50]
+--> object  {}  var student={id:120,name:"sai"}
+--> JSON object {}  --> var person={"id":120,"name":"sai"}
+-----------------------------------------------------------
+ES 5: object based programing language:class and objects
+ES 6 New Features : Object orientd programming language
+-----------------
+1. let ,const   variables
+2. class and object
+3. constructors --> 
+4. Inheritance  --> super()
+5. method overriding
+6. getters methods and setters method
+7. arrow functions
+8. destructring
+9. spread operators
+10. call back function
+11. clousers
+12. Promises 
+-------------------------------------------------------------
+1. why React JS?
+2. what is React JS?
+3. Advantages of React JS?
+4. to learn React JS what prerquisites are Required
+-----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

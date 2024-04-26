@@ -1,0 +1,198 @@
+React Appn For To Display Mulitple Elenents in Template
+-------------------------------------------------
+Required Files
+-------------
+1. First.jsx
+2. main.jsx
+3. index.html
+----------------
+First.jsx
+-----------
+import React from "react";
+function First()
+{
+    //return(React.createElement('h1',null,'Welcome To React Js Application'))
+   // return (<h1> Welcome to React Js</h1>); //by using JSX
+   
+return (
+//<React.Fragment>
+<>
+<h1>Hello React</h1>
+<h2>Hello React UI Application</h2>
+<h3>WELCOME TO EXCELR</h3>
+</>
+//</React.Fragment>
+   );
+}
+
+export default First;
+=============================================================================
+main.jsx
+--------
+
+import React from "react"
+import ReactDOM from "react-dom"
+import First from "./First"
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <First />
+  </React.StrictMode>,
+)
+==========================================
+index.html
+-------------
+<div id="root"></id>
+===============================================
+
+-----------------------------------------------------------------
+ReactDOM.createRoot(document.getElementById('root')).render()
+---------------------------------------------------------------------
+It takes a React Element and render it to a DOM node.
+
+Syntax:- ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <First />            <App />
+  </React.StrictMode>,
+)
+
+The first argument is which component or element needs to render in the dom.
+The second argument is where to render in the dom.
+=========================================================================
+React Application for multiple components Rendering into Template file
+-----------------------------------------------------------------
+Requied Files Are
+-----------------
+1. Home.jsx
+2. Login.jsx
+3. Register.jsx
+4. main.jsx
+5.index.html
+===================
+Home.jsx
+--------
+import React from "react";
+function Home()
+{
+    return(
+    <>
+    <div>
+    <h1>Welcome To Home Page</h1>
+    </div>
+    <div>
+    <h1>Welcome To Home Page2</h1>
+    </div>
+    <div>
+    <h1>Welcome To Home Page3</h1>
+    </div>
+    </>
+    )
+}
+export default Home;
+--============================================
+Login.jsx
+-----------
+import React from "react";
+function Login()
+{
+    return(
+        <>
+        <div>
+<h1>User Login Form</h1>
+User Name:<input type="text" name="name"></input><p></p>
+Password:<input type="password" name="password"></input><p></p>
+<input type="submit" value="Login"></input>
+        </div>
+        </>
+    )
+}
+export default Login;
+==============================================================
+Register.jsx
+------------
+import React from "react";
+
+const Register=()=>{
+return(<>
+<div>
+ <h2> Welcome To Registration Component</h2>
+</div>
+
+</>)
+
+}
+export default Register
+================================================================
+main.jsx
+-----------
+import React from "react"
+import ReactDOM from "react-dom"
+import Home from "./Home"
+import Login from "./Login"
+import Register from "./Register"
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <Home />
+    <Login />
+    <Register />
+  </React.StrictMode>,
+)
+
+=================================================
+index.html
+------------
+  <div id="root"></div>
+=================================================
+
+creating element 2 ways
+----------------------
+1. react.createElement()---> 
+<>
+
+react.createElement(p,null,"sdfghjklsdfgh");
+react.createElement(h1,null,"hello");
+react.createElement(a,null,"google");
+
+<p>sdfghjkl;dfgh</p> JSX
+
+
+babel
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

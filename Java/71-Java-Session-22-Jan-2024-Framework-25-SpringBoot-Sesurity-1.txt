@@ -1,0 +1,217 @@
+Spring security Provide In 2 Level Application
+----------------------------------------------
+1. Application Server security 
+ex: facebook, gmail...etc
+
+2. Application Level Security
+Rest API --> 
+My self with in single oraganisation
+ex
+---
+UserManagementApplication
+EmployeeInvoice   etc.
+
+
+
+
+
+
+
+
+Spring Security
+-------------------
+Spring Security is a powerful and highly customizable authentication and access-control framework. It is the de-facto standard for securing Spring-based applications.
+
+Spring Security is a framework that focuses on providing both authentication and authorization to Java applications. Like all Spring projects, the real power of Spring Security is found in how easily it can be extended to meet custom requirements
+
+Features
+Comprehensive and extensible support for both Authentication and Authorization
+
+Protection against attacks like session fixation, clickjacking, cross site request forgery, etc
+
+Servlet API integration
+
+Optional integration with Spring Web MVC
+
+----------------------
+Why Spring Security
+-------------------------------
+. Login and logout functionality.
+.Allows/blocks access to URL to logged in user.
+.Allows/block access to URL to logged in user. AND
+with certian roles.
+------------------------------------------------------
+What Spring Seurity Can Do
+-------------------------------------------
+--> User Name /password authorization
+--> SSO /Okta/LDAP
+--> App Level Securiry
+--> Intra App Authorization.
+--> MicroServices Securiry (Using (tokens,JWT)).
+--> method Level Security
+
+====================================
+What We Need for Provide Security
+---------------------------------------------------
+To provide Spring security we must follows 5 Key Points
+---------------------------------------
+1. Authentication
+2. Authorization
+3. Principal
+4. Granted Authority
+5. Roles
+
+
+
+
+===================================
+What is Spring security?
+----------------------------
+Spring Security is a powerful and highly customizable 
+authentication and access-control framework. 
+It is the de-facto standard for securing Spring-based applications.
+
+
+Spring Security is a framework that focuses on 
+providing both authentication and 
+authorization to Java applications. 
+Like all Spring projects, the real 
+power of Spring Security is found 
+in how easily it can be extended to meet custom requirements.
+=====================================================
+Features
+---------
+--> Comprehensive and extensible support for both 
+Authentication and Authorization
+
+--> Protection against attacks like session fixation, 
+clickjacking, cross site request forgery, etc.
+
+--> Servlet API integration
+
+
+
+
+
+
+Optional integration with Spring Web MVC
+===================================-======
+--------------------------------------------------
+1. Knowledge based Security: 
+id
+name
+password
+zipcode
+personal quetions.
+----------------------------------------------------------
+2. Possision based security
+---------------------------------- 
+---> face scan
+---> biometrics
+--> key cards
+--> mobile number/Text messages
+--> Access Token devices
+
+3. multi factor security: 
+combination of 
+Knowledge based Security and Possision 
+based security
+is known as multi factor security.
+===========================================================
+
+
+
+How To Add Spring Security to Spring Boot Appn
+----------------------------------------------------------------
+Step1: create spring Boot Appn
+Step2: Add Spring web dependency
+Step3: Add 
+Step4:Create Controller Classs --> @RestContoller
+Step5: App.java   --> @SpringBootApplication
+------------------------------------------------------------------
+
+To Add Security to Spring Boot Application 
+in pom.xml file add 
+spring-boot-starter-security      dependecy
+
+www.mvnrepository.com
+
+--> it can provide default security
+i.e
+user name is : user
+password is: generated password
+-------------------------------------------------
+to customized spring security with single user then add following two lines 
+code in 
+application.properties 
+writer following 2 lines code
+
+spring.security.user.name=yakub
+spring.security.user.password=yakub
+----------------------------------------------------------------------
+MyController.java
+-------------------------
+
+package com.sai.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MyController {
+
+	@GetMapping("/")
+	public String home()
+	{
+		return("<h1>Welcome To Spring Security</h1>");
+	}
+}
+
+=============================================
+application.properties
+---------------------------
+server.port:9000
+spring.security.user.name=yakub
+spring.security.user.password=yakub
+
+
+====================================
+To Add Spring Security to Your Spring Boot Application Add 
+
+spring-boot-starter-security    dependency
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+    <version>2.7.8</version>
+</dependency>
+===============================================
+
+To activate Spring Security by using user name and password
+
+Here Default user name is: user
+and Default generated security password is: 
+0987tyh-9878765-987654-87654
+
+Note:  when we run spring appn every time new  
+password will generate.
+
+This is a Default Spring security
+==========================================================
+
+
+
+
+
+==========================================================
+To customize Spring security in your Application
+
+in application.properties file write following two lines codes
+
+spring.security.user.name=yakub
+spring.security.user.password=yakub
+===========================================================
+
+
+
+
+

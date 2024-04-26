@@ -1,0 +1,176 @@
+Servlet
+---------
+Servlet Technology is used to create web applications. 
+Servlet technology uses Java language to create web applications.
+
+A Servlet is a Java program that runs on a Web server. 
+The basic aim of servlet is to develop web applications. 
+Servlet technology is robust and scalable because of java language.
+ 
+There are many interfaces and classes in the Servlet API such as Servlet, 
+GenericServlet, HttpServlet, ServletRequest, ServletResponse, etc.
+
+IMPORTANT POINTS
+----------------
+•	Servlet is a technology which is used to create a web application.
+•	Servlet is an API that provides many interfaces and classes including documentation.
+•	Servlet is an interface that must be implemented for creating any Servlet.
+•	Servlet is a class that extends the capabilities of the servers and 
+responds to the incoming requests. It can respond to any requests.
+• Servlet is a web component that is deployed on the server to create a 
+dynamic web page or web applications.
+
+---------------------------------------------------------------
+Q: what is web application?
+Ans: which application create with dynamic web pages run in browser
+through internet is called web applications.
+ex:
+www.facebook.com
+www.amazon.com
+www.bookmyshow.com
+---------------------------------------------------
+2. Types of web application?
+
+by using servlet we can dev lop 2 types of web applications
+1. static web appllications
+2. dynamic web application
+
+-----------------------------------------------------------
+1. static web appllications
+---------------------------
+The static web application directly delivers the content to the end user’s browser without fetching any data from the server. Most static web apps are having fixed data.
+Languages are used to develop static web applications?
+HTML, CSS are used to develop most static web applications.
+
+ex:
+
+contact.html
+about.html
+------------------------------------------------------------
+2. Dynamic Web Applications
+---------------------------
+A web application that generates the data in real-time based on the user’s request and server response, is known as a dynamic web application.
+
+Let us take an example to understand dynamic web apps.
+
+When you log in to Netflix, it will show you the movie or series 
+recommendations based on your choice. In case you select 
+the action movies to watch, Netflix will show more action 
+movie recommendations based on your selection.
+Ex:
+Facebook, amazon, flipkart, gamil, youtube etc.
+==========================================================================
+q: what is browser?
+Ans: browser is a application software , the purpose of browser is 
+to takes user http request send to server and get back http response. 
+here send Request and ger response with Http Protocol.
+--> Browser can also execute .html,.css and .js code also.
+HTML ---> designing  static web pages
+CSS--> add styles in HTMl pages
+JS --> to perform validtions.
+
+ex: chrom, opera mini,moziilfireFox. ie.....etc
+========================================================================
+Q: What is server and purpose?
+
+ans:  sevser also application software, The purpose server is 
+to takes http request from browser , process into server ,then gives back to 
+httpresonse  to the browser.
+
+ex:  tomcat server
+jetty, glashfish, jboss...webspare....etc
+
+--> .java  (servlet class) and .jsp files must execute in side the server only.
+
+====================================================================
+HTTP
+-------------------------
+--HTTP stands for Hyper text transfor Protocol
+--> The use of HTTP protocol is to enable connection from cilent mechine to (browser)
+server mechine (server). Trans for Data or information.
+
+
+HTTP can do two Things
+ HttpRequest 
+  HttpResponse
+===============================================================================
+JDBC
+-------
+--> Java Data Base connectivety
+--> to enabled connection from java applications to any relational data bases.
+--> And to perform CRUD operations.
+
+C--> create   (tables and DATA BASES ALSO)
+R--Read--------------> select
+U---> insert and Update  ---> insert and update
+D --> delete    ---> delete
+------------------------------------------------------------------------------
+Servlet API
+---------------
+Servlet API Having a 2 types of packages
+1. javax.servlet.*
+2. javax.servlet.http.*
+-------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

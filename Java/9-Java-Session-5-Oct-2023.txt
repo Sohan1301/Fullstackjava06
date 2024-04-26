@@ -1,0 +1,275 @@
+Looping Control Statements
+---------------------------
+1. while loop
+2. for loop
+3. nested for loop
+4. for-each loop
+----------------------
+4. for-each loop
+--------------------
+--> for each loop also print multpile values from given object.
+--> it is used to traverse values from object (array object,list object
+set object and map object) to user defined variable.
+
+syntax
+--------
+for(data_type variable_name:object _name)
+{
+stmt;
+}
+-----------------------------------------
+ex:
+---
+
+public class ForEach {
+
+	public static void main(String[] args) {
+		int marks[]= {10,20,40,50,60,40,80,90};
+		// accessing marks by using indexing
+		System.out.println(marks[1]);
+		System.out.println(marks[7]);
+		System.out.println(marks[6]);
+		System.out.println(marks[4]);
+		System.out.println("======================");
+		//by using for loop
+		for(int i=0; i<8; i++)
+		{
+			System.out.println(marks[i]);
+		}
+		System.out.println("======================");
+		//by using for each loop
+				for(int mark:marks)
+				{
+					if(mark==40)
+					System.out.println(mark);
+				}
+	}
+
+}
+
+==========================================================
+names[]={"sai","ram","jai","sunil","gopal","samanth","pooja"};
+------------------------------------------------------------------
+transfor control statements
+--------------------------------
+1. break
+2. continue
+------------------
+1. break
+--> the break control statement used to inside while loop
+and inside for loop. when break is executed the flow execution
+can stop at the given condition.
+
+syntax:
+------
+for(initalilization; condition; incr/decr)
+{
+if(condition)
+{
+stsmt;
+break;
+}
+}
+}
+-----------------------------------
+ex1:
+-----
+
+public class ForEach {
+
+	public static void main(String[] args) {
+		int rates[]={10,40,60,600,90,700};
+		//by using for each loop
+				for(int rate:rates)
+				{
+					if(rate>=500)
+						break;
+					System.out.println(rate);
+					
+				}
+	}
+}
+======================================================
+1. continue
+--> the continue control statement used to inside while loop
+and inside for loop. when continue is executed. which condition is satiesfies that stament
+won't print reamainig all the statement will be printed.
+
+
+syntax:
+-------
+for(initalilization; condition; incr/decr)
+{
+if(condition)
+{
+continue;
+stsmt;
+}
+}
+}
+======================================================
+ex2:
+-----
+
+public class ForEach {
+
+	public static void main(String[] args) {
+		int rates[]={10,40,60,600,90,5,3,700,15,900};
+		//by using for each loop
+				for(int rate:rates)
+				{
+					if(rate>=500)
+						continue;
+					System.out.println(rate);	
+				}
+	}
+}
+==========================================================
+ex1: with loop (break/continue)
+-------------------------------
+
+public class ForEach {
+
+	public static void main(String[] args) {
+		int rates[]={10,40,60,600,90,5,3,700,15,900};
+		int l=rates.length-1;
+		int i=0;
+		while(i<=l)
+		{
+			if(rates[i]>=500)
+			{	
+				i++;				
+				//break;
+				continue;
+			}
+			System.out.println(rates[i]);
+			i++;
+		}
+	}
+}
+==============================================================
+java input methods
+--------------------------------
+we have 4 ways
+--------------------
+1. command line arguments  (values read from command propt)
+2. InputStremReader class  ( connect to keyborad to out pc)(System.in)
+3.BufferedReader class  (read() --> char ** readLine()  --> string)
+--> wrapper class --> Integer/Double...etc.
+
+4. Scanner class  (Recomended one)
+-----------------------------
+4. Scanner class  (Recomended one)
+===============================================
+--> Scanner class in java found in the java.util package.
+java provides various ways to read input from the key board.
+
+one of the concept is calles Scanner class.
+
+--> scanner class is used to read values from keyboard
+at run time dynamically.
+it is like a scanf() function in c programming language.
+
+ex:
+---
+import java.util.Scanner;
+import java.util.*;
+-----------------------------------------
+Scanner implemented input methods
+-----------------------------------------
+1. next(): the use of next() method is takes string values from
+keyboard at run time.
+2. nextByte(): the use of nextByte() method is takes pure value (integer) value from
+keyboard at run time.
+
+3.nextShort(): used to takes number value from keyboard at run time.
+4. nextInt(): used to takes integer number from keyboard at run time
+
+5. nextfloat(): used to takes decimal/float value from keyboard at run time
+6. nextDouble(): used to takes double value from keyboard at run time
+
+7. nextBoolean(): used to takes boolean value from keyboard at run time.
+8.  obj.next().charAt(0):   used to takes char input from keyboard.
+9. nextLine(): takes string     
+========================================================================
+ex:
+----
+Java Program for Student Deatils
+
+stdid   --> nextInt()
+stdName  --> next()
+fee  --> nextDouble()
+course  --> next()
+section  --> char --> A,B
+-------------------------------------
+import java.util.*;
+public class Addition {
+
+	public static void main(String[] args) {
+		int stdId;
+		String name,course;
+		char section;
+		
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter Student id ");
+		stdId=sc.nextInt();
+		System.out.println("Enter Student Name ");
+		name=sc.next();
+		
+		System.out.println("Enter Student course ");
+		course=sc.next();
+		
+		System.out.println("Enter Student section ");
+		section=sc.next().charAt(0);
+		
+		System.out.println(stdId+"\t"+name+"\t"+course+"\t"+section);
+		
+		
+	}
+}
+=======================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

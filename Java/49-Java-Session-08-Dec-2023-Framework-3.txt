@@ -1,0 +1,310 @@
+Spring Modules
+----------------
+1. spring core
+2. spring jdbc (DAO)
+3. Spring ORM
+4. spring aoP
+5. spring j2ee
+6.spring web_mvc
+--------------------------------------------------
+spring is a light weight frame work becouse of 
+POjO and poji
+--------------------------------------------------
+POJO
+-----------------
+--> POJO STANDS for plain old java object.
+--> the use of pojo is reuseablity and readability of programm.
+--> pojo class not stict with any frame works
+we can any where.
+--> for pojo class not required any special class path.
+---------------------------------------------------------------------
+Rules For POJO class
+-----------------------
+1. class must be public
+2. All instance variables are private
+3. must having a public default constructor
+4. may or may not public parametrazied constructor.
+5. Must Be All public setters methods and public getters methods
+setters purpose are writing new data.
+getters purpose are reading the existing data.
+6. POJO class won't force extends / implements ant predefined
+class or interfaces.
+--------------------------------------------------------------------
+ex:
+---
+public class Student 
+{
+private int stdId;
+private String stdName;
+private dobble salary;
+//PDC+PSM+PGM
+public Student()
+{
+}
+public void setStdId(int stdId)
+{
+this.stdId=stdId;
+}
+public void setStdName(String stdName)
+{
+this.stdName=stdName;
+}
+public void setSalary(double salary)
+{
+this.salary=salary;
+}
+public int getStdId()
+{
+return stdId;
+}
+public String getStdName()
+{
+return stdName;
+}
+public double getSalary()
+{
+return salary;
+}
+}
+==============================================================
+Product
+----------
+pid
+pname
+price
+quantity
+
+public class Product
+{
+private int pid;
+private String pname;
+public Product
+{
+}
+public void setPid(int pid)
+{
+this.pid=pid;
+}
+public void setPname(String pname)
+{
+this.pname=pname;
+}
+public int getPid()
+{
+return pid;
+}
+public String getPname()
+{
+return pname;
+}
+}
+
+--------------------------------------------------------------
+POJI
+-----
+PoJI stands for plain old java interface
+--> in other we can say that POJI is an oredinary interface
+without any spacility that is not inherited from any of the technology API 
+specific interface or Framework interface.
+--> The pupose of POJI is provide Common functionalities
+for J2ee application (web appications).
+
+ex:
+---
+@Repository
+interface EmployeeRepo extends CrudRepository<Employee,Integer>
+{
+}
+======================================================================
+1. Spring Core
+--------------------
+Prerequiesites for Spring Core from Core Java:
+-----------------------------------------------
+1.Class types
+	1.Singleton class
+	2.Default  clas
+2.How many ways we can create an object for class?
+3.Constructor Vs Setter
+4.List, Set, Map and  Properties interfaces 
+from collection Frame work?
+=====================================================
+2.How many ways we can create an object for class?
+Ans : basically for class we can create a object in ways
+1. By using instance variables
+2. By Using class methods
+3. by using constrcutors
+4. by using setters methods
+-----------------------------------------------------------
+4. by using setters methods
+----------------------------
+public class Employee
+{
+private int id;
+private String name;
+public Employee(){}
+public void setId(int id)
+{
+this.id=id;
+}
+public void setName(String name)
+{
+this.name=name;
+}
+public int getId()
+{
+return id;
+}
+public int getName()
+{
+return name;
+}
+public static void main(String args[])
+{
+// creating object
+Employee e1=new Employee();
+//Initailize the object
+e1.setId(101);
+e1.setName("Yakub");
+//calling or processing methods
+SOP(e1.getId()+"\t+e1.getName());
+}
+}
+--------------------------------------------
+In core java class Object life cycle
+--------------------------------------------
+1. for provide memory to the class programmer create an object by using
+class name with help of new key word.
+2.to initailize object into class by the programmer.
+3.to process method into class by the programmer.
+4. destroyee the object.(JVM) 
+===============================================================
+2. By using constructor
+-----------------------------
+public class Employee
+{
+private int id;
+private String name;
+
+public Employee(int id,String name)
+{
+this.id=id;
+this.name=name;
+}
+
+public void printEmployee()
+{
+SOP(id+"\t+name);
+}
+
+public static void main(String args[])
+{
+// creating object +Initailize the object
+Employee e1=new Employee(101,"Yakub");
+//calling or processing methods
+e1.printEmployee();
+}
+}
+===========================================================
+2.Class Types/object Types
+--------------------------
+1.Class types:
+==============
+1.Singleton class	: 
+A class allow you to create single object --> (Customized): 
+2.default class	: A class allow you to create multiple object--> (Default)
+(prototype class)
+
+-----------------------------------------------
+SingleTon class
+-----------------
+Singleton class in Java
+-------------------------------
+--> A Singleton class in Java allows only one instance to be created and 
+provides global access to all other classes through this 
+single object or instance. 
+--> The primary purpose of Singleton class is to restrict the limit of 
+the number of object creation to only one. 
+--> The memory space wastage does not occur with the use of singleton 
+class because it restricts the instance creation. 
+--> As the object creation will take place only once instead of 
+creating it each time a new request is made.
+
+============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,143 @@
+To Connect With Java Application with data base
+---------------------------------------------------------------------
+finally to connect Java Applications with any relational data Base
+we are using following 5 statements
+
+try
+{
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection con=Drivermanager.getConnection("jdbc:
+mysql://localhost:3306/db_name","root","root");
+Statement stmt=con.createStatement();
+int i=stmt.executeUpdate("insert into emp values(101,'aryan')");
+con.close();
+}
+catch(Exception ex)
+{
+SOP(ex);
+}
+}
+=============================================================
+To create Any JDBC applications now am going to creating project in 
+eclipse IDE  (maven Tool);
+--------------------------------------------------------------------------------------------------------
+1. Data Base  (Mysql data base)
+2. Eclipse IDE    --> maven project for JDBC applications
+3. JDK  (java Software)
+-----------------------------------------------------------------
+mysql> create database excelrdb;
+Query OK, 1 row affected (0.11 sec)
+
+mysql> use excelrdb;
+Database changed
+mysql> show tables;
+Empty set (0.11 sec)
+
+mysql>
+==============================================
+Write JDBC code for creating Tables in excelr Data base
+------------------------------------------------------------------------------
+package com.excelr;
+import java.sql.*;
+public class CreateTable {
+
+	public static void main(String[] args) {
+		try
+		{
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+		Statement stmt=con.createStatement();
+		stmt.executeUpdate("create table employee(empId int(30),empname varchar(40),email varchar(40),address varchar(40))");
+		System.out.println("New table successfully Created");
+		con.close();
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+
+	}
+
+}
+
+
+==========================================================================
+2. Jdbc code for InsertEmployee Records in Excelr DataBase
+---------------------------------------------------------------------------------
+package com.excelr;
+import java.sql.*;
+public class InsertRecord {
+
+	public static void main(String[] args) {
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Statement stmt=con.createStatement();
+			int i=stmt.executeUpdate("insert into employee values(333,'amulya','ammu@gmail.com','delhi')");
+			System.out.println(i+"New Employee Record Inserted successfully........");
+			con.close();
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+
+	}
+}
+==========================================================================
+output
+==========
+mysql> select *from employee;
++-------+---------+-----------------+---------+
+| empId | empname | email           | address |
++-------+---------+-----------------+---------+
+|   111 | vinay   | vinay@gmail.com | hyd     |
+|   222 | ajay    | ajay@gmail.com  | hyd     |
+|   333 | amulya  | ammu@gmail.com  | delhi   |
++-------+---------+-----------------+---------+
+3 rows in set (0.00 sec)
+
+======================================================================
+update Record:
+--------------------
+("update employee set empname='vinaykumar',email='vinny@gmail.com', address='hyderbad' where empid=111");
+
+delete
+----------
+("delete from employee where empid=222");
+===========================================================================
+Create Table Name With: Mobile_Data
+-----------------------------------------------------
+modelNo
+modelName
+companyName
+ram_size
+rom_size
+os_name
+f_cam_size
+b_cam_size
+processor_name
+imei_no
+description
+---------------------------
+create Table
+insert ------------> 10 records
+update ----------> minimum 2 records
+delete ----------> 1 Records
+---------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,135 @@
+Java frameworks
+--------------------
+1. Hibernate
+2. Spring
+3. spring boot
+-------------------------------------
+1.Hibernate
+-----------
+spring data jpa (Hibering)
+--------------------------------------
+Hibernate Introduction
+-------------------------
+What is Hibernate:
+++++++++++++++++++
+--> Hibernate is the ORM tool given to transfer the 
+data between a java (object) application 
+and a database (Relational) in the form of the objects. 
+ 
+--> Hibernate is the open source light 
+weight tool given by Gavin King.
+
+--> Hibernate is a non-invasive framework,  
+means it wont forces the programmers to 
+extends/implement any class/interface,
+ --> and in hibernate we have all POJO 
+classes so its light weight.
+
+POJO stands: for plain old java object:
+POJI: stands for plain old java interface
+
+--> Hibernate can runs with in or with out server, 
+i mean it will suitable for all types of java applications 
+(stand alone or desktop or any servlets and jsp appn.).
+
+--> Hibernate is purely for persistence 
+(to store/retrieve data from Database).
+
+Hibernate persistence methods are
+-------------------------------------------
+1. session.save(object)  --> create, insert and update
+2. session.update(object)  ---> update
+3. session.delete(object) --> delete
+4. session.load(object) ---> select
+5. session.get(object)-->  select 
+=============================================
+Spring Frame work
+---------------------------------
+--> Spring is a open source ,light weight framwork given by
+rod jhonson in the year of 2003.
+
+--> spring is non-invasive frame work. that means i spring 
+which class and intefeces creating that classes and interface
+won't force the programmer extends and implements with
+predefind pacakeags.
+
+--> **the puprose of spring frame work is to devlop web applications
+with consice code.
+
+--> spring is light weight frame work becouse of POJO
+and POJI model.
+
+www.spring.io
+----------------
+why spring famous 
+-----------------
+--> spring is every where
+--> fast
+--> secure
+--> suporrotive
+--> open source and light weight
+--> resctive
+---------------------------------------------
+--> to  dev spring web application spring frame work given 6 modules
+---------------------------------------------------------------------
+1. spring core
+2. spring jdbc (DAO)
+3. spring ORM
+4. spring AOP
+5. spring j2ee
+6. spring web_mvc
+------------------------------------------------------------------
+spring modules archetectue
+--------------------------
+
+Here Spring core is a base moudle of all other 5 modules
+-----------------------------------------------------------
+Spring frame work version
+----------------------------
+spring 1.x
+spring 2.x
+spring 3.x
+spring 4.x
+spring 5.x
+spring 6.x
+The current version of spring f/w is 6.x
+-------------------------------------------------
+Spring Boot Versions
+-------------------------
+Spring Boot 1.x
+spring Boot 2.x
+Spring Boot 3.x   running
+--------------------------------------------------
+Spring Content or road Map
+---------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

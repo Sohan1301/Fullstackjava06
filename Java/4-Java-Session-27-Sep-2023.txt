@@ -1,0 +1,257 @@
+Java variables
+---------------
+--> A variable is a container which hold the value.
+while the Java Program is executed.
+--> A Variables is assigned with a data type.
+--> Variable is a name of memory location.
+--> purpose of variables are to supply values to the
+programm.
+--> in variable what value you given that value not constant
+every value will be change.
+
+Declaration of variables
+----------------------------
+we can declare variable in 2 ways
+1. static declration
+2. dynamic declaration
+
+1. static declration
+------------------------
+syntax
+------
+datatype variable_name=value;
+
+ex:
+int age=20;
+double salary=9000.00;
+
+===================================
+2. dynamic declaration
+
+--> just declara varaible after read data from the keybord.
+
+syntax
+--------
+data_type variable_name;
+
+ex:
+---
+String name;
+int rollNo;
+float rate;
+char ch;
+--------------------------------------
+Types of Variabes In Java
+-----------------------------
+1. Instance Variables
+2. static variables
+3. local variables
+4. method parameter variables
+5. reference variables
+---------------------------------
+int x=120;
+-------------------------------
+public class VariableExample
+{
+
+
+
+public static void main(String args[])
+{
+
+System.out.println("Hell world");
+
+}
+
+}
+==============================
+Instance variables: which variable declare inside the class
+such type of variables are instance variable.
+
+2. static variables: which variable declare inside class and out side
+method with static key word is known as static variables.
+
+3. local variables:  which variable declare inside method
+is known as local variables.
+
+4. method parameter variables: if varaible  define inside as
+a method parameter/orguments. is known as method parameter variables.
+
+5. reference variables: which variable declare with class names
+is called reference variables.
+==============================================================
+Operators
+------------
+--> operators are symbols (+-/><%&&||....etc)
+--> purpose of operaters to perform some operation
+between the operands.
+
+Java operators Are
+-------------------
+1. Arthametic Operators
+2. Relational or comparision operators
+3.Logical Operators
+4. Bitwise Operators
+5. Assignment operators
+6. Increament and decrement operrators
+7. Ternary operators
+--------------------------------------------------
+1. Arthametic Operators
+-----------------------------------
+--> if your perform mathametic operations for calculation the go for
+Arthametic Operators
+
+Operators
+-------------
++    -      *      /     %
+-----------------------------------
+int x=10,y=5;
+
+opeartors              Evaluation
+
++                      x+y  -->10+5 --> 15
+-                      x-y  --> 10-5  --> 5
+*                       x*y  --> 10*5  --> 50
+/                       x/y   --> 10/5   --> 2
+%                        x%y    --> 10%5   --> 0
+=================================================
+write Java code to perform Addition of Two number?
+-----------------------------------------------
+/* Decompiler 1ms, total 555ms, lines 9 */
+public class Addition {
+   public static void main(String[] var0) {
+      byte var1 = 20;
+      byte var2 = 40;
+      int var3 = var1 + var2;
+      System.out.println("Addition of Two numbers is =" + var3);
+   }
+}
+======================================
+output
+---------
+to compile java code
+then use command is: C:\java>javac Addition.java
+
+to run java code then use 
+
+C:\Java>java Addition
+
+Addition of Two numbers is =60
+==================================
+2. Write Java code to fined area of circle?
+3. write a java program  to find arear rectangle?
+4. write a java program for simple interest?
+5. write a java program average of 3 numbers?
+6. write a java program for compound interest?
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

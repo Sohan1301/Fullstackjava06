@@ -1,0 +1,200 @@
+SPA: single page application
+------------------------------
+To implements SPA
+0.react-router
+1. react-router-dom@6
+2. creatting our components
+3. Making links---<Link to="/path_name">Link1</Link>
+4. {Routes,Route}
+<Routes>
+<Route path="  "><comp/></Route>
+<Routes>
+5. <BrowserRoutes>   --> for web application Routing purpose
+-------------------------------------------------------
+React Axios
+-------------------
+--> In ReactJS, Axios is a library that serves to 
+create HTTP requests that are present externally.
+
+-->  It is evident from the fact that we may 
+sometimes in React applications
+ need to get data from the external source. 
+
+--> It is quite difficult to fetch such data so that they 
+can be normally shown on the website.
+
+ Thus, it helps in retrieving the data thereby 
+adding it to the state to facilitate the application
+ whenever the requirement arises.
+
+--> Additionally, react Axios is very easy to 
+modify and is quite lightweight. 
+It also works great with many other frameworks present today.
+
+****--> The main purpose of using Axios is to get s
+upport for request and response 
+interception, conversion of data into JSON format, 
+and transform it.  (JSON object recomended one).
+
+--> It also helps you in protecting XSRF forgery
+ by default while you request cross-site access.
+
+****--> Axios is promise-based, which gives you the 
+ability to take advantage
+ of JavaScript's async and await 
+for more readable asynchronous code.
+
+
+Async:
+----- 
+It simply allows us to write promises-based code as if 
+it was synchronous and it checks that we are not breaking 
+the execution thread.
+ 
+It operates asynchronously via the event loop. 
+Async functions will always return a value. 
+It makes sure that a promise is returned and if 
+it is not returned then JavaScript automatically 
+wraps it in a promise which is resolved with its value.
+
+Await: Await function is used to wait for the promise. 
+It could be used within the async block only. 
+It makes the code wait until the promise returns a result. 
+It only makes the async block wait.
+----------------------------------------------------------
+Then, you'll need to run this command to install Axios.
+
+npm install axios  
+
+--------------------------------------------------------
+Exp1:
+--------
+import { useRef,useState } from "react";
+import axios from "axios";
+const GetEx2=()=>{
+    const [arr,setArr]=useState([]);
+
+    const ref1=useRef(null);
+
+    const fetch_data=()=>{
+        getData();
+    }  
+    
+    const getData=async ()=>{
+        const res=await axios.get(`https://reqres.in/api/users?page=${ref1.current.value}`);
+        const {data:x}=res;
+        const {data}=x;
+        setArr(data);
+    }
+    return(
+        <>
+            <input type="number" ref={ref1}></input>
+            <button onClick={fetch_data}>GetData</button>
+            <br></br>
+            {
+                arr.length!=0?(<table border={1}
+                    align="center"
+                    cellSpacing={10}
+                    cellPadding={10}>
+                  <tr>
+                      <th>id</th>
+                      <th>first_name</th>
+                      <th>last_name</th>
+                      <th>email</th>
+                      <th>avatar</th>
+                  </tr>
+                  {
+                      arr.map((element,index)=>{
+                          return(
+                              <tr key={index}>
+                                  <td>{element.id}</td>
+                                  <td>{element.first_name}</td>
+                                  <td>{element.last_name}</td>
+                                  <td>{element.email}</td>
+                                  <td><img src={element.avatar}></img></td>
+                              </tr>
+                          )
+                      })
+                  }
+            </table>):(<i className="fa fa-spin fa-spinner"></i>)
+            }
+        </>
+    )
+}
+export default GetEx2;
+==============================================
+
+
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+import GetEx2 from './components/GetEx2.jsx'
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <GetEx2 />
+)
+=======================================================================
+React Integration With Spring Boot Application
+for Get Records
+-----------------------------------------------
+import { useEffect,useState } from "react"
+import axios from "axios";
+const GetExp2=()=>{
+    const [arr,setArr]=useState([]);
+    const getData=async ()=>{
+        const res=await axios.get("http://localhost:7000/getAll");
+        const {data}=res;
+        setArr(data);
+    }
+    useEffect(()=>{
+        getData();
+    },[]);
+    return(
+        <>
+             <div className="container mt-5">
+                <table border={1}>
+                    <thead>
+                        <tr>
+                            <th>EID</th>
+                            <th>ENAME</th>
+                            <th>SALARY</th>
+                            <th>DESINGATION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            arr.map((element,index)=>{
+                                return(
+                                    <tr key={index}>
+                                        <td>{element.empId}</td>
+                                        <td>{element.empName}</td>
+                                        <td>{element.salary}</td>
+                                        <td>{element.designation}</td>
+                                        
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+             </div>
+        </>
+    )
+}
+export default GetExp2;
+==============================================
+In spring Boot Rest API Application 
+In RestController Class
+Add Annotation is called
+
+@RestController
+@CrossOrigin(origins = { "*" })
+public class EmployeeController {
+
+====================================
+Then Run Rest API Application
+add URL in axios method in React Component
+With Running Port Number and Requested URL
+--------------------------------------------------
+
+

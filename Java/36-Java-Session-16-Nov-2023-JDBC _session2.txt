@@ -1,0 +1,260 @@
+
+To Enable connection and perform crud oprtaions with jdbc
+we having 5 steps
+1. Register The driver class
+2. Create connection
+3. Create statement 
+4. execute SQL queries in data base
+5. close The connection
+--------------------------------------------------------------
+1. Register The driver class
+------------------------------
+The forName() method of Class class is used to load the driver class in 
+java application at run time dynamically.
+
+Stament1: 
+ Class.forName("com.mysql.cj.jdbc.Driver");
+
+===========================================================
+2. Create connection
+--------------------------------------------------------
+The create connection with data base by using getConnection() method of
+DriverManager class is used to create connection.
+
+Statement:
+----------
+   Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/database_name","
+"root","root");
+-----------------------------------------------------------------
+3. create statement
+----------------------------------------------------------------
+Basically in jdbc we can create sql statement by using 3 Insterfaces
+1. Statement
+2. PreparedStatement 
+4. Callable
+--------------------------------------------------
+1. Statement
+--------------
+ex: DDL (create,alter,drop...etc).
+
+1.The createStatement() method of Connection interface
+is used to create statement. the object of Statement
+is responsible to create static SQL queries
+and execute in Data Base.
+
+statement
+----------
+Statament stmt=con.createStatement(); 
+
+==================================================
+PreparedSatement
+-----------------
+1.The prepareStatement() method of Connection interface
+is used to create statement. the object of PreparedStatement
+is responsible to create Dynamic SQL queries and execute in Data Base.
+
+
+Statement
+----------
+PreparedStatement ps=con.prepareStatement("insert into emp values(?,?,?)");
+
+--------------------------------------------------------------
+CallableSatement
+-----------------
+1.The prepareCall() method of Connection interface
+is used to create statement. the object of CallableStatement
+is responsible to create stored procedures queries and execute in Data Base.
+
+ex/statement
+------------
+CallableStatement cs=con.prepareCall("stored procedure call");
+==============================================================================
+4. Execute SQl Queries In Data Base
+=====================================
+To execute SQL queries in data JDBC API given 2 methods
+these method are available in Statement interface
+
+1. executeUpdate():
+
+The use of executeUpdate() method is to execute DML queries in
+Data base  (insert,update ,delete).
+--> after executed DML queries in data base it can return boolen values
+i.e 0 or 1 
+0--> query not executed
+1--> query successfully executed
+
+statement
+--------
+int i=stmt.executeUpdate("insert into emp values(101,'sai')"));
+
+-----------------------------------------------------------------
+2. executeQuery() 
+---------------
+The executeQuery() is used to execute DQL query only
+in Data base  (select).
+
+--> after execute select query it can return values into ResultSet interface 
+object.
+
+statement
+------------
+ResultSet rs=stmt.executeQuery("select *from emp");
+
+-----------------------------------------------------------
+3. execute()---> DDL+DML+DQL--> static query operations
+----------------------------------------------------------
+===============================================================================
+5. close the connection
+-------------------------------------------------------------------------------
+the close() method of connection interface object is used to 
+close the connection.
+
+statement
+----------
+con.close();
+==============================================================================
+finally JDBC 5 steps statements
+-----------------------------------------------------------------------
+try
+{
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/db_name",
+"root","root");
+Statement stmt=con.createStatement();
+int i=stmt.executeUpdate("sql query");
+con.close();
+}
+catch(Exception ex)
+{
+SOP(ex);
+}
+===========================================================================
+***> JDBC API components are in
+ import java.sql.*;
+---------------------------------------------------------------------------
+Appn1: Jdbc program for Create Table in Mysql data Base
+-----------------------------------------------------------
+//write jdbc program for create table with mysql data base
+import java.sql.*;
+public class CreateTable {
+
+	public static void main(String[] args) {
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Statement stmt=con.createStatement();
+			int i=stmt.executeUpdate("create table student1(sid int(38),name varchar(40),address varchar(40))");
+			System.out.println("New Table created successfully....");
+			con.close();
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+	}
+
+}
+==============================================================
+Appn2: Jdbc Program for Insert new Record In Mysql Data base
+-------------------------------------------------------------
+import java.sql.*;
+public class InsertRecord {
+
+	public static void main(String[] args) {
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Statement stmt=con.createStatement();
+			int i=stmt.executeUpdate("insert into student values(102,'seshu','Ap')");
+			System.out.println(i+"New Record Inserted successfully............");
+			con.close();
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+
+	}
+
+}
+
+==================================================================================
+Appn3:  Write Jdbd Program for Update Student Records?
+Appn4: Write Jdbd Program for Delete Student Records?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

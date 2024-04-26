@@ -1,0 +1,266 @@
+Static Variable
+---------------
+--> The static keyword in Java is used for memory management mainly. 
+--> We can apply static keyword with variables, 
+methods, blocks and nested classes. 
+--> The static keyword belongs to the class than an instance of the class.
+
+The static can be:
+-----------------
+--> Variable (also known as a class variable)
+--> Method (also known as a class method)
+--> Block
+--> Nested class
+---------------------------
+1. static variable
+--------------------
+--> if you declare any variable as static it is known as static variable
+
+Note: static properties must create inside class only.
+
+--> static variable can provide common proprerties for all objects.
+ex: college name of students, company name of employees.
+--> static block or static keyword can get memory only once.
+at time of class get the memory.
+
+ex1:
+------
+
+public class Student {
+	
+	int stdId;
+	String stdName;
+	double fee;
+	// static variable
+	static String company="Excelr";
+	
+	Student(int id,String name,double f)
+	{
+		stdId=id;
+		stdName=name;
+		fee=f;
+		}
+	public void printStudent()
+	{
+		System.out.println(stdId+"\t"+stdName+"\t"+fee+"\t"+company);
+	}
+
+	public static void main(String[] args) {
+		Student s1=new Student(101,"seshu",9000.99d);
+		Student s2=new Student(102,"ram",19000.99d);
+		Student s3=new Student(103,"aryan",8000.99d);
+		Student s4=new Student(104,"jai",5000.99d);
+		s1.printStudent();
+		s2.printStudent();
+		s3.printStudent();
+		s4.printStudent();
+	}
+
+}
+==================================================
+
+Ex2:
+-----
+
+public class CountNumber {
+	
+	// int count=0; // will get memory each time when instance is created
+	static int count=0; //will get memory only once
+	public void print()
+	{
+		count++;
+		System.out.println(count); 
+	}
+
+	public static void main(String[] args) {
+		CountNumber c1=new CountNumber();  //1
+		c1.print();
+		CountNumber c2=new CountNumber(); // 
+		c2.print();
+		CountNumber c3=new CountNumber();
+		c3.print();
+
+	}
+
+}
+
+======================================
+2. static method
+----------------
+--> If you apply static keyword with any method, 
+it is known as static method.
+
+--> A static method belongs to the class 
+rather than the object of a class.
+--> A static method can be invoked without the need for 
+creating an instance of a class.
+--> A static method can access static data member 
+and can change the value of it. 
+
+ex3:
+===
+
+
+public class Student {
+	
+	int stdId=0;
+	String stdName;
+	double fee;
+	// static variable
+	static String company="Excelr";
+	//static method
+	public static void change()
+	{
+		company="Wipro";
+	}
+	Student(int id,String name,double f)
+	{
+		stdId=id;
+		stdName=name;
+		fee=f;
+		}
+	public void printStudent()
+	{
+		System.out.println(stdId+"\t"+stdName+"\t"+fee+"\t"+company);
+	}
+
+	public static void main(String[] args) {
+		Student.change();
+		Student s1=new Student(101,"seshu",9000.99d);
+		Student s2=new Student(102,"ram",19000.99d);
+		Student s3=new Student(103,"aryan",8000.99d);
+		Student s4=new Student(104,"jai",5000.99d);
+		s1.printStudent();
+		s2.printStudent();
+		s3.printStudent();
+		s4.printStudent();
+	}
+
+}
+============================================================================
+3) Java static block
+-----------------------
+--> Is used to initialize the static data member.
+--> It is executed before the main method 
+at the time of classloading.
+
+ex1:
+----
+
+public class StaticBlock {
+	static
+	{
+		System.out.println("this is a static method");
+	}
+	public static void main(String[] args) {
+		System.out.println("This is a Main method");
+	}
+}
+
+=========================================================
+This
+----
+--> this is a keyword . which is indicate current class instance 
+--> this key word using along with variable , method and constructors
+
+this variables
+----------------
+--> if variable declare with this key word is known this varaible
+--> purpose is to defferenciate instance variables to local variables
+when instance variable names and local variable names are same.
+
+
+
+ex:
+---
+
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Employee {
+	int empId;
+	String empName;
+	double empSalary;
+	Employee(int empId,String empName,double empSalary)
+	{
+		this.empId=empId;
+		this.empName=empName;
+		this.empSalary=empSalary;
+	}
+	public void printEmployee()
+	{
+		System.out.println(empId+"\t"+empName+"\t"+empSalary);
+	}
+	public static void main(String[] args) throws IOException{
+		Employee e2=new Employee(102,"gopal",29000.00d);
+		e2.printEmployee();
+		
+	}
+}
+=================================================
+2. This: this onvoke current class method
+
+-->you may invoke the method of current class method properroties by using
+ this key word. if you don't use this key word compiler automatically 
+adds this keyword while invoking the method.
+
+ex:
+
+public class ThisMethod {
+
+	public void p()
+	{
+		System.out.println("this is p method");
+	}
+	public void m()
+	{
+		this.p();
+		System.out.println("this is m method");
+	}
+	public void n()
+	{
+		m();
+		System.out.println("this is n method");
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ThisMethod tm=new ThisMethod();
+		tm.n();
+	}
+}
+===================================================-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

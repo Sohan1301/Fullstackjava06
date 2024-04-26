@@ -1,0 +1,144 @@
+LinkedList
+----------
+--> The underlying datastructure is double LinkedList.
+--> Insertion order is preserved.
+--> Duplicates are allowed.
+--> accept homgenious and hetrogenious elements also.
+--> Null insertion is possible.
+--> LinkedList implements Serializable and clonable interfaces 
+but not random Access interface.
+--> LinkedList is the best choice if our frequent 
+operation is insertion and deletion in the middle.
+--> LinkedList is the wrost choice if our frequent operation
+is retrivel operation.
+---------------------------------------------------------------
+LinkedList class implemented Methods
+--------------------------------------------
+--> All collection Interface methods
+
+--> Usaally we can use LinkedList to  immplements stack and queues
+to provide support for this requirements LinkedList class.
+for following methods
+
+void addFirst()
+void addLast()
+Object getFirst()
+Object getLast()
+Object removeFirst()
+Object removeFirst()
+=========================================================
+difference between ArrayList and LinkedList
+-------------------------------------------------------
+ArrayList                            LinkedList
+---------                             ------------
+1. it is best choice  if our      1.it is best choice  if our frequent 
+frequent operation is retrivel     operation is insertion and deletion
+
+2. ArrayList is wrort choice if    2. LinkedList is wrort choice if
+our frequent operationis            our frequent operation is retrivel
+ inertion or deletion 
+3. Underlying data structure      3. Underlying  data structure is double 
+				  double LikedList
+for ArrayList is resizable 
+or growable Array
+4. ArrayList implemented        4. LinkedList not implemented
+randomAccess interfaces         randomAccess interfaces
+================================================================
+List implemented class Is 
+----------------------------
+Vector
+-----------------------------
+--> The underlying data structure for the vector in resizable array
+or growable array.
+--> Duplicates are allowed.
+--> Insertion order preserved.
+--> null insertion is possible.
+--> homegenious and hetrogenious data elements allowed.
+--> Vector class implemented Serializable, clonable and 
+RandomAccess interfaces.
+--> Most of the methods prasent in vector are synchronizied.
+hence Vector objects are Thread safe.
+--> Best choice if the frequent operation is retrivel.
+
+=======================================================
+Vector Specific methods
+-----------------------------
+remove(Object o)    --> from collection
+removeElement(Object o) ---> from vector
+remove(int index)     --> from list
+RemoveElementAt(int index) --> [from Vector]
+clear()             --> [from collection]
+removeAllElements()    ---> from Vector
+=======================================================
+ex:
+Vector<String> names=new Vector<>();
+
+===================================================================
+ex:
+==
+import java.util.*;
+public class vectorExapAppn {
+
+	public static void main(String[] args) {
+		Vector<String> names=new Vector<>();
+		names.add("sandeep");
+		names.add("ramu");
+		names.add("yogi");
+		names.add("aryan");
+		names.add(1, "dilip");
+		names.set(3, "Yoginanda");
+		System.out.println(names);
+		Vector<String> moviesNames=new Vector<>();
+		moviesNames.add("Pokiri");
+		moviesNames.add("Leo");
+		moviesNames.add("Jailor");
+		moviesNames.add("Vikram");
+		System.out.println(moviesNames);
+		names.addAll(moviesNames);
+		System.out.println(names);
+		names.remove(2);
+		System.out.println(names);
+		System.out.println("===========Iterator=========== ");
+		Iterator<String> itr=moviesNames.iterator();
+		while(itr.hasNext())
+		{
+			System.out.println(itr.next());
+		}
+		System.out.println("===========List Iterator=========== ");
+		ListIterator<String> listitr=names.listIterator();
+		while(listitr.hasNext())
+		{
+			System.out.println(listitr.next());
+		}
+
+	}
+
+}
+=====================================================
+4. Stack 
+------------------------------------------------------------
+1. Stack is a child class of Vector.
+2. it is specially designed class for Last In First Out (LIFO).
+
+Stack implemented Methods
+--------------------------
+1. Object push(object o): for inserting an aobject to the stack
+2. Object pop(): To removes and returns top of the stack
+3. Object peek(): To Returns top of the stack without removal of Object.
+4. int search(object obj): if the specified object is avaialable it retursn its offset from top
+of the stack
+--> if the Obejct is not avaialable then it returns -1
+===================================================
+ex:
+-----
+Stack s=new Stack();
+--> All methods are used here also
+
+
+
+
+
+
+
+
+

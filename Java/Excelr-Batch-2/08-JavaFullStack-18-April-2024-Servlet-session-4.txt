@@ -1,0 +1,180 @@
+Servlet web application crud with my sql data base
+-----------------------------------------------------------------------
+mysql> use excelrdb;
+Database changed
+mysql> create table register(name varchar(40),password varchar(40),email varchar(40),gender varchar(40),address varchar(40));
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> desc register;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| name     | varchar(40) | YES  |     | NULL    |       |
+| password | varchar(40) | YES  |     | NULL    |       |
+| email    | varchar(40) | YES  |     | NULL    |       |
+| gender   | varchar(40) | YES  |     | NULL    |       |
+| address  | varchar(40) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.06 sec)
+===================================================================
+home.html
+---------------
+
+<body>
+<center>
+<h1 style="color:blue">USER MANAGEMENT SYSTEM</h1>
+<a href="about.html">About</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="contact.html">Contact</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="reg.html">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="login.html">Login</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</body>
+</center>
+</html>
+===============================================================
+reg.html
+-----------------
+
+<body>
+<h1>NEW USER REGISTRATION FORM</h1>
+<form action="Register" method="post">
+Name:<input type="text" name="uname"><p></p>
+Password:<input type="password" name="psw"><p></p>
+Email:<input type="email" name="mail"><p></p>
+Gender:<input type="radio" name="gender" value="male">Male
+<input type="radio" name="gender" value="female">Female<p></p>
+Address:<input type="text" name="address"><p></p>
+<input type="submit" value="Register">
+</form>
+</body>
+</html>
+===========================================================
+Register.java
+-----------------------
+@WebServlet("/Register")
+public class Register extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Register() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+	PrintWriter out=response.getWriter();
+	try
+	{
+		String name=request.getParameter("uname");
+		String password=request.getParameter("psw");
+		String email=request.getParameter("mail");
+		String gender=request.getParameter("gender");
+		String address=request.getParameter("address");
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+		PreparedStatement ps=con.prepareStatement("insert into register values(?,?,?,?,?)");
+		ps.setString(1, name);
+		ps.setString(2, password);
+		ps.setString(3, email);
+		ps.setString(4, gender);
+		ps.setString(5, address);
+		int i=ps.executeUpdate();
+		out.print(i+"new user register successfully....");
+	}
+	catch(Exception ex)
+	{
+		out.print(ex);
+	}
+	}
+
+}
+==========================================================
+login.html
+-----------------
+
+<body>
+<h1 style="color:red">User Login Form</h1>
+<form action="LoginCode" method="post">
+
+User Name:<input type="text" name="uname"><p></p>
+User Name:<input type="password" name="psw"><p></p>
+<input type="submit" value="Login"><p></p>
+</form>
+</body>
+</html>
+====================================================
+LoginCode.java
+------------------------
+@WebServlet("/LoginCode")
+public class LoginCode extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public LoginCode() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		try
+		{
+			String name=request.getParameter("uname");
+			String password=request.getParameter("psw");
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			PreparedStatement ps=con.prepareStatement("select *from register where name=? and password=?");
+			ps.setString(1, name);
+			ps.setString(2, password);
+			
+			ResultSet rs=ps.executeQuery();
+			if(rs.next())
+			{
+				response.sendRedirect("userhome.html");
+		}
+			else
+			{
+				out.print("please insert valid user name and password");
+			}
+		con.close();	
+		}
+		catch(Exception ex)
+		{
+			out.print(ex);
+		}
+		}
+	}
+
+==============================================================================
+userhome.html
+------------------------------
+
+<body>
+<h1>Welcome To User Home Page</h1>
+</body>
+</html>
+
+
+
+===============================================================
+
+mysql> select *from register;
++--------+-----------+------------------+--------+--------------+
+| name   | password  | email            | gender | address      |
++--------+-----------+------------------+--------+--------------+
+| aryan  | aryan123  | aryan@gmail.com  | male   | Hyd          |
+| rohith | rohitj123 | rohith@gmail.com | male   | Hyd          |
+| amulya | ammu123   | amulya@gmail.com | female | andrapradesh |
++--------+-----------+------------------+--------+--------------+
+3 rows in set (0.00 sec)

@@ -1,0 +1,115 @@
+Props: the use of props are transfor values
+from one component to another component.
+State: state is object (like a JavaScript Object)
+to store values in side the components.
+--> props are immutable 
+--> state are mutable ,means we can change and update the state object values.
+--> to update state object values we can setState() method
+---------------------------------------------------------------------------
+Phase of Component 
+------------------
+life cycle of component
+-------------------------
+class by default
+function based compo ---> hooks()
+-----------------------------------
+
+
+React Hooks
+-----------
+
+Hooks are functions that let you “hook into” React state and lifecycle features from function components. 
+Hooks allow you to use React without classes. It means you can use state and other React features without writing a class. 
+React provides a few built-in Hooks like useState, useEffect etc
+Hooks are a new addition in Reac
+t 16.8. 
+
+When use Hooks 
+If you write a function component and realize you need to add some state to it.
+
+Rules of Hooks
+================
+Only call Hooks at the top level – We should not call Hooks inside loops, conditions, or nested functions. Instead, always use Hooks at the top level of your React function.
+
+Only call Hooks from React functions – We should not call Hooks from regular JavaScript functions. Instead, call Hooks from React function components or call Hooks from custom Hooks.
+
+React relies on the order in which Hooks are called. 
+
+Hooks don’t work inside classes.
+
+Declaring State 
+===============
+const [name, setName] = useState(“Yakub”);
+
+When we declare a state variable with useState, it returns a pair - an array with two items. So, by writing square bracket we are doing Array Destructuring. 
+const nameStateVariable = useState(“Yakub”);
+The first item is the current value.
+The second is a function that lets us update it.
+const name = nameStateVariable[0]; 		// First item of Array
+const setName = nameStateVariable[1]; 	// Second item of Array
+
+=========================================================
+syntax
+---------
+User.jsx
+-----------
+function App () {
+const nameStateVariable = useState(“Yakub”);
+const [name, setName] = useState(“Yakub”);
+const [roll, setRoll] = useState(101);
+const [subject, setSubject] = useState( [  {sub: “Math”}  ] );
+}
+===============================
+example application for useState() Hook
+--------------------------------------
+import React, { useState } from "react";
+const User=()=>{
+const [rollNo,setRollNo]=useState('120')
+const [name,setName]=useState('Yakub')
+const [salary,setSalary]=useState('900000.99')
+const [arr,setArr]=useState([100,200,300,400,500]);
+const [User,setUser]=useState(
+    {id:
+100,
+name:"Sairam",
+age:20})
+return(<>
+<h1>My RllNo is={rollNo}</h1>
+<h1>My Name is={name}</h1>
+<h1>My salary is={salary}</h1>
+<h1>Arra Value is={arr[1]}</h1>
+<h1>Print Array Object Values</h1>
+<p>User Values Are={User.id},{User.name}</p>
+</>)
+
+}
+export default User;
+
+==================================
+main.jsx
+----------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import User from './User'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <User />
+  </React.StrictMode>,
+)
+=======================
+index.html
+------------
+  <div id="root"></div>
+=============================
+
+
+
+
+
+
+
+
+
+
+

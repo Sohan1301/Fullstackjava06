@@ -1,0 +1,265 @@
+1. Java Introduction
+2. Java Features
+3. Java Programing structure
+4. Java Data types
+5. Java variables
+6. Operators
+7. Control statements
+       a) conditional Control statement
+       b) Looping control statement
+       c) Transfor Control statement
+8. Scanner Class
+9. Arrays
+10. OOPS concept Basic
+11. Class and Objects
+12. Contructors
+13. This and static Keyword
+14. Inheritance
+15. super keyword
+-------------------------------------------------
+Poly Morphism
+--------------
+--> poly means many
+--> morphism --> form
+---> poly morphism achvieving with
+1) method over loading 
+2. method overriding
+---------------------------------
+1) method over loading 
+--------------------------
+--> In a single class create many methods with same name 
+but parameter length is different.
+
+--> 
+
+class Calcultor
+{
+add(int n1, int n2)
+{
+return n1+n2;
+}
+add(int n1, int n2,int n3)
+{
+return n1+n2+n3;
+}
+add(int n1, int n2,int n3,n4)
+{
+return n1+n2+n3+n4;
+}
+}
+============================
+
+public class Calculator {
+	
+	public void add(int n1,int n2)
+	{
+		System.out.println(n1+n2);
+	}
+
+	public void add(int n1,int n2,int n3)
+	{
+		System.out.println(n1+n2+n3);
+	}
+
+	public void add(int n1,int n2,int n3, int n4)
+	{
+		System.out.println(n1+n2+n3+n4);
+	}
+
+	public static void main(String[] args) {
+		Calculator cal=new Calculator();
+		cal.add(10, 20);
+		cal.add(200, 400, 800);
+		cal.add(90,80,70,60);
+	}
+
+}
+=========================================
+There are two ways to overload the method in java
+
+1. By changing number of arguments (all the method data type are same
+but lenght is deffirent
+
+2. By changing the data type
+
+--> mathod names are same , data type are defferent in each meathods
+
+ex2:
+---
+public class Calculator {
+	
+	public void add(int n1,int n2)
+	{
+		System.out.println(n1+n2);
+	}
+	public void add(float n1,float n2)
+	{
+		System.out.println(n1+n2);
+	}
+	public void add(float n1,double n2,double n3)
+	{
+		System.out.println(n1+n2+n3);
+	}
+	public static void main(String[] args) {
+		Calculator cal=new Calculator();
+		cal.add(10, 20);
+		cal.add(2000.00f, 4000.99f);
+		cal.add(90.99f,80.66d,70.44d);
+	}
+
+}
+==================================================
+2. Method Overriding
+---------------------
+-> In a single class if you create a many method with same name and parameter lenght also same 
+it is known as Method Overriding.
+--> But Java Not support Method Overriding concept
+--> to achieve Method Overriding with super keywird, final key word and abstract methods.
+
+--> If subclass (child class) has the same method as declared 
+in the parent class, it is known as method overriding in Java.
+
+--> In other words, If a subclass provides the specific implementation 
+of the method that has been declared by 
+one of its parent class, it is known as method overriding.
+
+ex:
+----
+public class Calculator {
+	
+	public void add(int n1,int n2)
+	{
+		System.out.println(n1+n2);
+	}
+	//compile time error
+	public void add(int n1,int n2)
+	{
+		System.out.println(n1+n2);
+	}
+	public static void main(String[] args) {
+		Calculator cal=new Calculator();
+		cal.add(10, 20);
+		cal.add(2000,600);
+			}
+
+}
+
+=================================================
+final Keyword
+-------------------
+--> finla is a java keyword is used to restric the user.
+The finla key word use along with variables,methods and with class.
+
+--> final means not modified , which is fixed or constant.
+
+final  ---> variables   ---> fixed--> constant --> not modified
+final --> method---> method not ovverride
+final --> class --> class can't inherited
+
+---------------------------------------------------------
+1.final variable
+-------------------
+--> which variable declare with final key word is known as final variable.
+--> the use of final variable is to keep value is constant . 
+that means value con't be incremented , not decremented.
+
+ex:
+---
+public class FinalVariable {
+	final int speed=60;  // instance variable/final variable
+	public void run()
+	{
+		//speed--;
+		System.out.println("My speed is="+speed);
+		
+	}
+
+	public static void main(String[] args) {
+		FinalVariable fv=new FinalVariable();
+		fv.run();
+	}
+
+}
+================================================================
+2. Java final Method
+-------------------
+--> If you make any method as final it is known as final method.
+use of final method is can't override the method.
+
+ex:
+---
+class Marriage1
+{
+	final public void mary()
+	{
+		System.out.println("Marry to deepika and get 40cr ");
+	}
+}
+class Marriage3 extends Marriage1
+{
+	public void mary()
+	{
+		System.out.println("Marry to samantha and get 10cr ");
+	}
+}
+public class FinalMethod {
+	public static void main(String[] args) {
+		Marriage3 m=new Marriage3();
+		m.mary();
+	}
+
+}
+
+===============================================
+3. final class
+-------------
+--> if you makes class as a final it is known as final class.
+--> the use of final class is can't inherit the class.
+ex3:
+-----
+
+final class A
+{
+	
+
+}
+class B extends A
+{
+	
+}
+public class FinalClass {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+	}
+
+}
+==========================================================
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

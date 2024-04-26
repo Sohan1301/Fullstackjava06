@@ -1,0 +1,121 @@
+Server Side Technologies
+-------------------------------------
+Servlet
+----------
+Servlet Technology is used to create web applications. 
+Servlet technology uses Java language to create web applications.
+
+A Servlet is a Java program that runs on a Web server. 
+The basic aim of servlet is to develop web applications. 
+Servlet technology is 
+robust and scalable because of java language. 
+
+There are many interfaces and 
+classes in the Servlet API such as Servlet, GenericServlet, 
+HttpServlet, ServletRequest, ServletResponse, etc.
+-------------------------------------------------------------------------------------------
+what is Web Application
+--------------------------------------
+The application design with Dynamic web pages and run in browser
+throught internet is known as web application
+ex:
+www.amazon.com
+www.gamil.com
+www.facebook.com
+
+Basecally web application are 2 types
+
+1. Static web application
+2. Dynamic Web application
+
+1. Static web application
+--------------------------------------
+The static web app directly delivers the content to the 
+end user’s browser without fetching any data from the server. 
+Most static web apps are having fixed data.
+
+Languages are used to develop static web applications?
+HTML, CSS are used to develop most static web applications.
+ex:
+----
+home.html
+contact.html
+about.html
+tutorealpoint.com
+www. javatpoint.com
+www.w3school.com
+======================================================
+2. Dynamic Web application
+---------------------------------------
+A web application that generates the 
+data in real-time based on the user’s 
+request and server response, 
+is known as a dynamic web application.
+
+
+Let us take an example to understand dynamic web apps.
+When you log in to Netflix, it will 
+show you the movie or series 
+recommendations based on your choice. 
+In case you select the action movies to 
+watch, Netflix will show more 
+action movie recommendations based on your selection.
+
+Ex:
+Facebook, amazon, flipkart, gamil, youtube etc.
+
+
+every dynamic web application design with 3 layers
+1. Prasentation Layer
+2. Business Logic Layer
+3. Data Access Layer
+----------------------------------------------------------------------------
+Browser
+-------------
+browser is application software  which is used to 
+run web  application based on httpRequest and 
+httpResponse.
+
+--> The main purpose of broswer is send The httpRequest
+to web applications and get httpResponse froom 
+server.
+ex: chrome,mozillFireFox,ie,safari...etc
+--> Our UI technologies i.e html, css and JavaScript run in
+browser.
+----------------------------------------------------------------------------------
+What is Server?
+-----------------------
+The server also application software , which is
+used to takes httprequest from browser and prepare the response
+and give the response to browser (httpResponse).
+
+****---> All .java (servlet) and .jsp (JSP Code) run in
+server.
+
+ex: tomcat server, weblogic,glassfish, jetty..etc
+------------------------------------------------------------------------------------
+what is JDBC?
+---------------------
+
+What is HTTP?
+-------------------
+HTTP stands for hyper text transfor protocol
+which is used to enabled connection from client mechine (browser)
+to server mechine (Server).and exchage information
+with httpRequest and HttpResponse.
+--> By Using HTTP protocol we can send httpRequest
+in 3 ways
+1. by using URL (www.amazon.com)
+2. BY USING hyper links (<a href="www.gami.com">Gmail></a>)
+3. by using submit button 
+<input type="submit" value="Login">
+------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+

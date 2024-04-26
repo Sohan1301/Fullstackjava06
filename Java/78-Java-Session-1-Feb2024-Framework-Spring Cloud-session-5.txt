@@ -1,0 +1,350 @@
+Create Spring Boot MicroServices Application for
+Citizen and Vaccination Services
+-----------------------------------------------
+Step1: create eureka-server  with 8761 port number
+Step2:create citizen-service with citizen data base
+and configure into Eureka Server :port no:8787
+step3: create vaccination-service and confgure into eureka-server with port no:8000
+--------------------------------------------
+Required Files Are
+------------------
+1. Citizen.java
+2.CitozenRepo.java
+3.CitizentController.java
+4.application.yml
+5. Application.java
+-----------------------
+Required Jars Are
+---------------------
+1. spring web 
+2. spring dev tools
+3. spring data jpa
+4. Mysql Connector
+5. Eureka Discivery Client
+-------------------------------------
+Citizen.java
+-------------
+@Entity
+public class Citizen {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	@Column
+	private String name;
+	@Column
+	private int vaccinationCenterId;
+//PDC+PPC+PSM+PGM+toString()
+}
+====================================================
+CitizenRepo.java
+----------------------------
+package com.ksv.repo;
+import java.util.*;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.ksv.entity.Citizen;
+
+public interface CitizenRepo extends JpaRepository<Citizen, Integer> {
+
+	public List<Citizen> findByVaccinationCenterId(Integer id);
+}
+
+==========================================================================
+CitizenController.java
+--------------------
+package com.ksv.controller;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ksv.entity.Citizen;
+import com.ksv.repo.CitizenRepo;
+
+@RestController
+@RequestMapping("/citizen")
+public class CitizenController {
+	
+	@Autowired
+	private CitizenRepo repo;
+
+	@GetMapping("/test")
+	public ResponseEntity<String> test()
+	{
+		return new ResponseEntity<>("Hello",HttpStatus.OK);
+	}
+	@PostMapping("/add")
+	public ResponseEntity<Citizen> addCitizen(@RequestBody Citizen newCitizen)
+	{
+		Citizen citizen=repo.save(newCitizen);
+		return new ResponseEntity<>(citizen,HttpStatus.OK);
+	}
+	
+	@GetMapping("/id/{id}")
+	public ResponseEntity<List<Citizen>> getById(@PathVariable Integer id)
+	{
+		List<Citizen> listCitizen=repo.findByVaccinationCenterId(id);
+		return new ResponseEntity<>(listCitizen,HttpStatus.OK);
+	} 
+	
+}
+
+=-=============================================================
+application.properties
+--------------------
+server.port: 8001
+eureka.client.registerWithEureka: true
+eureka.client.fetchRegistry: true
+eureka.client.service-url.defaultZone: http://localhost:8761/eureka/
+eureka.client.service-url.defaultZone.instance.hostname: localhost
+     
+spring.datasource.url: jdbc:mysql://localhost:3306/bootdb
+spring.datasource.username: root
+spring.datasource.password: root
+spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
+
+spring.jpa.hibernate.ddl-auto: update
+spring.jpa.show-sql: true
+spring.jpa.database-platform: org.hibernate.dialect.MySQL8Dialect
+spring.application.name : CITIZEN-SERVICE
+
+=================================================================
+Application.java
+----------------
+
+package com.ksv;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+
+@SpringBootApplication
+@EnableEurekaClient
+public class CitizenServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(CitizenServiceApplication.class, args);
+	}
+
+}
+================================================================================
+Step3: Create a Vaccination-center-service
+and configure into eureka cloud
+----------------------------------------------------------------------------------
+Required Files 
+----------------------
+1. VaccinationCenter.java --> @Entity+@Table+@Id       
+2. VaccinationCenterRepo.java  --> @Repository
+3.VaccinationCenterController.java  --> @RestController+@RequestMapping
+4.application.properties   --> DB conn stmt+Jpa dailect properties
+5.application.yml    --> configuration code
+6.Citizen.java   
+8.RequiredResponse.java   (center+citizen objects)
+
+==============================================
+Required Jars Are
+---------------------
+1. spring web 
+2. spring dev tools
+3. spring data jpa
+4. Mysql Connector
+5. Eureka Discivery Client
+====================================================
+1. VaccinationCenter.java --> @Entity+@Table+@Id     
+================================================
+package com.aryan.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class VaccinationCenter {
+
+	@Id
+	private int id;
+	private String centerName;
+	private String centerAddress;
+
+
+	//PDC+PSM+PGM+PPM
+	public VaccinationCenter() {
+		super();
+	}
+	public VaccinationCenter(int id, String centerName, String centerAddress) {
+		super();
+		this.id = id;
+		this.centerName = centerName;
+		this.centerAddress = centerAddress;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getCenterName() {
+		return centerName;
+	}
+	public void setCenterName(String centerName) {
+		this.centerName = centerName;
+	}
+	public String getCenterAddress() {
+		return centerAddress;
+	}
+	public void setCenterAddress(String centerAddress) {
+		this.centerAddress = centerAddress;
+	}
+
+}
+=====================================================================
+
+VaccinationCenterRepo.java
+------------------------------
+
+
+package com.aryan.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.aryan.entity.VaccinationCenter;
+
+@Repository
+public interface VaccinationCenterRepo extends JpaRepository<VaccinationCenter, Integer> {
+
+}
+==============================================================================
+application.properties
+-------------------------
+spring.datasource.url: jdbc:mysql://localhost:3306/excelrdb
+spring.datasource.username: root
+spring.datasource.password: root
+spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
+
+spring.jpa.hibernate.ddl-auto: update
+spring.jpa.show-sql: true
+spring.jpa.database-platform: org.hibernate.dialect.MySQL8Dialect
+
+================================================================
+application.yml
+--------------------
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+server:    
+  port: 8002
+  
+spring:  
+  application:
+    name : VACCINATION-CENTER-SERVICE
+    
+==================================================================
+mysql> show tables;
++--------------------+
+| Tables_in_excelrdb |
++--------------------+
+| account            |
+| book               |
+| book_seq           |
+| citizen            |
+| citizen_seq        |
+| emp_table          |
+| employee           |
+| product            |
+| student            |
+| student1           |
+| users              |
++--------------------+
+11 rows in set (0.04 sec)
+
+mysql> desc citizen;
++-----------------------+--------------+------+-----+---------+-------+
+| Field                 | Type         | Null | Key | Default | Extra |
++-----------------------+--------------+------+-----+---------+-------+
+| id                    | int          | NO   | PRI | NULL    |       |
+| name                  | varchar(255) | YES  |     | NULL    |       |
+| vaccination_center_id | int          | NO   |     | NULL    |       |
++-----------------------+--------------+------+-----+---------+-------+
+3 rows in set (0.08 sec)
+
+mysql> select *from citizen;
+Empty set (0.08 sec)
+
+mysql> select *from citizen;
++----+--------+-----------------------+
+| id | name   | vaccination_center_id |
++----+--------+-----------------------+
+|  1 | aryan  |                     1 |
+|  2 | suman  |                     1 |
+|  3 | gopi   |                     1 |
+|  4 | ravi   |                     2 |
+|  5 | charan |                     2 |
+|  6 | ram    |                     3 |
+|  7 | john   |                     3 |
+|  8 | venkat |                     3 |
++----+--------+-----------------------+
+8 rows in set (0.03 sec)
+
+mysql> select *from citizen;
++----+--------+-----------------------+
+| id | name   | vaccination_center_id |
++----+--------+-----------------------+
+|  1 | aryan  |                     1 |
+|  2 | suman  |                     1 |
+|  3 | gopi   |                     1 |
+|  4 | ravi   |                     2 |
+|  5 | charan |                     2 |
+|  6 | ram    |                     3 |
+|  7 | john   |                     3 |
+|  8 | venkat |                     3 |
++----+--------+-----------------------+
+8 rows in set (0.04 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_excelrdb |
++--------------------+
+| account            |
+| book               |
+| book_seq           |
+| citizen            |
+| citizen_seq        |
+| emp_table          |
+| employee           |
+| hibernate_sequence |
+| product            |
+| student            |
+| student1           |
+| users              |
+| vaccination_center |
++--------------------+
+13 rows in set (0.04 sec)
+
+mysql> ^C
+mysql> desc vaccination_center;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| id             | int          | NO   | PRI | NULL    |       |
+| center_address | varchar(255) | YES  |     | NULL    |       |
+| center_name    | varchar(255) | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+3 rows in set (0.03 sec)
+
+mysql>
+
+====================================================================

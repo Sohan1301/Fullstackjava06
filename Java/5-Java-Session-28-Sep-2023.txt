@@ -1,0 +1,393 @@
+
+
+
++
+-
+*
+/
+%
+-----------------------------
+cart=0;
+cart=cart+1;  --> 0+1
+cart=1;
+price=200.00;
+total=cart*price;
+discount=(total*15)/100;
+invoice_bill=total-doscount;
+s.o.p(invoice_bill);
+---------------------------
+2. Relational Operators
+-------------------------
+--> The use of relational operators are to campare two operands
+and return either true value or false value.
+
+int x=15,y=10;
+
+Operators           Evaluation             
+----------           ----------------
+<                    x<y  --> 15<10    --> false
+>                    x>y ---> 15>10    --> true
+<=                   x<=y  --> 15<10 || 15==10   ---> false
+>=                    x>=5   --> 15>10 ||  15==10   --> true
+!=                    x!=y   --> 15!=10    --> true
+==                    x==y      --> 15==10  --> false
+
+============================================================
+Write a Java program for Relational Operators
+----------------------------------------------
+import java.util.*;
+public class RelationalOperator
+{
+public static void main(String args[])
+{
+Scanner sc=new Scanner(System.in);
+int x,y;
+System.out.println("Enter x, y values");
+x=sc.nextInt();
+y=sc.nextInt();
+System.out.println(x<y);
+System.out.println(x>y);
+System.out.println(x<=y);
+System.out.println(x>=y);
+System.out.println(x!=y);
+System.out.println(x==y);
+}
+}
+====================================
+output
+-------
+C:\Java>javac RelationalOperator.java
+
+C:\Java>java RelationalOperator
+Enter x, y values
+15
+10
+false
+true
+false
+true
+true
+false
+========================================
+3. Logical Operators
+-----------------------
+--> the use of logical operators are 
+to campare more one condition then go with logical operators.
+
+--> Logical operators work based on Logic Gates
+AND,OR and NOT.
+
+boolean a=true;
+boolean b=false;
+boolean c=true;
+------------------------------------
+operators                  Evaluation
+
+Logical AND      &&        a&&b   --> ture&&false --> false
+                           a&&c   ---> true&&true   --> true
+Logical OR       ||        a||b   --> true||false   --> true
+			a||c        --> true|| True  ---> true
+
+Logical NOt           !            !a   --> !true   --> false
+
+				!b   --> !false   --> true
+------------------------------------------------------------
+Java program for Logical Operators
+-----------------------------------
+import java.util.*;
+public class LogcalOperator
+{
+public static void main(String args[])
+{
+boolean a=true;
+boolean b=false;
+boolean c=true;
+System.out.println();
+System.out.println(a&&b);
+System.out.println(a||b);
+System.out.println(a&&c);
+System.out.println(a||c);
+System.out.println(!b);
+}
+}
+================================
+OutPut
+----------------
+
+C:\Java>javac LogcalOperator.java
+
+C:\Java>java LogcalOperator
+
+false
+true
+true
+true
+true
+=================================================
+4. Bitwise Operators
+---------------------------
+--> The use of bitwise operators are to perform operation
+at binary level values.
+
+
+--> Our Variable values internally convert into binary numbers
+and perform operations Based On Logical GATE AND,OR,XOR and NOT .
+finaly Return result in interger values.
+
+int x=10;
+
+int x=10, y=5;
+
+operators                 Evaluation
+Bitwise AND   &           x&y   -->10&5   --> 1010&0101==> 0
+Bitwise OR    |           x|y   -->10|5   --> 1010|0101==> 15
+Bitwise  NOT   ~
+Bitwise XOR    ^
+Bitwise  Left Shift   <<   x<<y  --> 10*2  
+bitwise Right Shift   >>    10/2pow5--> 0
+=============================================================
+Write A Java program for Bitwise Operators
+--------------------------------------------
+
+import java.util.*;
+public class BitwiseOperator
+{
+public static void main(String args[])
+{
+int x=15,y=25;
+
+System.out.println();
+System.out.println(x&y);
+System.out.println(x|y);
+System.out.println(x^y);
+System.out.println(x<<y);
+System.out.println(x>>y);
+}
+}
+==========================
+Output
+----------------
+C:\Java>javac BitwiseOperator.java
+
+C:\Java>java BitwiseOperator
+
+9
+31
+22
+503316480
+0
+==========================
+6. Assignment Operators
+=========================
+--> To assign new value to the existing varaible value.
+then go with assignment operators.
+
+int x=10 <-----------5
+
+Operators                      Evaluation
++=                          x+=5   --> x=x+5 --> x=10+5  --> sop(x)--> 15
+-+                          x-=5   ---> x=x-5 --> x=10-5 --> sop(x) --> 5
+*=                          x*=5    --> x=x*5  --> x=10*5  -> sop(x)  --> 50
+
+/=                          x/=5   --> x=x/5 --> x=10/5  --> sop(x)--> 2
+%+                          x%=5   ---> x=x%5 --> x=10%5 --> sop(x) --> 0
+
+&=                          x&=5    --> x=x&5  --> x=10&5  -> sop(x)  --> 0
+&=                          x|=5    --> x=x|5  --> x=10|5  -> sop(x)  --> 15
+
+^=                          x^=5    --> x=x^5  --> x=10^5  -> sop(x)  --> 15
+
+<<=                          x<<=5    --> x=x<<5  --> x=10<<5  -> sop(x)  --> 320
+>>=                          x>>=5    --> x=x>>5  --> x=10>>5  -> sop(x)  --> 0
+============================================================================
+Write Java Program for Assign ment Operators>
+
+
+public class AssignmentOperators {
+
+	public static void main(String[] args) {
+		int x=100;
+		x+=50;
+		System.out.println(x);
+		x-=40;
+		System.out.println(x); // 110
+		x*=2;
+		System.out.println(x); // 220
+		x%=5;
+		System.out.println(x);//0
+		
+	}
+}
+
+=====================================================
+1. increment operators
+---------------------------
+--> the use of increment operators use along with one operand.
+--> purpose is to increment only one value with existing variable value.
+
+int x=10;
+x++;     --> x=x+1  --> x=10+1  --> 
+
+pre increment                       post increment
+---------------                     --------------
+++x                                 x++
+int x=10;                           10
+++x;                                 x++;  --> 10
+11                                    11
+=========================================================
+2. Decrement Operators
+----------------------
+--> the use of decrement operators use along with one operand.
+--> purpose is to decrement decrease only one value with existing variable value.
+
+pre Decrement                     post Decrement
+---------------                     --------------
+--x                                 x--
+int x=10;                           10
+--x;                                 x--;  --> 10
+9                                    9
+===============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,144 @@
+Java Arrays
+--------------
+--> an array is collection of same type data elements.
+---> Java array is an object .which is used to
+store all are same type of elements.
+i.e. all are integer values,all are floating point values
+all are character values, all are string values.
+
+--> but array object won't store some of int, some of float values.
+--> in java arrays object can allows dynamic memory alloction.
+---------------------------------------------------------
+--> in array object each and every value having a unique
+position .is is called index.
+
+--> here index start with 0 to n-1.
+-------------------------------------------------------------
+ex:
+---
+int marks[]={10,20,30,40,50};
+              0 1   2  3  4
+--------------------------------------------------------
+basically in java arrays are 3 types
+------------------------------------------------
+1. One dimentainal arrays (1-D array)
+2. multi dimentaionla arrays (2-D-array)
+3. Jagged array 
+---------------------------------------------------
+1. One dimentainal arrays (1-D array)
+-------------------------------------
+Agenda is
+--------
+a) introduction
+b) declaration
+c) accessing
+d) read values to array object from key board (Scanner).
+----------------------------------------
+a) introduction
+-------------------
+--> if you arrange array object either in row or column 
+it is known as single dimentaional array.
+
+b) declaration
+-----------------
+we can declare arrays in 2 ways
+1) static type declaration
+2. dynamic typed declaration
+----------------------------------
+1) static type declaration
+-----------------------------
+boolean b[]={true,flase,true,flase};
+char ch[]={'a','b','3','&','s'};
+int rollNos={10,20,30,50,60};
+float rates[]={120.0f,300.00f,800.00f};
+double salary[]={9000.99,5000.88,4500.33};
+=================================================
+2. dynamic typed declaration
+--------------------------
+some times read values to array object at run time then go with
+dynamic typed declaration
+
+ex:
+---
+boolean b[]=new boolean[5];
+char ch[]=new char[size];
+int emp_ids[]=new int[size];
+float rates[]=new float[size];
+double salary[]=new double[size];
+-------------------------------------------------------
+c) Accessing 1-D arrays
+---------------------------
+-> we can access 1-arrays in 2 ways
+1. by using indexing
+2. by using looping control statement
+    while
+    for  (recomended)
+    for each   (recomended)
+---------------------------------------------------
+ex1:
+-----------------------
+
+public class Array1 {
+
+	public static void main(String[] args) {
+		int marks[]= {40,50,60,70,80,90};
+		//accessing with indexing
+		System.out.println(marks[1]);
+		System.out.println(marks[3]);
+		System.out.println(marks[5]);
+		System.out.println("======BY USING FOR LOOP===========");
+		for(int i=0; i<marks.length; i++)
+		{
+			System.out.println(marks[i]);
+		}
+		System.out.println("======BY USING FOR EACH LOOP===========");
+		for(int mark:marks)
+		{
+			System.out.println(mark);
+		}
+		
+	}
+
+}
+
+===============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

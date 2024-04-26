@@ -1,0 +1,182 @@
+JSP Web Application Declaration Tag With Methods
+-------------------------------------------------
+<%! String name="Excelr"; %>
+<%!
+int cube(int n)
+{
+return n*n*n;	
+}
+%>
+<%="The cube of 5="+cube(5) %>
+<%="The cube of 3="+cube(3) %>
+<%="The cube of 2="+cube(2) %>
+<%="My name is="+name %>
+=================================================
+import java.lang.*;
+import java.util.Scanner;
+---------------------------------
+JSP Implicit Objects
+---------------------
+--> Which object created by JSP container
+with user request such type of objects is known as
+Implicit objects.
+ There are 9 jsp implicit objects. 
+--> These objects are created by the web container 
+(jsp container) that are available to all the jsp pages.
+
+Object			Type
+------			-----
+out			JspWriter    
+request			HttpServletRequest
+response		HttpServletResponse
+session			HttpSession
+page			Object
+config			ServletConfig
+application		ServletContext
+pageContext		PageContext
+exception		Throwable
+
+:--------------------------------------------------------------------------
+
+Example of response implicit object
+-----------------------------------
+
+index.html
+-----------
+
+<form action="welcome.jsp">  
+<input type="text" name="uname">  
+<input type="submit" value="go"><br/>  
+</form>  
+
+
+welcome.jsp
+<%   
+response.sendRedirect("page name");  
+%>  
+---------------------------------------------------------
+JSP /Page directives
+-------------------
+The Use of JSP directives is to declare packages
+and import Servlet classes and jsp pages.
+
+<% page import="java.util.*" %>
+<% page import="java.math.*" %>
+<% page import="java.net.*" %>
+<%@ page import="java.util.Date" %>  
+<%@ page import="java.util.*" %>
+<%@ page import="java.sql.*" %>
+<%@page import="java.lang.*" %>
+<%@ page import="Login.jsp" %>  // JSP file
+<%@ page import="Login" %>     // servlet File
+================================================
+JSp web application For Product Invoice
+with Validation Code
+----------------------------------------
+product.jsp
+-------------
+
+<script>
+	function check() {
+		var v1 = f.pid.value;
+		var v2 = f.pname.value;
+		var v3 = f.price.value;
+		var v4 = f.quan.value;
+		if (v1 == "") {
+			alert("please fill product id");
+			document.f.focus();
+			return false;
+		}
+		if (v2 == "") {
+			alert("please fill product name");
+			document.f.focus();
+			return false;
+		}
+		if (v3 == "") {
+			alert("please fill product price");
+			document.f.focus();
+			return false;
+		}
+		if (v4 == "") {
+			alert("please fill product quantity");
+			document.f.focus();
+			return false;
+		} else {
+			return true;
+		}
+	}
+</script>
+
+
+<form action="ProductCode.jsp" method="post" name="f"
+	onsubmit="return check()">
+	Product Id:<input type="text" name="pid">
+	<p></p>
+
+	Product name:<input type="text" name="pname">
+	<p></p>
+	Price:<input type="text" name="price">
+	<p></p>
+	Quantity:<input type="text" name="quan">
+	<p></p>
+	<input type="submit" value="SaveProduct">
+	<p></p>
+</form>
+==================================================
+ProductCode.jsp
+-------------------
+<%@ page import="java.sql.*" %>
+<%
+try
+{
+int pid=Integer.parseInt(request.getParameter("pid"));
+String pname=request.getParameter("pname");
+double price=Integer.parseInt(request.getParameter("price"));
+int quantity=Integer.parseInt(request.getParameter("quan"));
+double total=0.0,gst=0.0,discount=0.0,invoice_bill=0.0;
+total=price*quantity;
+if(total<5000)
+{
+	discount=(total*10)/100;
+}
+else if(total>=5000)
+{
+	discount=(total*20)/100;
+}
+gst=(total*18)/100;
+invoice_bill=(total-discount)+gst;
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+PreparedStatement ps=con.prepareStatement("insert into products values(?,?,?,?,?,?,?,?)");
+ps.setInt(1,pid);
+ps.setString(2,pname);
+ps.setDouble(3,price);
+ps.setInt(4,quantity);
+ps.setDouble(5,total);
+ps.setDouble(6,discount);
+ps.setDouble(7,gst);
+ps.setDouble(8,invoice_bill);
+int i=ps.executeUpdate();
+if(i>0)
+{
+	response.sendRedirect("insert.jsp");
+}
+else
+{
+	out.print("Data failed");
+}
+}
+catch(Exception ex)
+{
+	out.print(ex);
+}
+
+%>
+
+===============================================
+web.xml
+-----------
+<welcome-file-name>prodcut.jsp</welcome-file-name>
+-------------------------------------------------------
+Banking application With JSP
+-----------------------------------

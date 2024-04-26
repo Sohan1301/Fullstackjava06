@@ -1,0 +1,59 @@
+Spring Boot MicroServices
+-------------------------
+1. Spring Boot Cloud Environment
+2. Spring Boot Microservices
+---------------------------------
+1. Spring Boot Cloud Environment
+-------------------------------
+Why is Spring Cloud used?
+--------------------------
+Spring Cloud framework provides tools for developers to build a robust 
+cloud application quickly. We can also build the microservice-based 
+applications, for example, configuration management, 
+service discovery, circuit breakers, 
+intelligent routing, cluster state, micro-proxy, a control bus, 
+one time tokens, etc. Using Spring Cloud, a developer can quickly develop services and applications that 
+implement the design patterns.
+--------------------------------------------------------
+Componets of Spring Cloud
+------------------------
+1. Service Cofiguration/ Service Registry
+2. Service Discovery (Accessing Appn finctionality by end user)
+3. Circuit Breaker (Hystrix/Resoulnace 4j)
+4.Messaging and Routing (Robit Mq,ActiveMq/kafka)
+5. API Gate ways  ( spring cloud API Gate way)
+6. Load Balnacing (Zipkin)
+7. CI and CD tools and Tracing (Zikins,Docker,Kubernaties)
+
+
+
+=============================================================
+1. Service Cofiguration/ Service Registry
+---------------------------------------
+Spring Cloud configuration components provide server-side and client-side support for externalized configuration in a distributed system. We can manage the external properties with config server for applications across all environments. Spring Cloud config server can use Git, SVN (Apache Subversion), filesystem.
+
+ex:
+---
+AWS
+AZURE
+NetFilx Eureka cloud Server
+-----------------------------------------------------------------
+Service Discovery
+-----------------
+The service discovery is the automatic detection of devices and services over the network. In other words, service discovery is how an application and microservices connect in the distributed environment. Service discovery implementations include both:
+
+The central server that maintains a global view of the address.
+The clients that connect to the central server can update and retrieve the address.
+There are two discovery patterns: Client-side discovery and Server-side discovery.
+
+
+Client-side discovery: In the Client-side discovery, client is responsible for determining the network location of available services. The client uses a load-balancing algorithm to select one of the available services and make a request. Netflix OSS is an example of a client-side discovery pattern.
+Server-side discovery: In the server-side discovery, the client makes an HTTP request to a service through a load balancer. The load balancer contacts to service registry and route each request to an available service instance. Similar to client-side discovery, service instances are registered and deregistered with the service registry. The AWS ELB (Elastic Load Balancer) is an example of server-side discovery. ELB balances the external traffic from the internet.
+
+
+
+
+
+
+
+

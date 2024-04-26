@@ -1,0 +1,233 @@
+useEffect() Application
+-------------------------
+React Application for useEffect() Hook for function Based life cycle Methods
+-------------------------------------------------------------------------
+Count.jsx
+-----------------------
+import React,{useState,useEffect} from 'react'
+const Count=()=>{
+const [count,setCount]=useState(0);
+
+const handleIncrement = () => {
+    setCount(count+1);
+  };
+
+useEffect(()=>{
+    console.log("Use Effects Running");
+})
+
+    return(<>
+    <h1>Example For useEffect</h1>
+    <h1>The value={count}</h1>
+<button onClick={handleIncrement}>Change</button>
+    </>)
+}
+export default Count;
+=========================================================
+Main.jsx
+---------------
+
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import Count from "./Count"
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+<Count />
+
+  </React.StrictMode>
+)
+
+=====================================================================
+Count.jsx   Application with useEffect() speicific count for updating componets
+-------------------------------------------------------------------------------
+import React,{useState,useEffect} from 'react'
+
+const Count=()=>{
+    const [count, setCount] = useState(0);
+    const [count1, setCount1] = useState(50);
+
+    const handleIncrement = () => {
+      setCount(count + 1);
+    };
+    const handleDecrement = () => {
+      setCount1(count1 - 1);
+    };
+  
+    useEffect(() => {
+      console.log("Use Effect Called");
+    },[count]);
+
+    useEffect(() => {
+        console.log("Use Effect Called");
+      },[count1]);
+  
+    return (
+      <React.Fragment>
+        <h1>Count Up: {count}</h1>
+        <button type="button" onClick={handleIncrement}>
+          Increment
+        </button>
+        <h1>Count Down: {count1}</h1>
+        <button type="button" onClick={handleDecrement}>
+          Decrement
+        </button>
+      </React.Fragment>
+    );
+}
+export default Count;
+===============================================================
+Main.jsx
+------------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import Count from "./Count"
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+<Count />
+
+  </React.StrictMode>
+)
+=========================
+index.html
+
+<div id="root"></div>
+============================================================================
+Timer.jsx
+-----------------
+import { useState, useEffect } from "react";
+
+
+function Timer() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCount((count) => count + 1);
+    }, 1000);
+  });
+
+  return <h1>I have rendered {count} times!</h1>;
+}
+
+export default Timer;
+=======================================
+with Effects Count 
+
+Timer.jsx
+--------------
+
+import { useState, useEffect } from "react";
+
+
+function Timer() {
+    const [count, setCount] = useState(0);
+    const [calculation, setCalculation] = useState(0);
+  
+    useEffect(() => {
+        console.log("useEffect Called");
+      setCalculation(() => count * 2);
+    }, [count]); // <- add the count variable here
+  
+    return (
+      <>
+        <p>Count: {count}</p>
+        <button onClick={() => setCount((c) => c + 1)}>+</button>
+        <p>Calculation: {calculation}</p>
+      </>
+    );
+}
+
+export default Timer;
+=====================================================
+
+customHook()
+----------------
+user defined hook 
+used fro reusability
+-------------------------------------
+Custom.jsx
+----------------
+import { useState } from "react";
+
+function useCustomCounter() 
+{
+  const [count, setCount] = useState(0);
+  const handleIncrement = () => {
+    setCount(count + 1);
+  };
+  return {
+    count,
+    handleIncrement
+  };
+
+}
+
+export default useCustomCounter;
+
+
+
+
+===================================================
+Decrement.jsx
+--------------------
+import { useState } from "react";
+
+function useCustom() {
+  const [count, setCount] = useState(0);
+  const handleIncrement = () => {
+    setCount(count - 1);
+  };
+  return {
+    count,
+    handleIncrement
+  };
+
+}
+export default useCustom;
+
+
+
+
+===============================================
+App.jsx
+--------------------
+import useCustomCounter from './Custom';
+import useCustom from './Decrement';
+function App()
+{
+  const data=useCustomCounter() ;
+  const data2=useCustomCounter() ;
+  const data3=useCustom();
+  return(<>
+  <h1> The data is={data.count}</h1>
+  <button type="button" onClick={data.handleIncrement}>Increment</button>
+
+  <h1> The data is={data2.count}</h1>
+  <button type="button" onClick={data2.handleIncrement}>Increment</button>
+
+  <h1> The data is={data3.count}</h1>
+  <button type="button" onClick={data3.handleIncrement}>Increment</button>
+  </>)
+}
+export default App;
+==================================================================
+main.jsx
+--------------
+
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+import Login from './components/Login.jsx'
+import Registration from './components/Registration.jsx'
+import Ref from './components/Ref.jsx';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+
+====================================================================

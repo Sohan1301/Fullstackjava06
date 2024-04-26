@@ -1,0 +1,200 @@
+CSS in React Js 
+----------------
+React Can Suport 4 ways Styles in components
+
+1.Inline Stylesheet
+2.External Stylesheet
+3. CSS Module
+4.CSS in JS
+----------------------------------------------
+1.Inline Stylesheet and Internal Styles
+---------------------------------------
+Inline or internal Example
+====================
+const App=()=>{
+  const txt1={
+    color:'blue',
+    backgroundColor:'green',
+  
+  }
+  const txt2={
+    fontSize:50,
+  }
+  const txt3={
+    color:'white',
+    backgroundColor:'red',
+  }
+  return(<>
+  <h1 style={{color:'red'}}>Welcome To React Js Application</h1>
+  <h2>About</h2>
+  <p style={{color:'orange',backgroundColor:'pink',fontSize:30}}>
+  The style attribute accepts a JavaScript object with camelCased 
+  properties rather than a CSS string. This is consistent 
+  with the DOM style JavaScript property, is more efficient, 
+  and prevents XSS security holes.
+  </p>
+<h2 style={{...txt1,...txt2}}>CSS classes are generally better for performance than inline styles.</h2>
+ 
+ <p style={{...txt3,fontFamily:'fantasy',border:20}}>CSS classes are generally better for performance than inline styles.</p>
+ 
+  </>)
+}
+export default App;
+
+========================================
+Change CSS With Event handling by using Inline Style Sheets
+-----------------------------------
+import { useState } from "react"
+
+const Button=()=>{
+    const [change,setChange]=useState(false)
+    const [change1,setChange1]=useState(false)
+    const btnStyle={
+        color:'red',
+        backgroundColor:'pink'
+    }
+    const btn2={
+        color:'green',
+        backgroundColor:'grey'
+    }
+const register=()=>{
+    setChange({change:true})
+}
+if(change)
+{
+    btnStyle.backgroundColor = "white";
+
+}
+const login=()=>{
+    setChange1({change:true})
+}
+if(change1)
+{
+    btn2.backgroundColor = "black";
+
+}
+    return(<>
+    
+    <button onClick={register} style={btnStyle}>Register</button>
+    <button onClick={login} style={btn2}>LoginPage</button>
+    </>)
+}
+export default Button;
+============================================================
+External Style Sheet Example Applications
+--------------------------------------------
+1. Home.jsx
+2.Contact.jsx
+3.Login.jsx
+4. main.jsx
+5.index.html
+Home.css     ---> Home.jsx , Contact.jsx
+Login.css
+
+===============================================
+Home.jsx
+============
+import React from "react";
+import './Home.css'
+const Home=()=>{
+    return(<>
+    <h1 id="h">Hello React</h1>
+    <p className="cls">If you put a file into the public folder, it will not be processed by Webpack. 
+        Instead it will be copied into the build folder untouched. 
+</p>
+    </>)
+}
+export default Home;
+============================================
+Contact.jsx
+===============
+import React from "react";
+import './Home.css'
+const Contact=()=>{
+    return(<>
+    <div id="h">
+        Company Name: Excelr Pvt Ltg.
+        Address: Cyber Towers-Hitech City.
+    </div>
+    <div className="cls">
+        Contact:987654321.
+        emil: excelr@gmail.com
+    </div>
+    
+    </>)
+}
+export default Contact;
+===============================================
+Home.css
+-----------------------
+#h{
+    color:aqua;
+    background-color: bisque;
+}
+.cls{
+    box-shadow: 2px;
+    border-color: blue;
+    border-style: dashed;
+    color: pink;
+}
+=============================================
+Login.jsx
+=============
+import React from "react";
+import './Login.css'
+const Login=()=>{
+    return(<>
+    <div id="d1">
+        <h1 id="h">Login Page</h1>
+        <form>
+<label className="lbl">User Name</label>:<input type="text" name="uname" className="in"></input><p></p>
+<label className="lbl">Password</label>:<input type="password" name="psw" className="in"></input><p></p>
+<input type="submit" value="Loign" className="btn"></input>
+</form>
+    </div>
+
+    </>)
+}
+export default Login;
+=======================================================
+Login.css
+============
+#h{
+    color:red;
+}
+.lbl{
+    color: blue;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.in{
+    color: blueviolet;
+}
+.btn{
+    color:orange;
+    background-color: chartreuse;
+}
+#d1{
+    background-color: pink;
+    border: 2px;
+    border-style: double;
+}
+==============================================================
+main.jsx
+----------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+import Login from './components/Login'
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+  
+    <Login />
+
+  </React.StrictMode>,
+)
+============================================
+index.html
+--------------
+<div id="root"></div>
+==============================
+

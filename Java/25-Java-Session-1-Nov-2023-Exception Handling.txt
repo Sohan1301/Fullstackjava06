@@ -1,0 +1,376 @@
+Exception Handling
+------------------
+--> Mistakes --> bug/error
+--> The process of eliminating or removing error is known as debugging 
+----------------------------
+in java error are 3 types
+--------------------------
+1. compile time error
+2. runtime error
+3. logical error
+------------------------
+1. compile time error
+------------------------
+1. all the syntax error is known as compaile time error.
+--> all the compaile time error are identifies by the compailor at time of 
+compaile the code.
+
+eg1:
+class Demo
+{
+public static void main(string args[])
+{
+system.out.println("hai............")
+}
+}
+
+output
+------------
+C:\Users\Yakub\Desktop\NexSoft>javac Demo.java
+Demo.java:3: error: cannot find symbol
+public static void main(string args[])
+                        ^
+  symbol:   class string
+  location: class Demo
+Demo.java:5: error: package system does not exist
+system.out.println("hai............");
+      ^
+2 errors
+
+__________________________________________________________
+identification point
+--------------------
+1. to forget semicolon at the end of statement.
+2. to use undefined variable,undefined class names and methods name.
+3. to call undefined method , to print udefined varaiable .
+4. when string is declare forget double quotes.
+
+
+
+
+--------------------------------------------------------
+public class Error
+{
+    public static void main(String args[])
+{
+int n1=200;
+system.out.println("My value="+n2);
+}
+}
+
+
+error are:
+-------------
+Demo.java:6: error: cannot find symbol
+system.out.println("My value="+n2);
+                               ^
+  symbol:   variable n2
+  location: class Demo
+Demo.java:6: error: package system does not exist
+system.out.println("My value="+n2);
+      ^
+2 errors
+----------------------------------------
+-------------------------------------
+error are identifies in 3 ways in console
+1. with line number
+2. with arrow symbol
+3. with comment at specipic line
+
+-----------------------------------------------
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2. run time error (Exception)
+-----------------------------
+--> some times java compailor successfully compaile the code and generate .class
+file after class file when convert .class file into byte code that time if we get
+any error such kind of error is known as runtime error. 
+--> the problem is garbage value can retun , wrong out put will display.
+
+--> these error are identifies by JVM at run time.
+--> to handle run time error to pass the object. using with Exception handling class.
+-------------------------------------------------
+3. logical error
+---------------
+if we did any logical mistakes in our code such kind of errors are logical errors
+but logical error is not a compaile time not a run time error.
+
+
+eg: logical error
+--------------------
+int n1=10;
+int n2=20;
+int n1+n2=result;
+
+int n1=10;
+int n2=20,result;
+int n1+n2=result;
+
+float sal=5000;
+sal+5000=5000;
+sal+=5000;  --? sal=sal+5000;
+
+=========================================
+Exception
+----------
+--> Exception is a run time error/ abnormal condition/it is run time object.
+
+Exception Handling
+----------------------
+--> the process of eliminating run time error or run object is known as 
+exception handling
+
+--> if we want remove runtime error we requires run time objects
+but object are comes from exception handling class.
+
+
+--> All the exception handling class are java.lang packages.
+----------------------------------------------------------
+1.ArithmeticException
+---------------------
+It is thrown when an exceptional condition has occurred in an arithmetic operation.
+
+2.ArrayIndexOutOfBoundsException:
+--------------------------------
+It is thrown to indicate that an array has been accessed with an illegal index. 
+The index is either negative or greater than or equal to the size of the array.
+
+3.ClassNotFoundException
+-----------------------
+This Exception is raised when we try to access a class whose definition is not found
+
+4.FileNotFoundException
+-----------------------
+This Exception is raised when a file is not accessible or does not open.
+
+5.IOException
+--------------
+It is thrown when an input-output operation failed or interrupted
+
+6. InterruptedException
+-------------------------
+It is thrown when a thread is waiting , sleeping , 
+or doing some processing , and it is interrupted.
+
+7. NoSuchFieldException
+---------------------
+It is thrown when a class does not contain the field (or variable) specified
+8. NoSuchMethodException
+
+It is thrown when accessing a method which is not found.
+
+9.NullPointerException
+----------------------
+This exception is raised when referring to the members of a null object. 
+Null represents nothing
+
+10.NumberFormatException
+
+This exception is raised when a method could not convert a string into 
+a numeric format.
+
+11.RuntimeException
+This represents any exception which occurs during runtime.
+
+12. StringIndexOutOfBoundsException
+
+It is thrown by String class methods to indicate that an index is either negative 
+than the size of the string
+
+all the above exception classes are sub class of Exception.
+-----------------------------------------------------------
+Exception Handling methods
+-------
+to remove run time error in java we have 5 type of methods
+1. try
+2. catch
+3. finally
+4. thorw
+5.throws
+============================================
+============================================
+============================================
+1. try-catch:
+----------
+Java try block is used to enclose the code that might throw
+ an exception. It must be used within the method.
+Java try block must be followed by either catch or finally block.
+
+Synstax:
+-------
+try
+{ 
+ //code that may throw exception 
+ }
+
+catch(Exception_class_Name ref)
+{
+stmt1;
+} 
+
+
+exp1:
+----
+
+public class Exp1 
+{
+    public static void main(String args[])
+    {
+        try
+        {
+        int x=10;
+        int y=0;
+        int result=x/y;
+        System.out.println(result);
+        }
+        catch(ArithmeticException ex)
+        {
+            System.out.println(ex);
+        }
+        System.out.println("Am the last statement");
+    }
+}
+
+
+EXp2:
+-----
+
+public class ExceptionEx 
+{
+    public static void main(String args[])
+    {
+        try
+        {
+       int x[]={10,20,30,40,50};
+       System.out.println(x[0]);
+       System.out.println(x[4]);
+       int r=20/0;
+       System.out.println("My r value="+r);
+        }
+        catch(ArrayIndexOutOfBoundsException ex)
+        {
+            System.out.println(ex);
+        }
+        catch(ArithmeticException ex1)
+        {
+            System.out.println(ex1);
+        }
+        System.out.println("This is the last statement");   
+    }
+}
+
+
+---------------------------------------------------
+Java try Multi catch block
+-----------------------------
+If you have to perform different tasks at the occurrence of different 
+Exceptions, use java try  multi catch block.
+
+syntax:
+-----
+try
+{
+// criticale statements that might be thrown
+}
+catch(Excep_class_name ref)
+{
+stmt1;
+}
+catch(Excep_class_name ref)
+{
+stmt2;
+}
+
+
+
+exp3:
+-----
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package String;
+
+/**
+ *
+ * @author Yakub
+ */
+public class Exp1 
+{
+    public static void main(String args[])
+    {
+        try
+        {
+            int n1=10/0;
+        int x[]={10,20,30,40,50};
+        System.out.println(x[5]);
+         System.out.println(n1);
+        }
+        catch(ArrayIndexOutOfBoundsException ex)
+        {
+            System.out.println(ex);
+        }
+        
+        catch(ArithmeticException ex)
+        {
+           System.out.println(ex); 
+        }
+        System.out.println("Am the last statement");
+    }
+}
+
+
++++++++++++++++++++++++++++++++++++++
+nested try
+===============
+we can arrange try catch one inside another also
+that is known as nested try 
+
+Syntax:=
+----------
+try
+{
+   try
+   {
+	// Nested try block code
+   }
+	catch(EXp_class ref){ stmt1; }
+}
+cctch(Exp2 ref)(stmt2; }
+
+
+--------------------------------------------
+Exp3:
+
+-----
+-->netsed  try-catch
+
+
+
+public class ExceptionEx 
+{
+    public static void main(String args[])
+    {
+    try
+    {
+        try
+        {
+        int r=20/0;
+        System.out.println("My r value="+r);
+        }
+        catch(ArithmeticException ex1)
+        {
+            System.out.println(ex1);
+        }
+       int x[]={10,20,30,40,50};
+       System.out.println(x[0]);
+       System.out.println(x[5]);
+    }
+        catch(ArrayIndexOutOfBoundsException ex)
+        {
+            System.out.println(ex);
+        }
+        
+        System.out.println("This is the last statement");   
+    }
+}
+

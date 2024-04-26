@@ -1,0 +1,142 @@
+name.html
+---------
+<html>
+<body>
+<form action="FullName">
+First Name:<input type="text" name="fname"><p></p>
+Last Name:<input type="text" name="lname"><p></p>
+<input type="submit" value="PrintFullName">
+</form>
+
+=============================================================
+FullName.java
+-----------------------
+protected void doGet(HSR request,HSR response)
+{
+response.setContentType("text/html");
+//out stament object
+PrintWriter out=response.getWriter();
+//input statement
+String firstName=request.getParameter("fname");
+String lastName=request.getParameter("lname");
+//Business Logic 
+String fullName=firstName+" "+lastName;
+out.print("My Full Name is="+fullName);
+}
+}
+
+======================================================
+web.xml
+-----------
+<welcome-file>name.html</welcome-file>
+-----------------------------------------
+===================================================
+Create A servlet web Application for to fined Biggest of Three Numbers?
+---------------------------------------------------------------------
+Create servlet Web Application For Electricity bill
+----------------------------------------------------
+bill.html
+-----------------------
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="grey">
+<form action="ElectriCityBill" method="get">
+Consumer Id:<input type="text" name="cid"><p></p>
+Consumer Name:<input type="text" name="cname"><p></p>
+Current Reading:<input type="text" name="cr"><p></p>
+Previous Reading:<input type="text" name="pr"><p></p>
+<input type="submit" value="PrintBill"><p></p>
+</form>
+</body>
+</html>
+================================================================
+ElectriCityBill.java
+---------------------
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class ElectriCityBill
+ */
+@WebServlet("/ElectriCityBill")
+public class ElectriCityBill extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    public ElectriCityBill() {
+        super();
+    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		int cid=Integer.parseInt(request.getParameter("cid"));
+		String name=request.getParameter("cname");
+		int cr=Integer.parseInt(request.getParameter("cr"));
+		int pr=Integer.parseInt(request.getParameter("pr"));
+		out.print("consumer id="+cid+"<br>");
+		out.print("consumer name="+name+"<br>");
+		out.print("current reading="+cr+"<br>");
+		out.print("privious reading="+pr+"<br>");
+		int units=cr-pr;
+		double bill=0.0;
+		out.print("units="+units+"<br>");
+		if(units<300)
+		{
+			bill=units*1.75;
+		}
+		else if(units>=300 && units<600)
+		{
+			bill=units*5.75;
+		}
+		if(units>=600)
+		{
+			bill=units*7.25;
+		}
+		out.print("Total Bill="+bill);
+	}
+
+}
+=========================================================
+web.xml
+--------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>WebAppnFortoPrintElectricityBill</display-name>
+  <welcome-file-list>
+    <welcome-file>bill.html</welcome-file>
+  </welcome-file-list>
+</web-app>
+====================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

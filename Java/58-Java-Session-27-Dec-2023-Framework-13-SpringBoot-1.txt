@@ -1,0 +1,82 @@
+MVC
+----
+@Controller
+@Service
+@Repository 
+----------------------
+preparation of View 
+----------------------
+spring.mvc.view.prefix=/views/
+spring.mvc.view.suffix=.jsp
+
+The DispatcherServlet Identifies views with the help
+InternalResourceViewResolver class. (ViewResolver)
+it having a two properties.
+1. prefix   hold the folder informnation
+2. suffix hold the file information with file extension. (.jsp)
+
+ex:
+---
+application.properties
+---------------------
+#port number code
+server.port:9000
+
+#View Resolver code for display the web pages
+spring.mvc.view.prefix=/views/
+spring.mvc.view.suffix=.jsp
+
+#Data Base Connection statements
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://loclahost:3306/db_name
+spring.datasource.username=root
+spring.datasource.password=root
+===========================================================
+M   V   C
+----------
+finally to devlop spring web applications and Spring Boot Rest API
+applications Required Files And Jars
+-------------------------------------------------------------------
+Required Files are
+--------------------
+1. ModelClass.java  (POJO)
+2. EntityClass.java  (POJO) --> @Entity+@Table+@Id+@Column
+3. MyRepo.java (I) --> @Repository
+4.MyService.java  (I) --> Abstracted Methods 
+5. MyServiceImp.java  (C) --> @Service
+6. MyController.java  (C) --> @Controller (web Appn)+ @RestController(REST API)
+7. application.properties --> port no code+viewResolverCode+Db Conn Stmts
+8.Application.java  --> @SpringBootApplication  (main(){.....})
+9. JSP files / .html files
+--------------------------------------------------------------------
+Requireed Jars Are
+-------------------
+1. spring web
+2. spring boot dev Tools
+3. spring Data JPA
+4. Oracle Db/Mysql Db/H2 Db/postGreSql DB/MongoDB
+-----------------------------------------------------------------------
+with out dispatcher servlet web application Execution Flow
+---------------------------------------------------------
+Spring Boot Framework
+----------------------
+--> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

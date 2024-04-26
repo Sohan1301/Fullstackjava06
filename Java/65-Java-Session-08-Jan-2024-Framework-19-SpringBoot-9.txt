@@ -1,0 +1,317 @@
+Create Spring Boot Web Application for User Management 
+System by using Following OUTPUT screens Shots? 
+1.Write Here Project structure with Required Files are Jars
+------------------------------------------------------
+Required Files Are
+------------------
+1. Users.java  --> @Entity+@Table+@Id+@Column
+2. UsersRepo.java (i) @Repository
+3. UserController.java --> @Controller
+4.application.properties --> port no code+ viewResolver code+Db stmt+JPA properties
+5.Application.java --> @SpringBootApplication
+6.JPS files
+    home.jsp
+    addUser.jsp
+    viewUsers.jsp
+    success.jsp
+    editUser.jsp
+    
+-----------------------------------------------------
+Required Jars Are
+---------------------
+1. spring web
+2. spring boot dev tools
+3. spring data jpa
+4. Mysql Driver/ Oracle Driver
+5. tom cat jasper
+6. javax.servlet-api
+7.jakarta.servlet.jsp.jstl
+-----------------------------------------------------
+Users.java
+------------
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="users_table")
+public class Users {
+
+	@Id
+	private int id;
+	private String name;
+	private String password;
+	private String email;
+	private String gender;
+	private String country;
+	//PDC+PPC+PSM+PGM+toString()
+	public Users() {
+		super();
+	}
+}
+=====================================================
+UserRepo.java (I)
+--------------------
+package com.web.repo;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.web.model.Users;
+
+@Repository
+public interface UserRepo extends CrudRepository<Users, Integer> {
+
+}
+
+==========================================================
+application.properties
+-------------------------------
+server.port:9000
+spring.mvc.view.prefix=/views/
+spring.mvc.view.suffix=.jsp
+# Database related properties
+spring.datasource.url=jdbc:mysql://localhost:3306/ijdb?useSSL=false&serverTimezone=UTC
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.username=root
+spring.datasource.password=root
+
+# Jpa properties/ HB related properties
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+
+
+=====================================================================================
+UserController.java
+--------------------
+package com.web.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.web.model.Users;
+import com.web.repo.UserRepo;
+
+@Controller
+public class UserController {
+
+	@Autowired
+	private UserRepo repo;
+	@RequestMapping("/")
+	public String homePage()
+	{
+		return "home";
+	}
+	@RequestMapping("/addUser")
+	public String userForm()
+	{
+		return "userform";
+	}
+	@RequestMapping("/register")
+	public String addUserDetails(Users users,ModelMap model)
+	{
+		repo.save(users);
+	return "success";
+	}
+	@RequestMapping("/viewUsers")
+	public String viewAllUserDetails(ModelMap model)
+	{
+		model.put("users",repo.findAll());
+		return "viewForm";
+	}
+	@RequestMapping("/delete/{id}")
+	public String deleteUser(@PathVariable int id)
+	{
+		repo.deleteById(id);
+		return "redirect:/viewUsers";
+	}
+	@RequestMapping("/edit/{id}")
+	public String editForm(@PathVariable int id,ModelMap model)
+	{
+		model.put("command", repo.findById(id).get());
+		return "editUser";
+	}
+	@RequestMapping("/editandsave")
+	public String editAndSaveUser(Users users,ModelMap model)
+	{
+		repo.save(users);
+		return "redirect:/viewUsers";
+	}
+	
+
+}
+
+======================================================================================
+Application.java
+----------------
+package com.web;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+==========================================================================================
+home.jsp
+--------
+<center>
+    <h1 style="color: red;">CRUD APPLICATION FOR USER MANAGEMENT SYSTEM</h1>
+    <a href="/addUser">Add New User</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="/viewUsers">View All User Details</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</center>
+===============================================================================================
+userForm.jsp
+-------------
+<center>
+<h1 style="color:yellow">New User Registration Form</h1>
+<form action="/register">
+Id:<input type="text" name="id"><p></p>
+Name:<input type="text" name="name"><p></p>
+Password:<input type="password" name="password"><p></p>
+Email:<input type="email" name="email"><p></p>
+Gender:<input type="text" name="gender"><p></p>
+Country:<input type="text" name="country"><p></p>
+<input type="submit" value="Register">
+</form>
+</center>
+======================================================
+success.jsp
+--------------
+<h1>New User Register successfully...........</h1>
+===============================================================
+viewForm.jsp
+----------------
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<table border="1">
+<tr>
+    <th>ID</th>
+    <th>NAME</th>
+    <th>PASSWORD</th>
+    <th>EMAIL</th>
+    <th>GENDER</th>
+    <th>COUNTRY</th>
+    <th>DELETE</th>
+    <th>EDIT</th>
+</tr>
+<c:forEach var="user" items="${users}">
+    <tr>  
+        <td>${user.id}</td>  
+        <td>${user.name}</td>   
+        <td>${user.password}</td> 
+        <td>${user.email}</td> 
+        <td>${user.gender}</td> 
+        <td>${user.country}</td> 
+        <td>
+            <a href="/delete/${user.id}">Delete</a>
+        </td>
+        <td>
+            <a href="/edit/${user.id}">Edit</a>
+        </td>
+        </td> 
+         </tr>  
+</c:forEach>
+</table>
+
+========================================================
+editUser.jsp
+------------
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+  <body bgcolor="pink">
+        <h1>Edit User Details Here</h1>  
+       <form:form method="GET" action="/editandsave">    
+        <table >    
+        <tr>  
+        <td></td>    
+         <td><form:hidden path="id" /></td>  
+         </tr>  
+         <tr>    
+            <td>Name :</td>    
+            <td><form:input path="name" /></td>  
+           </tr>  
+         <tr>    
+          <td>Password : </td>   
+          <td><form:input path="password"  /></td>  
+         </tr>  
+         <tr>    
+          <td>Eamil :</td>    
+          <td><form:input path="email" /></td>  
+         </tr> 
+         <tr>    
+            <td>Gender :</td>    
+            <td><form:input path="gender" /></td>  
+           </tr>  
+           <tr>    
+            <td>Country :</td>    
+            <td><form:input path="country" /></td>  
+           </tr>   
+         <tr>    
+          <td> </td>    
+          <td><input type="submit" value="EditSave" /></td>    
+         </tr>    
+        </table>    
+       </form:form>  
+      
+       </body>
+==================================================================
+pom.xml
+-----------
+ <!-- Servlet API -->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>4.0.1</version>
+        <scope>provided</scope>
+    </dependency>
+
+    <!-- JSTL Implementation -->
+    <dependency>
+        <groupId>org.glassfish.web</groupId>
+        <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+        <version>2.0.0</version>
+    </dependency>
+=======================================================================
+output
+-------------
+mysql> select *from users_table;
++-----+---------+-----------------+--------+-------+----------+
+| id  | country | email           | gender | name  | password |
++-----+---------+-----------------+--------+-------+----------+
+| 101 | USA     | aryan@gmail.com | male   | aryan | aryan123 |
+| 102 | India   | ravi@gmail.com  | male   | ravi  | ravi123  |
+| 103 | India   | priya@gmail.com | female | priya | priya123 |
+| 104 | canada  | sai@gmail.com   | male   | sai   | sai123   |
++-----+---------+-----------------+--------+-------+----------+
+4 rows in set (0.01 sec)
+
+mysql> select *from users_table;
++-----+---------+-----------------+--------+-------+----------+
+| id  | country | email           | gender | name  | password |
++-----+---------+-----------------+--------+-------+----------+
+| 102 | India   | ravi@gmail.com  | male   | ravi  | ravi123  |
+| 103 | India   | priya@gmail.com | female | priya | priya123 |
+| 104 | canada  | sai@gmail.com   | male   | sai   | sai123   |
++-----+---------+-----------------+--------+-------+----------+
+3 rows in set (0.04 sec)
+
+==========================================================================
+
+
+
+
+
+
+

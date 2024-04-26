@@ -1,0 +1,91 @@
+Spring Boot Microservices
+--------------------------
+create spring boot project for API Gate Way
+-----------------------------------------------
+Reruired Files Are
+------------------
+1. Application.java --> @SpringBootApplication+@EnableDiscoveryClinet
+2.application.yml --> we are configuare citizen-server and
+vaccination-service
+
+Note: API-GATE-APPN configure into eureka cloud server
+-------------------------------------------------------
+Required Starters Are
+----------------------------
+1. Spring Boot DevTools
+2. spring-cloud-starter-gateway
+3. Discovery Client
+==============================
+<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+=============================================================================
+Application.java
+---------------
+package com.citi;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class CitizenServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(CitizenServiceApplication.class, args);
+	}
+
+}
+
+============================================================
+application.yml
+-----------------
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+server:
+  port: 9000
+spring:
+  application:
+      name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      - id: CITIZEN-SERVICE
+        uri:
+          lb://CITIZEN-SERVICE
+        predicates:
+        - Path=//citizen/**
+      - id: VACCINATION-CENTER-SERVICE
+        uri:
+          lb://VACCINATION-CENTER-SERVICE
+        predicates:
+        - Path=//vaccinationCenter/**
+      
+            
+
+        
+      
+        
+        
+
+========================================================
+
+
+
+
+
+
+
+
+
+
+
+

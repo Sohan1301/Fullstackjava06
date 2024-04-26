@@ -1,0 +1,192 @@
+Java Frameworks
+----------------
+*working with frame work is nothing but working with
+jar and war files*
+
+JAR--> Java archive files --> to developing stand alone applications
+WAR-> web archive files--> to dev web applications
+EAR--> enterprice archive files--> to dev web application
+and distributed web application.
+
+--------------------------------------------------
+To devlop any java web applications reuired softwares  Are
+-----------------------------------------------------------------
+1. JDK  --> java software   --> compile +run our java code
+2. eclipse IDE--> editing the code
+3. tomcat server ---> purpose is to server code (.java+.jsp)
+4. Browser (to static resources i.e html +css+javascript)
+5. data base --> storages purpose
+------------------------------------------------------------------
+downloaded from --> installed --> .exe files
+-------------------------------------------------------------------
+jdbc Api--> mysql connector.jar
+-------------------------------------------------------------------
+1. what is frame work?
+2. why frame work?
+3. what are problems in servelt and jsp technologies
+ 4. what are advantages of framework?
+5. types frameworks
+6. finally what are java frame works?
+-------------------------------------------------------------------------
+Based on fuctionality A java Application/Project will be divided into three layers.
+1. UI --> Prasentation Layer   (View layer)  ( .jsp files)
+2. Business Logic / Service Layer  )  --> .java code  (Controller)
+3. Data Access/ Presistance Layer  ( Model Layer)
+
+--> Take Diagram
+
+-------------------------------------------------------------
+The ene-to end Communication between a user and  
+database  will be like following.
+1. Presentation Layer:  Receives a user input and applies 
+validation if require.
+2. If validation are success then presentation layer 
+transfers user data to the business Logic layer.
+3. BLL executes business Logic based on 
+business rules of on Organization.
+4. BLL transfer data to Data Access Layer.
+5. DAL Will store a user data in a database.
+
+======================================================
+Why Framework
+-----------------
+as a developer every time writing some 
+common codes for above 3 layers.
+To avoid  common code for each and every
+ web appn by using FRAME WORK.
+
+--> Every real time project contains atleast some 
+common functionalities.
+--> If developers are defining the code for 
+implementing common fucntionalities 
+for each project separately then there are 
+some problems.
+==================================================
+--> it makes a burden on developer.
+--> it makes dealy to deliver a project to the client .
+--> project deployement cost is increased and 
+Takes more Times.
+in order to overcome above problem frame work come to picture.
+====================================================================
+2.What is Framework
+-----------------------------
+A frame work is a set of jar and war files, each jar 
+and war contains a set of pre defined interfaces,classes and  
+methods they are given to provide some common
+functionality of a Java Project.
+
+--> In other words a frame work is a abstraction 
+Layer on top of existing Technoloy.
+-------------------------------------------------
+3.FrameWork Advantages
+-------------------
+--> FM provides the code for common functionality as 
+pre defined, it reduces burden on Devloper.
+--> Developer  can deliver project with in time.
+--> A project maintance is easy.
+****--> Rapid devlopment. 
+--> More secure code.
+--> Simpler testing and debugging. 
+--> Avoiding duplicate code.
+****--> Able to focus on writing code specific to the project.
+i.e business logic.
+
+==================================================
+Types of frame work
+------------------------------------------------------
+4. Types of Framework
+-------------------------------
+--> In java Frame work are divided into Two Types
+1. INVASIVE  FRAMEWORK.
+2. NON-INVASIVE FRAMEWORK.   
+
+1. INVASIVE  FRAMEWORK:
+---------------------------------------
+Invasive means, it will force the programmers to 
+create their classes by extending or implementing from pre-defined classes or 
+interfaces provided by that frame work. 
+Ex:
+---
+Servlet and Struts
+
+Exp1:
+-------
+public class Myservlet extends HttpServlet
+{
+doPost(HSR request,HSR response)
+{
+//PL  (input statements)
+//BL  ( processing statements)
+//DAL   (jdbc ---5 lines code)
+//PL  (out put statement)
+}
+}
+-----------------------------------------------
+Approach2:
+----------------
+public class Myservlet implemets Servlet
+{
+service(SR request,SR response)
+{
+//PL
+//BL
+//DAL
+//PL
+}
+}
+
+NON-INVASIVE FRAME WORK
+-------------------------------------------------
+Non-Invasive means it wont forces the programmer to 
+extend or implement its own classes or interfaces.
+EX:
+-----
+Hibernate
+Spring 
+Spring Boot
+
+Above 3 Frame works  design with POJO and POJI model.
+POJO stands for Plain OLD Java Object
+POJI stands: plain Old Java interface
+----------------------------------------------------------
+Finally Java frame works Are
+1. Hibernate
+2, Spring
+3. Spring Boot
+-----------------------------------------------------------
+Adv Java:(J2EE)
+=========
+in J2EE to develop web appn by usnig following API's
+	1.jdbc API
+	2.servlet API
+	3.jsp API
+
+MVC Architecture:
+	Model layer is implemented by jdbc API
+	View layer is implemented by jsp API
+	Controller layer is implemented by Servlet API
+________________________________________________________
+Java Frameworks:
+===========
+1.Hibernate 	Framework ( Data Base connec+Perform CRUD)
+2.Spring 	Framework : (Web application)
+3.Spring Boot 	Framework: (Web application+Rest Full  services)
+
+MVC Architecture:
+----------------
+Hibernate 	Framework  is used to implemented Model layer. (Model)
+Spring & Spring Boot Frameworks are used to implement 3 layers. (MVC)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

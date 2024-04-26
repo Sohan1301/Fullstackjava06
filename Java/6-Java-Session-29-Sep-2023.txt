@@ -1,0 +1,254 @@
+Ternary Operator/conditional Operators
+------------------------------------------
+(?:)
+
+variable_name=Exp1?Exp2:Exp3
+
+Here exp1 is a conditional stament if condition is true
+print exp2 in case condition is false
+print exp3
+
+-----------------------------
+write a Java Program to check given number is positive or Not?
+
+
+public class CheckPoitiveNumber {
+
+	public static void main(String[] args) {
+		int i=-10;
+		String result=(i>0)?"The number is positive":"The number Negative";
+		System.out.println(result);
+	}
+}
+
+=============================================
+2. write a Java program to check given number even or odd
+by using ternary operator?
+
+3. write a java program to check the given person valid for vote or not
+with ternary operators?
+=============================================================
+Control Statements
+------------------
+--> if you want to execute Java statements in non sequentional order
+then go with control statement. every control statement takes 
+condition . if the condition is true it can return true statement.
+in case condition is false return false statement.
+
+in java control statement are 3 types
+---------------------------------
+1. Conditional /decision making control statements
+2. Looping/iteration/repeation control statements
+3. Transfor /jumping control statements
+
+===================================================
+1. Conditional control statement
+-------------------------------------
+1. if
+2. if-else
+3. if-else-if
+4.nested if
+5. switch
+--------------------------------
+1. if
+-----
+--> in if control statement the condition is true
+print the true statement.in case condition is false 
+nothing will be print.
+
+syntax:
+------
+if(condition)
+{
+stmt1;
+}
+===============================================
+1. java program for to check number is EVEN?
+
+public class EvenNumber {
+
+	public static void main(String[] args) {
+		int n=11;
+		if(n%2==0)
+		{
+			System.out.println("the number is even");
+		}
+
+	}
+
+}
+=======================================================
+2. if-else
+----------------
+--> in if-else . the condition check first. if condition is true
+print true statatement. in case condition false print the false
+statement with else.
+
+
+sytax:
+-------
+if(condition)
+{
+stmt1;
+}
+else
+{
+stmt2;
+}
+==============================
+1.write a java code to check given persin valid for vote or not?
+2. write a java program to fined biggest tWO numbers?
+3. program to check whether a number is divisible by 5 and 11 or not?
+4. Write a program input three numbers and find out the biggest number
+5. Write a program to check whether the given year is Leap year or not?
+6. Write a program to check whether the given character is lowercase or uppercase?
+7. Write a program to check whether a character is alphabet or not?
+8. Write a program to check whether a character is uppercase or lowercase alphabet.
+
+===================================================
+3.if-else-if control statement
+-----------------------------
+--> in if-else-if control statements chek conditions in sequnec order
+which condition is true print that statement come out the codition.
+in case all the given codition are false take else and print false statements
+
+syntax
+---------
+if(condition-1)
+{
+stmt1;
+}
+else if(condition-2)
+{
+stmt2;
+}
+else if(condition-3)
+{
+stmt3;
+}
+else
+{
+stmt4;
+}
+==========================================================
+1. write a java program ton print electricity bill?
+consumer_id
+consumer_name
+current_reading
+previous_reading
+
+output
+-------
+consumer_id:1001
+consumer_name: gopi
+current_reading:400
+previous_reading:50
+units:350
+total_bill:950.00
+
+conditions are
+------------------
+if(units<300>)  ---------> rate is 1.75
+if(units>=300 and units<500)   rate is 5.75
+if(units>500)   rate is ----> 7.25
+=============================================
+2. write a java program to print student resultmarks?
+sub1
+sub2
+sub3
+
+calculte total marks:270
+percentage:70
+grade:A grade
+result:pass
+
+conditions are:
+---------------
+
+if percentage>=70   --> A grade
+if percentage>=60   --> B grade
+if percentage>=50   --> C grade
+=======================================================
+3. write a java program to print employee invoice?
+
+emp_id
+emp_name
+emp_bsal
+
+
+if emp_bsal<20000:      Ta	da	hra	pf	lic
+			4.25%    5.75%   7.755   12.00%   11.25%
+if emp_sal>=20000
+and <30000:		14.25%    15.75%   7.755   12.00%   13.25%
+
+if emp_sal>=30000	24.25%    15.75%   17.755   12.00%   11.25%
+
+
+
+output
+----------
+emp_id
+emp_name:
+basic salary
+ta
+da
+hra
+pf
+gross_salary
+net_salary
+==================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,164 @@
+To implements Spring security
+we need 5 key points
+-----------------------------------
+1. Authentication
+2. Authorization
+3. principal
+4. authority
+5. roles
+---------------------------------------
+1. Authentication
+------------------
+--> Authentication is used by a server when the server 
+needs to know exactly who is accessing their information or site.
+--> Authentication is a process of changing application functionalities
+with valid credetional. (props()
+--> Authentication can provide 3 ways
+1) knowlegde based security
+2) possion based securtiry
+3) multi factor security
+------------------------------------------------------------------------
+2. Authorization
+-----------------
+--> Authorization is a process by which a server determines if the client has permission to use a resource or access a file.
+
+--> Authorization is usually coupled with authentication 
+so that the server has some concept of 
+who the client is that is requesting access.
+
+-----------------------------------------------------------------------------
+3. principal--> rules 
+4. authority--> permission 
+5. roles-> user, admin,employee,manager,accountant...etc
+==============================================================
+-------------------------------
+Spring Security Execution Flow
+-----------------------------------------
+1. AuthenticationFilter:
+------------------------------
+ A filter that  intercepts and performs authentication of a 
+particular request by delegating it to authentication manager. 
+if authentication is successfull,
+they authentication details set into  Security context.
+
+2. Authentication: 
+-------------------------
+Using the supplied values from the user like user name and password,
+the authentication object  will be for formed 
+which will be given as an input
+to the authentication Manager interface.
+
+3.Authentication Manager:
+----------------------------------
+Once received request from the filter it delegates the 
+validating  of the user
+details to the authentication provider.
+
+4.authentication provider:
+---------------------------- 
+it has all the logic of validating user details 
+using UserDetailsService and PasswordEncoder.
+
+UserDetailsService: UserDetailsService 
+retrievesUserDetails The user interface using the supplied user name.
+PasswordEncoder: Service interface form  encoding the password.
+
+====These All Are Security Components=================
+=====================================================
+Spring Boot Rest Application for In Custom Authentication
+and in Memeory Authentication 
+---------------------------------------------------------------------
+My Requirement  is
+-------------------
+1. /home: no need to secure  --> 
+2. /balance: the end point should be secured 
+3. /statement: the end point should be secured 
+4. /loan: the end point should be secured
+5. /contact: no need to secure
+----------------------------------------------------------
+
+
+
+
+
+
+=============================================
+Reuired Files Are
+-------------------------
+1. MyRestController   --> @RestController
+     with 5 service end points
+2. application.properties
+3. CustomSecurity.java   --> @Configuration+@EnableWebSecurity+@Bean
+4. App.java    --> @SpringBootApplication
+
+=========================================================
+Required Jars Are
+-----------------------
+1. Spring web
+2. Spring Security
+--------------------------------------------------------
+
+
+
+package com.sai.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class UserController {
+	
+	@GetMapping("/home")
+	public String home()
+	{
+		return ("WelCome To Spring Security Application");
+	}
+	@GetMapping("/balance")
+	public String balance()
+	{
+		String str="My Account Balance is 9000.00 INR";
+		return str;
+	}
+	@GetMapping("/statement")
+	public String statement()
+	{
+
+
+		String str="Statement generated sent to your mail id";
+		return str;
+	}
+	@GetMapping("/loan")
+	public String loan()
+	{
+		String str="Your loan Amout is 8000.99 INR";
+		return str;
+	}
+	@GetMapping("/contact")
+	public String contact()
+	{
+		String str="Thank you contacting customer 
+			care support: we will get back to you";
+		return str;
+	}
+}
+================================================
+application.properties
+--------------------------------
+server.port:8000
+
+#spring.security.user.name=user
+#spring.security.user.password=pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+

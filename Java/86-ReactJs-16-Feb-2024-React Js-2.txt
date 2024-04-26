@@ -1,0 +1,236 @@
+To Develop React Js Application Required Softwares
+are
+------------------------------------------------------
+1. nodeJs    --> To create environment and run the react js application
+2. Editor --> editing the React Code
+a) VS code editor
+b) atom
+3. Browser --> Chrome,mozilla fireforx,ie..etc
+--------------------------------------------------------
+Download and Install Node Js Software 
+-------------------------------------------
+Step1: visit: https://nodejs.org/en/download
+C:\Users\hi>node -v
+v18.16.1
+C:\Users\hi>npm -v
+9.5.1
+============================================================
+2nd software :VS code editor
+-------------------------------
+Steps To Create a React JS application with vite Tool
+------------------------------------------------------
+Step1: Goto-view---> terminal--> change command  mode
+Step2: npm create vite@latest    
+Step3: project_name  ex( EmployeeInvoice)
+Step4:reactjs
+Step5: java script
+stpe6: cd project_name 
+Step7:npm install 
+Step8:npm run dev
+------------------------------------------------
+npx create-react-app <project_name>
+------------------------------------------------
+D:\ExcelrReactJs>npm create vite@latest
+Need to install the following packages:
+  create-vite@5.2.0
+Ok to proceed? (y) y
+√ Project name: ... MyApp1
+√ Package name: ... myapp1
+√ Select a framework: » React
+√ Select a variant: » JavaScript
+Done. Now run:
+  cd MyApp1  
+  npm install
+  npm run dev
+D:\ExcelrReactJs>cd MyApp1
+D:\ExcelrReactJs\MyApp1>npm install
+D:\ExcelrReactJs\MyApp1>npm run dev
+Local:   http://localhost:5173/
+=====================================================
+once we create New React JS Application
+by deafault every React Js Application provide 4 libraries
+1. React:     --> for creating components in react appn 
+2. JavaScript:-->  for java script functionality
+3. ReactDom:  --> for dom manipulation
+4.CRM templates: --> for css purpose
+------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------
+React JS Application Folder structure
+---------------------------------------
+MyApp1 – This is your Project Name
+    node_modules – It contains all packages and dependencies installed.
+    public - 
+        favicon.ico – It’s a favicon for website
+        index.html – This file holds the HTML template of our app.
+        manifest.json - manifest.json provides metadata used when your web app is installed on a user's mobile device or desktop.
+    src
+        App.css – It’s a css file related to App.js but its global.
+        App.jsx – It’s Parent component of your react app
+        App.test.jsx – Its Test environment
+        index.css - It’s a css file related to index.js but its global
+        main.jsx – It’s the JavaScript entry Point.
+        logo.svg – React logo file
+        serviceWorker.js – It can help to access website offline. 
+.gitignore – It is used when you want to ignore git push.
+package-lock.json – Its version control package json file
+package,json – All dependencies mentioned in this file.
+README.md – It readme file
+=================================================================================
+React Element:
+------------
+Element is nothing but any html tag
+<h1> 
+<p>
+<a>
+<table> 
+<form> Tags
+-------------------------------------------
+What is Component?
+-------------
+--> Component is a collection of elements
+/group of elements.
+
+==============================================================
+How To Create a element In react Js Application
+=================================================
+to create element in React Js in 2 ways
+1. By Using React.createElement() method
+2. By Using JSX 
+--------------------------------------------------
+ By Using React.createElement() method
+----------------------------------------
+Create a Element in React Application
+----------------------------------
+Required Files Are
+---------------------
+1. App.jsx
+2. main.jsx
+3.index.html
+----------------------------
+App.jsx
+--------
+import React from "react";
+
+function App()
+{
+  return(React.createElement('h1',{style :{ color:'blue'}},'Welcome To ReactJs Application'))
+}
+export default App;
+
+=====================================================================================
+main.jsx
+--------
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+
+===================================================
+index.html
+------------
+<div id="root"> </div>
+
+=====================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

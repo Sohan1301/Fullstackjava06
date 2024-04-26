@@ -1,0 +1,239 @@
+Arrays
+--------
+Advantages of arrays
+-----------------------
+1. code optimization: it makes the code 
+optimize, we can retrieve or sort the data efficiently.
+2. random access: we can get any data located at an index
+position.
+-------------------------------------------------------
+limitations
+---------------
+1. arrays are fixed in size.
+2. every array object can hold similar data elements.
+3. to manipulate arrays object the is no underline implemented method.
+
+length
+=============================================================
+2. multi dimentaional arrays
+---------------------------------
+--> if arrays object values arrange in rows and column is known as
+multi dimentaional arrays.
+
+declaration
+------------
+static typed declaration
+---------------------
+int x[3][3]={{1,2,3},{4,5,6},{7,8,9}};
+String names[2][3]={{"sunil","anil","gopal"},{"ram","raju","raghu"}};
+
+-------------------------------------
+dynamic typed declaration
+--------------------------
+int x[][]=new int[row_size][col_size];
+
+String names[][]=new String[row_size][col_size];
+
+double salary[][]=new double[row_size][col_size];
+
+------------------------------------------------------
+ex
+---
+we can access 2-D array also 2 ways
+
+1. by using indexing
+2. by using looping (for loop)
+-----------------------------------
+ex1:
+----
+
+public class Two {
+
+	public static void main(String[] args) {
+		int data[][]= {{1,2,3},{4,5,6},{7,8,9}};
+		// accessing with indexing
+		System.out.println(data[1][1]);
+		System.out.println(data[2][2]);
+		System.out.println(data[2][0]);
+		System.out.println(data[0][0]);
+		// by using nested for loop
+		for(int r=0; r<3; r++)
+		{
+			for(int c=0; c<3; c++)
+			{
+				System.out.print(data[r][c]+" ");
+			}
+			System.out.println();
+		}
+	}
+}
+
+=============================================
+ex2: Decalare 2-d array and read values from keyboard and access with
+nested for loop
+---------------------------------------------------------------------
+
+import java.util.Scanner;
+
+public class Two {
+
+	public static void main(String[] args) {
+		int row_size,col_size;
+		Scanner sc=new Scanner(System.in);
+		System.out.println("enter number of rows and column size");
+		row_size=sc.nextInt();
+		col_size=sc.nextInt();
+		int data[][]=new int[row_size][col_size];
+		System.out.println("Eneter values");
+		for(int r=0; r<row_size; r++)
+		{
+			for(int c=0; c<col_size; c++)
+			{
+				data[r][c]=sc.nextInt();
+			}
+		}
+		// accessing with indexing
+		System.out.println(data[1][1]);
+		System.out.println(data[2][2]);
+		System.out.println(data[2][0]);
+		System.out.println(data[0][0]);
+		// by using nested for loop
+		for(int r=0; r<3; r++)
+		{
+			for(int c=0; c<3; c++)
+			{
+				System.out.print(data[r][c]+" ");
+			}
+			System.out.println();
+		}
+	}
+}
+
+===============================================
+Jagged Array in Java
+-------------------------
+If we are creating odd number of columns in a 2D array, 
+it is known as a jagged array. In other words, 
+it is an array of arrays with different number of columns.
+
+
+ex:3
+------
+
+public class JaggedArray {
+	 public static void main(String[] args){  
+	        //declaring a 2D array with odd columns  
+	        int arr[][] = new int[3][];  
+	        arr[0] = new int[3];  
+	        arr[1] = new int[4];  
+	        arr[2] = new int[2];  
+	        //initializing a jagged array  
+	        int count = 0;  
+	        for (int i=0; i<arr.length; i++)  
+	            for(int j=0; j<arr[i].length; j++)  
+	                arr[i][j] = count++;  
+	   
+	        //printing the data of a jagged array   
+	        for (int i=0; i<arr.length; i++){  
+	            for (int j=0; j<arr[i].length; j++){  
+	                System.out.print(arr[i][j]+" ");  
+	            }  
+	            System.out.println();//new line  
+	        }  
+	    }  
+}
+============================================
+java OOPs
+------------
+OOPS: object oriented Programming system
+it is a methology or paradigm to design our program or application
+using classes and objects.
+itsimplifies software development
+and mainatenenace by providing 
+some concepts
+
+oopS concepts
+----------------
+1. class
+2. object
+3. Inheritence
+4. poly morphism
+      a) method over loading
+       b) method overriding
+5. abstraction
+6. encapsulation
+7. interfaces
+---------------------------------
+1. class
+------------
+--> class is collection of variable and methods
+
+2. object: object is real world enetity
+or it is a inatence of class.
+
+
+ex: rose flower. raju, hdfc_bank
+
+3. Inheritence
+--------------
+the process of accessing parent class properies and behaviours
+from parent child class is known as inheritence.
+
+
+4. abstraction
+-----------------
+--> the process of hiding important implementation code
+and show the required functionality. is known as 
+abstraction.
+
+5. encapsulation
+------------------
+the process of binding or wrapping group of functinality
+with in single block is known as encapsulation
+--------------------------------------------------
+6. poly --> many --> forms
+------------------------------
+oops
+advantages
+---------------
+1. reuaseability
+2. code optimization
+3. scalability
+4. modularity
+5. no duplication code
+6. security
+
+=====================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

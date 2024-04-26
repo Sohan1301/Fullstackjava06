@@ -1,0 +1,226 @@
+Create Servlet web application for save product Invoice details In Mysql data base
+--------------------------------------------------------------------------------
+Reuired Files Are
+-----------------------
+1. product.html
+2.ProductCode.java
+3. web.xml
+4. Table:product   ---> Mysql server --> Data Base Excelrdb --> product
+Db: user name is=root
+password=root
+-----------------------------------------------------------------------------
+product.html
+--------------
+
+<body bgcolor="pink">
+<h1>Product Invoice</h1>
+<form action="ProductCode" method="post">
+Product Id:<input type="text" name="pid"><p></p>
+Product Name:<input type="text" name="pname"><p></p>
+Price:<input type="text" name="price"><p></p>
+Quantity:<input type="text" name="quantity"><p></p>
+<input type="submit" value="SaveProduct">
+</form>
+</body>
+</html>
+=====================================================
+ProductCode.java
+--------------------------------------------------
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+@WebServlet("/ProductCode")
+public class ProductCode extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+    public ProductCode() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try
+		{
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		long pid=Long.parseLong(request.getParameter("pid"));
+		String pname=request.getParameter("pname");
+		double price=Double.parseDouble(request.getParameter("price"));
+		int quantity=Integer.parseInt(request.getParameter("quantity"));
+		double total=0.0;
+		double discount=0.0,gst=0.0,invoice_bill=0.0;
+		total=price*quantity;
+		if(total<5000)
+		{
+			discount=(total*10)/100;
+		}
+		else if(total>=5000 && total<25000)
+		{
+			discount=(total*20)/100;
+		}
+		else if(total>25000)
+		{
+			discount=(total*32)/100;
+		}
+		gst=(total*18)/100;
+		invoice_bill=(total-discount)+gst;
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+		PreparedStatement ps=con.prepareStatement("insert into products values(?,?,?,?,?,?,?,?)");
+		ps.setLong(1,pid);
+		ps.setString(2, pname);
+		ps.setDouble(3, price);
+		ps.setInt(4, quantity);
+		ps.setDouble(5,total);
+		ps.setDouble(6,discount);
+		ps.setDouble(7,gst);
+		ps.setDouble(8,invoice_bill);
+		int i=ps.executeUpdate();
+		out.print(i+"New Product Details Saved in Data base");
+		if(i>0)
+		{
+			response.sendRedirect("success.html");
+		}
+		else
+		{
+			out.print("Data failed..........");
+		}
+		con.close();
+		}
+		catch(Exception ex)
+		{
+			System.out.print(ex);
+		}
+	}
+
+}
+====================================================================
+success.html
+---------------------------------------------------
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1 style="color:red"> New Product Details Added Successfully.....</h1>
+<a href="product.html">Back</a>
+</body>
+</html>
+================================================================
+web.xml
+------------------------------------------------------
+<welcome-file-list>
+    <welcome-file>product.html</welcome-file>
+   
+  </welcome-file-list>
+=====================================================================
+Output
+------------------------------------------------------------
+mysql> select *from products;
++------+----------------+----------+----------+----------+----------+---------+--------------+
+| pid  | pname          | price    | quantity | total    | discount | gst     | invoice_bill |
++------+----------------+----------+----------+----------+----------+---------+--------------+
+|  102 | delllaptab     | 45000.00 |        1 | 45000.00 | 11250.00 | 8100.00 |     41850.00 |
+| 2001 | dell lap tab   | 55000.00 |        1 | 55000.00 | 17600.00 | 9900.00 |     47300.00 |
+| 2002 | Lenovo lap tab | 35000.00 |        1 | 35000.00 | 11200.00 | 6300.00 |     30100.00 |
++------+----------------+----------+----------+----------+----------+---------+--------------+
+3 rows in set (0.00 sec)
+=============================================================================================
+======================================================================
+Display All Product details in we Page in Table Format
+------------------------------------------------------------
+viewProduct.html
+-------------------------
+
+<body>
+<h1 style="color:blue">View All Product Details</h1>
+<form action="ViewProductCode" method="post">
+<input type="submit" value="ViewProductDetails">
+</form>
+</body>
+
+===================================================================
+ViewProductCode.java
+---------------------------------------------------------
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class ViewProductCode
+ */
+@WebServlet("/ViewProductCode")
+public class ViewProductCode extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public ViewProductCode() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out=response.getWriter();
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection
+					("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			PreparedStatement ps=con.prepareStatement("select *from products");
+			ResultSet rs=ps.executeQuery();
+			ResultSetMetaData rss=rs.getMetaData();
+			int n=rss.getColumnCount();   //no of columns  n=8
+			out.print("<html><body><table border='1'>");
+			for(int i=1;i<=n;i++)    
+			out.println("<th> <font color=red size=3> "+"<br>"+rss.getColumnName(i));
+			out.println("<tr>");
+			while(rs.next())
+			{
+				for(int i=1;i<=n;i++)
+
+					out.println("<td><br> "+rs.getString(i));
+				out.println("<tr>");
+			}
+			out.println("</table> </body> </html>");
+			con.close();
+		}
+		catch(Exception ex)
+		{
+			out.println(ex);
+		}
+	}
+
+}
+===================================================================================
+Note: make link in product.html for navigate to viewProduct.html
+-----------------------------------------------------------------------------------

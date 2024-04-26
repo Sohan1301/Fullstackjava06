@@ -1,0 +1,367 @@
+Git Tool Working Flow
+-------------------------------
+Working Directory
+--------------
+--> In this stage git is only aware of having files in the project
+--> Modified means that you havee changed the file
+but not commited.
+--> Here we can create new files also.
+
+Staging Area
+------------------
+--> The staging area is like a rough draft space.
+where you can git add the vesrion of a file.
+
+Repository
+---------------
+--> A Repository has all the project related Data or project
+all coding files.
+--> It contains all collection of the files and also
+history of changes made of those files.
+---------------------------------------------------------------------------------
+Types of Repository
+---------------------------
+LOCAL REPO or folder
+CENTRAL REPO or folder
+REMOTE REPO  or folder
+------------------------------------------
+
+-------------------
+
+1. $ git help: 
+
+the use this command is 
+list out all basic git commands
+in console.
+ex:  $ git help
+
+-----------------------------------------------
+2. $ git help init
+------------------
+this command is used to display documention in our browser
+details of commands.
+
+ex: $ git help init
+
+$ git help commit: display details about commit command.
+
+
+
+
+
+
+
+--------------------------------------------------------
+3. $ git init
+--------------
+The use of git init command is create 
+a empty folder (repository) or re-initailize existing repo.
+ex:
+$ git init
+Initialized empty Git repository in C:/Users/hi/Desktop/MYGIT/.git/
+
+----------------------------------------------------------
+4. $ git status
+: this command will display status of current  repository.
+
+ex:
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        Demo.java.txt
+        Test.html.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+
+=================================================================================================S
+Staged Files
+--------------
+Files which are added and they are ready to commit
+these file names will disply in green color
+
+Un-Staged Files
+---------------
+Modified files will be displayed are ready to 
+commit these file names will be displayed in red color
+and these need to stage to commit.
+
+Un-Tracked Files
+-------------------------
+Newly created files , we need to stage them to commit
+these file names also will be display  in red color.
+
+
+=========================================================
+
+
+$ git add
+-------------
+This command is used to add untarcked files and ready to 
+commit in respository / ready to commit in staged area.
+
+syntax:
+-------
+$ git add <filename.exetention>
+
+ex:
+
+$ git add Demo.java
+
+$ git status
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   Demo.java    (this file name comes with green color)
+
+
+=======================================================================
+$ git add --a
+---------------
+This command is used to add all files at a time in staged area.
+
+syntax: $ git add --a
+
+$ git add --a
+$ git status
+On branch master
+
+No commits yet
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   Demo.java
+        new file:   Hell.java
+        new file:   Test.html
+        new file:   Welcome.java
+
+=======================================================
+$ git rm --cached <file>:   (rm stands for remove)
+--------------------------------------------------------------------
+This command is used to un-stage newly created files.
+
+syntax
+-------
+$ git rm --cached <fileName.extention>
+
+$ git rm --cached Hello.java
+
+rm 'Hello.java'
+---------------------------------------------------------------------------------------------
+
+
+
+
+
+=============================================
+Configure user name and mail id into git tool
+----------------------------------------------
+$ git config --global user.name "username"
+$ git config --global user.email "Your email id(GitHub's)"
+
+=======================================================
+ex:
+--
+hi@DESKTOP-MJII52S MINGW64 ~/Desktop/MYGIT (master)
+$ git config --global user.name "yakub"
+
+hi@DESKTOP-MJII52S MINGW64 ~/Desktop/MYGIT (master)
+$ git config --global user.email 'tools8985@gmail.com'
+
+hi@DESKTOP-MJII52S MINGW64 ~/Desktop/MYGIT (master)
+$ git config --global --list
+user.name=yakub
+user.email=tools8985@gmail.com
+
+===============================================
+$ git commit -m "text messages":
+-------------------------------
+
+This command is used to commit our changes to git local
+repository
+syntax: git commit -m 'commit-msg'
+
+Note: when we execute commit command it will consider all
+files  which are in staging area ready move romote repository.
+
+Note: along with commit compalsory give the message about your
+changes.
+===========================================================
+
+Note: Git Local repository will available in our mechine only.
+---------------------------------------------------------
+
+Now After commit all file now we need to send remote Repository
+for that we should execute following command
+-------------------------------------------------------
+1. git remote add origin <repo-url> this requires only first time)
+2 git push -u origin master (this is used to move changes
+from local to central)
+
+1st: git remote add origin
+https://github.com/YakubTools/myproject.git
+2nd: git push -u origin main
+=========================================================
+1: $ git commit -m "first commit"
+
+2: $ git branch -M main
+3: $ git remote add origin https://github.com/Yakub-123/myproject1.git
+4: $ git push -u origin main
+
+------------------------------------------------------
+git clone commnd
+-----------------
+The use of clone command is to copy existing project from github(remote)
+directoy to in newly created directory in our local mechine.
+--> git-clone - Clone a repository into a new directory
+syntax:
+=======
+$ git clone <url>  (remote repository url>
+
+ex:
+---
+change directory
+git status
+add new code
+then add into staging area
+the do commit with specified message
+finally push code into remote repository
+with following command
+1: $ git commit -m "first commit"
+2: $ git branch -M main
+3: $ git remote add origin https://github.com/YakubTools/myproject.git
+4: $ git push -u origin main
+====================================================================
+Branching
+---------
+git log:
+--------
+The git log command displays all of the commits in a repository’s history.
+
+$ git log
+
+-------------------------------------------------------------
+git Branch
+--------------
+This command is used to list,create or delete branches
+in Git Repository
+
+when used without any additional arguments, this command
+list all the branches in the repository.
+
+--> The currently active branch is 
+typically with an asterisk(*).
+---------------------------------------------------------------------
+git barnch <branch_Name>
+-------------------------
+This command is used to create a new branch in a Git 
+repository
+
+--> This command creates a new barnch with the specified 
+name but does not switch to that branch ; we only switch
+the barnch one to another.
+---------------------------------------------------------------
+ex:
+---
+$ git branch <branch_name>
+$git branch
+-----------------------------------------------
+git checkout <branch_name>
+-----------------------------
+This command is used to switch to a different branch 
+in a git Repository.
+It Allows you to navigate between branches and work on the code
+associated with a specific branch.
+
+ex:
+---
+$ git checkout version1
+Switched to branch 'version1'
+
+hi@DESKTOP-MJII52S MINGW64 ~/Desktop/MyDirectory (version1)
+------------------------------------------------------------
+git merge 
+----------
+This command is used to integrate changes from one branch
+into another
+
+This command combine the changes made on a specifuc branches
+(called source branch) into the current branch (called the 
+target branch).
+
+ex:
+---
+git merge <version1>
+
+==============================================
+git checkout -b <branch_name>
+-------------------------------
+This command is a convenient and commanly used short cut in Git.
+It create a new branch and change in it.
+
+it is equall to
+
+$ git branch <branch_name>
+$ git checkout <branch_name>
+--------------------------------------------------------------
+Ex:
+
+git checkout -b <version3>
+------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

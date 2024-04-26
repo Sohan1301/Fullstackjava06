@@ -1,0 +1,321 @@
+Spring Core module
+--------------------
+In spring we can do bean configuration in 3 ways
+------------------------------------------------------
+1. By using xml based config (.xml) file
+2. By using  Java Based config  (.java) file
+3. Annotation Based Config 
+-----------------------------------------------
+3. Annotation Based Config 
+---------------------------
+--> to do annotation based configuration by using following annotations
+1. @Component={@Controller+@Service+@Repository})
+2. @ComponentScan={@Component+@Confifuration}
+3. @Value
+---------------------------------------------------------------
+Requied Files Are
+================
+1. BeanClass.java   --> @component
+0. Configi=uration file --> no .xml file/no .java file
+2. App.java   --> @ComponentScan+@Configuration
+=================================================================
+Preparation of Bean class/Component 
+---------------------------------------
+package com.excelr
+@Component("id1")
+public class MyBean1
+{
+//PIV+PDC+PSM+PGM+BM
+
+}
+package com.excelr
+
+@Component("id2")
+public class MyBean2
+{
+//PIV+PDC+PSM+PGM+BM
+
+}
+============================================
+Preparation of App.java/IOC Container file
+--------------------------------------------
+@Configuration
+@ComponentScan("com.excelr")
+public class App
+{
+psvm(String args[])
+{
+ApplicationContext ctx=new AnnotationConfigApplicationContext(App.class);
+MyBean1 m1=(MyBean1)ctx.getBean("id1");
+MyBean2 m2=(MyBean2)ctx.getBean("id2");
+process your business methods
+}
+}
+--------------------------------------------------
+Create a spring Application With Annotation Based Configuration
+--------------------------------------------------------------
+1. CutomerBean.java ---> @component
+2. StudentBean.java  ---> @component
+3.App.java
+------------------------------------------
+CustomerBean.java
+-----------------
+package com.yakub;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component("id1")
+public class CustomerBean {
+
+	private int cid;
+
+	public CustomerBean() {
+		System.out.println("this is a CustomerBean.CustomerBean()");
+
+	}
+
+	public int getCid() {
+		return cid;
+	}
+
+	@Override
+	public String toString() {
+		return "CustomerBean [cid=" + cid + "]";
+	}
+	@Value("9000")
+	public void setCid(int cid) {
+		this.cid = cid;
+	}
+
+}
+
+====================================================
+StudentBean .java
+--------------------
+
+package com.yakub;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component("id2")
+public class StudentBean {
+
+	private int stdId;
+	private String stdName;
+	@Autowired
+	private CustomerBean customerBean;
+	//psm+pgm+bm
+	public StudentBean() {
+		System.out.println("this is a StudentBean.StudentBean()");
+
+	}
+	public int getStdId() {
+		return stdId;
+	}
+	@Value("120") //<property name="stdId" value="120"/>
+	public void setStdId(int stdId) {
+		this.stdId = stdId;
+	}
+	public String getStdName() {
+		return stdName;
+	}
+	@Value("Excelr Gropu")
+	public void setStdName(String stdName) {
+		this.stdName = stdName;
+	}
+	
+public CustomerBean getCustomerBean() {
+		return customerBean;
+	}
+	public void setCustomerBean(CustomerBean customerBean) {
+		this.customerBean = customerBean;
+	}
+public void printStudent()
+{
+	System.out.println(stdId);
+	System.out.println(stdName);
+	System.out.println(customerBean);
+}
+}
+
+
+===========================================
+App.java
+-----------
+package com.yakub;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan("com.yakub")
+public class App {
+
+	public static void main(String[] args) {
+	ApplicationContext ctx=new AnnotationConfigApplicationContext(App.class);
+	CustomerBean c1=(CustomerBean)ctx.getBean("id1");
+	StudentBean s1=(StudentBean)ctx.getBean("id2");
+s1.printStudent();
+	}
+
+}
+
+===================================================================
+package com.yakub;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class MyController {
+
+	public MyController() {
+
+		System.out.println("MyController.MyController()");
+	}
+	
+}
+
+============================================
+package com.yakub;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class MyService {
+
+	public MyService() {
+		System.out.println("MyService.MyService()");
+	}
+}
+
+=======================================
+package com.yakub;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class MyRepo {
+
+	public MyRepo() {
+		System.out.println("MyRepo.MyRepo()");
+	}
+}
+
+====================================================
+@Component:
+==========
+Spring Component annotation is used to denote 
+a class as Component. 
+It means that Spring framework will autodetect these classes 
+for dependency injection.
+when annotation-based configuration and 
+classpath scanning is used. Most of the time our component 
+classes will fall under one of its three 
+specialized annotations,  so you may not use @Component 
+annotation a lot.
+Spring framework provides three other specific annotations to 
+be used when marking a class as Component.
+
+
+
+
+
+@Service: 
+	Denotes that the class provides some services. 
+	Our utility classes can be marked as Service classes.
+	(for prepare Business Logic).
+@Repository: 
+	This annotation indicates that the class deals with 
+	CRUD operations, 
+	usually it’s used with DAO implementations that deal 
+	with database tables. 
+	(JDBCTemplates+HibernetTemplates).
+@Controller: Mostly used with web applications or REST 
+	web services to specify that the 
+	class is a front controller and responsible to handle
+	request and response. (http). 
+
+@Value:
+=======
+@Value is a Java annotation that is used at the field or 
+method/constructor parameter 
+level and it indicates a default value for the affected argument. 
+It is commonly used for injecting values into configuration variables.
+
+
+
+
+
+===================================================
+=====================================
+*-Types of Annotations in Annotation based configuration
+--------------------------------------------------------------
+1. Stereo Type Annotation (Bean Creation)
+2. Data Annotation (Injcetion)
+
+
+
+
+1. Stereo Type Annotation (Bean Creation)
+-------------------------------------------------------
+These are 5 Types
+----------------------
+1. @Component
+2.@Controller
+3. @Service
+4. @Repository
+5.@RestController 
+----------------------------------------------------
+2. Data Annotations(Injection)
+------------------------------------
+1. @Value
+2. @Autowired
+-----------------------------------------------
+stereo Type Annotation
+---------------------------------
+An Annotation which detects the class and create the 
+object (by Spring IOC ) is known as Steroe Type 
+Annotation.
+
+Note:
+-----
+a) Activate annotation with basePackages.
+b) Provide @Component on top of the classes
+(@Controller+@Service+@Repository+@RestCotroller).
+
+1. What is basePackage?
+-----------------------------------
+it is a package name given by programmer to search and it 
+sub packages. and Load into Spring IOC container.
+
+Ex:
+@Configuration
+//@ComponentScan(basePackages = "com.chanti")
+//@ComponentScan(basePackages = {"com.chanti","com.yakub"})
+//@ComponentScan("com.yakub")
+//@ComponentScan({"com.chanti","com.yakub"})
+@ComponentScan(basePackages = {"com.chanti"})
+public class App
+{
+PSVM()
+{
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

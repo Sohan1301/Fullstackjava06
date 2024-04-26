@@ -1,0 +1,281 @@
+1. single Tasking Threading--> to execute multiple Task with single Thread
+2. Multi Tasking Threading --> to execute multiple task with more than thread 
+Note: thread are not execute in sequence order this called race conditions
+
+Synchrozations
+----------------------
+synchronized key word
+-----------------------------------
+
+Thread intercommunication
+=========================
+Example Program for Thread intercommunication
+------------------------------------------------------------------------
+class Customer
+{  
+	int amount=10000;  
+
+	synchronized void withdraw(int amount)
+	{  
+		System.out.println("going to withdraw...");  
+
+		if(this.amount<amount)
+		{  
+			System.out.println("Less balance; waiting for deposit...");  
+			try
+			{
+				wait();   // wait for deposit 
+			}
+			catch(Exception e)
+			{
+				
+			}  
+		}  
+		this.amount-=amount;  
+		System.out.println("withdraw completed...");  
+	}  
+
+	synchronized void deposit(int amount)
+	{  
+		System.out.println("going to deposit...");  
+		this.amount+=amount;  
+		System.out.println("deposit completed... ");  
+		notify();  
+	}  
+}  
+
+class Bank
+{  
+	public static void main(String args[])
+	{  
+		final Customer c=new Customer();  
+		Thread t1=new Thread()
+		{  
+			public void run()
+			{
+				c.withdraw(22000);
+			}  
+		};
+		t1.start();  
+		Thread t2=new Thread()
+		{
+			public void run()
+			{
+				c.deposit(10000);
+			}  
+		};t2.start();  
+
+	}
+}  
+=======================================================================
+Thread class Implemented Methods
+------------------------------------------------------------
+Thread class predefined Methods
+---------------------------------------------------
+1. getName(): It is used for Obtaining a thread’s name
+
+Exp Program
+---------------------
+public class ThreadName extends Thread 
+{
+
+ public void run()
+ {
+	 System.out.println("Thread Running...");
+ }
+
+ public static void main(String[] args)throws InterruptedException
+ {
+
+   ThreadName t1 = new ThreadName();
+   ThreadName t2 = new ThreadName();
+   ThreadName t3 = new ThreadName();
+		
+   t1.start();
+   System.out.println("Thread T1 : "+t1.getName());
+
+   t2.start();
+    t2.setName("Rahul");	
+   System.out.println("Thread T2 : " + t2.getName());
+
+   t3.setName("Yakub");	
+   System.out.println("Thread T3 : " + t3.getName());
+ }
+}
+==========================================
+Thread Running...
+Thread T1 : Thread-0
+Thread Running...
+Thread T2 : Rahul
+Thread Running...
+Thread T3 : Yakub
+==================================================
+2. getPriority(): 	Obtain a thread’s priority
+
+exp: Program for getPriority
+---------------------------------------
+public class ThreadPriority extends Thread
+{
+
+ public  synchronized void run()
+ {
+
+   String tName = Thread.currentThread().getName();
+   Integer tPrio = Thread.currentThread().getPriority();
+	 
+   System.out.println(tName + " has priority " + tPrio);
+ }
+
+ public static void main(String[] args) 
+                      throws InterruptedException {
+
+   ThreadPriority t0 = new ThreadPriority();
+   ThreadPriority t1 = new ThreadPriority();
+   ThreadPriority t2 = new ThreadPriority();
+    ThreadPriority t3 = new ThreadPriority();
+   ThreadPriority t4 = new ThreadPriority();
+
+   t2.setPriority(8);
+   t1.setPriority(Thread.MAX_PRIORITY);	
+   t0.setPriority(Thread.MIN_PRIORITY);	
+    t3.setPriority(Thread.NORM_PRIORITY);
+   t4.setPriority(Thread.MAX_PRIORITY);	
+  
+
+  t0.start();
+   t1.start();
+   t2.start();
+    t3.start();
+     t4.start();
+   
+ }
+}
+===========================================
+output
+==========
+Thread-4 has priority 10
+Thread-1 has priority 10
+Thread-3 has priority 5
+Thread-2 has priority 8
+Thread-0 has priority 1
+
+===============================================
+3.isAlive(): Determine if a thread is still running
+
+Exp Program
+------------------
+public class ISAlive extends Thread
+{
+     public void run()
+ {  
+   
+    System.out.println("is run() method isAlive::::"+Thread.currentThread().isAlive());
+     System.out.println("is run() method isAlive::::"+Thread.currentThread().getName());
+  }  
+public static void main(String args[])
+{  
+  ISAlive t1=new  ISAlive();  
+  System.out.println("Before starting thread isAlive="+t1.isAlive());   // false
+ 
+  try
+   {  
+    Thread.sleep(10000); 
+   }
+   catch(Exception e)
+   {
+       System.out.println(e);
+   }  
+   t1.start();
+  System.out.println("After starting thread isAlive="+t1.isAlive());  // true
+ }  
+}  
+
+=======================================================================
+output
+------------
+Before starting thread isAlive=false
+After starting thread isAlive=true
+is run() method isAlive::::true
+is run() method isAlive::::Thread-0
+
+=========================================
+join(): Wait for a thread to terminate
+---------------------------------------------------------------------
+Example Application
+-----------------------------
+public class ISJoin extends Thread
+{  
+ public void run()
+ {  
+  for(int i=1;i<=5;i++)
+  {  
+   try
+   {  
+    Thread.sleep(5000);  
+   }
+   catch(Exception e)
+   {
+       System.out.println(e);
+   }  
+  System.out.println(i);  
+  }  
+ }  
+public static void main(String args[])
+{  
+ ISJoin t1=new ISJoin();  
+ ISJoin t2=new ISJoin();  
+ ISJoin t3=new ISJoin();  
+ t1.start();  
+ try
+ {  
+  //t1.join();  
+   t1.join(15000); 
+ }
+ catch(Exception e)
+ {
+     System.out.println(e);
+ } 
+ t2.start();  
+ t3.start();  
+ }  
+} 
+=============================================
+1
+2
+3
+1
+1
+4
+2
+2
+5
+3
+3
+4
+4
+5
+5
+=============================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,476 @@
+Hibernate CRUD Applications With Annotations
+----------------------------------------------
+What is Annotations
+-------------------
+--> annotations are replacement for xml tags.
+--> annotations are avoid meta data configuration
+--> The means avoid XML Tags.
+--> here we are using annotations means not required 
+to use pojoclass.hbm.xml file not required
+-----------------------------------------------------> 
+Let us see few points regarding annotations in 
+Spring/Spring Boot
+========================================================
+--> Annotations are introduced in java 
+along with JDK 1.5.
+---> annotations are used to provide META 
+data to the classes, variables, methods of java.
+--> In hibernate framwork  annotations are given to 
+replacement of [ xml ] file configuration.
+ex: Product.hbm.xml  file
+-->While working with annotations 
+in hibernate framwork, we do not require any xml configuration file.
+***-->Every annotations is internally an Interface, 
+============================================================
+some hibernate Inportant Annotaions/entity class annotation
+------------------------------------------------------------
+@Entity
+@Id
+@Table
+@Column
+@GeneratedValues
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Notnull
+------------------------------------------------------------------
+To Create Hibernate Annaotation Based CRUD Application 
+Required File Are and Jars Are
+------------------------------------------------------------
+1. POJO class (.java) --> @Entity+@Id+@Table+@Column
+0. PojoClass.hbm.xml   not required
+2. MYSQL.cfg.xml   --> Db conn Stmt+Hibernate Dailect Properties+Mapping file info
+3. TestClas.java --> Logic with Persistance API 
+-------------------------------------------------------
+Requied Jars Are
+----------------
+1. hibernate
+2. commons-logging
+3.dom4j
+4. commons-collections
+5.ehcache
+6.cglib
+7. jta
+8. javax.persistence-api
+9. hibernate-annotations
+10.javassist
+11.mysql-connector-java
+=================================================
+Employee.java
+---------------
+package com.sai;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+@Entity
+public class Employee implements Serializable{
+
+	@Id
+	private int id;
+	private String name;
+	@Column(name="salary")
+	private double empSal;
+	private String designation;
+	//PDC+PPC+PSM+PGM+toString()
+	public Employee() {
+		super();
+	}
+	public Employee(int id, String name, double empSal, String designation) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.empSal = empSal;
+		this.designation = designation;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public double getEmpSal() {
+		return empSal;
+	}
+	public void setEmpSal(double empSal) {
+		this.empSal = empSal;
+	}
+	public String getDesignation() {
+		return designation;
+	}
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", empSal=" + empSal + ", designation=" + designation + "]";
+	}
+	
+	
+}
+================================================
+MySQL.cfg.xml
+-----------------
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- DB related properties START -->
+		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/amazondb</property>
+		<property name="connection.user">root</property>
+		<property name="connection.password">root</property>
+		<!-- Hibernate related properties START -->
+		<property name="show_sql">true </property>
+		<property name="sql_format">true </property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hbm2ddl.auto">update</property>
+		<!-- Mapping files list -->
+		<mapping class="com.sai.Employee"/>
+	</session-factory>
+</hibernate-configuration>
+=================================================================
+SaveTest.java
+---------------
+package com.sai;
+import org.hibernate.*;
+import org.hibernate.cfg.*;
+public class SaveTest {
+
+	public static void main(String[] args) {
+
+		AnnotationConfiguration cfg = new AnnotationConfiguration();
+		cfg.configure("com/sai/MySQL.cfg.xml");
+		SessionFactory factory=cfg.buildSessionFactory();
+		Session session=factory.openSession();
+		Employee e1=new Employee(103,"salman",50000.99d,"infosys");
+		Transaction tx=session.beginTransaction();
+		session.save(e1);
+		System.out.println("New Record Successfully inserted");
+		tx.commit();
+		session.close();
+		factory.close();
+	}
+}
+=====================================================
+
+ReadOneRecord.java
+-----------------------
+package com.sai;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+public class ReadOneRecord {
+	public static void main(String[] args) {
+		//Loading configuration file into HB container
+    	AnnotationConfiguration cfg = new AnnotationConfiguration();
+		cfg.configure("com/sai/MySQL.cfg.xml"); 
+		//HB container creates high level object
+		SessionFactory factory = cfg.buildSessionFactory();
+		//Creating session between Java Application and Database
+		Session session = factory.openSession();
+		//Create a transaction
+		Transaction tx = session.beginTransaction();
+	
+		Employee passenger = (Employee)session.get(Employee.class, 102);
+		System.out.println(passenger);
+		//Commit the tx
+		tx.commit();
+		//Close the session and factory objects
+		session.close();
+		factory.close();
+	}
+}
+
+===============================================================
+UpdateEmployeeTest.java
+--------------------------
+package com.sai;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+public class UpdateEmployeeTest {
+	public static void main(String[] args) {
+		//Loading configuration file into HB container
+    	AnnotationConfiguration cfg = new AnnotationConfiguration();
+		cfg.configure("com/sai/MySQL.cfg.xml"); 
+		//HB container creates high level object
+		SessionFactory factory = cfg.buildSessionFactory();
+		//Creating session between Java Application and Database
+		Session session = factory.openSession();
+		//Create a transaction
+		Transaction tx = session.beginTransaction();
+	
+		Employee employee = (Employee)session.get(Employee.class, 102);
+		
+		System.out.println(employee);
+		employee.setDesignation("TATA");
+		employee.setEmpSal(120000.99);
+		session.update(employee);
+		//Commit the tx
+		tx.commit();
+		//Close the session and factory objects
+		session.close();
+		factory.close();
+	}
+
+}
+========================================================
+DeleteTest.java
+===================
+package com.sai;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+public class DeleteTest {
+
+	public static void main(String[] args) {
+		AnnotationConfiguration cfg = new AnnotationConfiguration();
+		cfg.configure("com/sai/MySQL.cfg.xml"); 
+		//HB container creates high level object
+		SessionFactory factory = cfg.buildSessionFactory();
+		//Creating session between Java Application and Database
+		Session session = factory.openSession();
+		//Create a transaction
+		Transaction tx = session.beginTransaction();
+		Employee employee = (Employee)session.get(Employee.class, 103);
+		System.out.println(employee);
+		session.delete(employee);
+		System.out.println("One Record Deleted SuccessFully...........");
+		//Commit the tx
+		tx.commit();
+		//Close the session and factory objects
+		session.close();
+		factory.close();
+
+	}
+
+}
+=============================================================================
+pom.xml
+---------
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.sai</groupId>
+	<artifactId>HibernateEx1</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>HibernateEx1</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<!--Junit dependency-->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!--mysql dependency-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version>
+		</dependency>
+		<!--HIBERNATE dependency-->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate -->
+		<!--<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.0</version>
+		</dependency>-->
+		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>2.10.9.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/cglib/cglib -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<!--
+		https://mvnrepository.com/artifact/org.hibernate/hibernate-annotations -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.4.0.GA</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javassist/javassist -->
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.12.1.GA</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>JBoss repository</id>
+			<url>http://repository.jboss.com/maven2/</url>
+		</repository>
+	</repositories>
+</project>
+=========================================================================
+Output
+---------
+mysql> select *from employee;
++-----+-------------+----------+---------+
+| id  | designation | salary   | name    |
++-----+-------------+----------+---------+
+| 101 | TCS         | 90000.99 | sandeep |
++-----+-------------+----------+---------+
+1 row in set (0.08 sec)
+
+mysql> select *from employee;
++-----+-------------+----------+---------+
+| id  | designation | salary   | name    |
++-----+-------------+----------+---------+
+| 101 | TCS         | 90000.99 | sandeep |
+| 102 | infosys     | 80000.99 | aryan   |
+| 103 | infosys     | 50000.99 | salman  |
++-----+-------------+----------+---------+
+3 rows in set (0.01 sec)
+
+mysql> select *from employee;
++-----+-------------+----------+---------+
+| id  | designation | salary   | name    |
++-----+-------------+----------+---------+
+| 101 | TCS         | 90000.99 | sandeep |
+| 102 | infosys     | 80000.99 | aryan   |
+| 103 | infosys     | 50000.99 | salman  |
++-----+-------------+----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select *from employee;
++-----+-------------+-----------+---------+
+| id  | designation | salary    | name    |
++-----+-------------+-----------+---------+
+| 101 | TCS         |  90000.99 | sandeep |
+| 102 | TATA        | 120000.99 | aryan   |
+| 103 | infosys     |  50000.99 | salman  |
++-----+-------------+-----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select *from employee;
++-----+-------------+-----------+---------+
+| id  | designation | salary    | name    |
++-----+-------------+-----------+---------+
+| 101 | TCS         |  90000.99 | sandeep |
+| 102 | TATA        | 120000.99 | aryan   |
++-----+-------------+-----------+---------+
+2 rows in set (0.00 sec)
+==========================================================
+Create Hibernate Application With following
+Class with annotations
+======================================
+Mobile
+----------
+modelNumber
+modelName
+company_name
+ram_size
+rom_size
+os_name
+processor_name
+f_cam_size
+b_cam_size
+price
+imei_number
+-----------------------------------------
+create
+insert
+update
+delete
+read one record
+-----------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

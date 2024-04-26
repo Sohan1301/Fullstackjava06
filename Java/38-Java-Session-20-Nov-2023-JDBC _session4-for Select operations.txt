@@ -1,0 +1,325 @@
+When we execute a select query, we get a ResultSet object. If we display the 
+reference of the ResultSet object then it will not display the data available in 
+that object instead it will display the information of the object i.e. it will 
+display the class name followed by hashcode. 
+
+Output: 
+oracle.jdbc.driver.OracleResultSetlmpl@8bg135
+ 
+If we require the data available in the object i.e. if we want to read the data 
+available in the object then it is the responsibility of the programmer to read 
+the object.
+
+The jdbc driver will receive the records from the database server and 
+converts them into the ResultSet object and then sends the ResultSet object 
+to the jdbc program. The jdbc program will always receive ResultSet object 
+containing the data given by the database server. 
+
+It is the responsibility of the programmer to read the data from the 
+ResultSet object. Every ResultSet object will be associated with a pointer 
+called ResultSet Pointer, which will be by default positioned before the first 
+record.
+
+--> to pring record values from rs object we need to getters methods
+given in ResultSet Interface.
+
+ex: rs.getInt(index);
+rs.getString(name);
+rs.getDouble(index);
+
+Note: rs.getString(index) method id deafult method of all type
+data types.
+=
+syntax
+---------
+Statemtn stmt=con.createStatement();
+ResultSet rs=stmt.executeQuery("select *from Table_name");
+if(rs.next())
+{
+for(int i=1; i<=3; i++)
+{
+sop(rs.getString(i));
+}
+}
+===========================================================
+1. Write a JDBC program for Retriew student Records?
+
+import java.sql.*;
+public class SelectStudent {
+
+	public static void main(String[] args) {
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Statement stmt=con.createStatemaent();
+			ResultSet rs=stmt.executeQuery("select *from student");
+			System.out.println(rs);
+			if(rs.next())
+			{
+				for(int i=1; i<=3; i++)
+				{
+					System.out.println(rs.getString(i));
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+
+	}
+
+}
+
+=====================================================
+The Above program will read only one record and display only one record. If 
+we want to retrieve all records from the table, we need to use a loop.
+
+exp2: for Display All records from Tables in Java Application
+
+import java.sql.*;
+public class SelectStudent {
+
+	public static void main(String[] args) {
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Statement stmt=con.createStatement();
+			ResultSet rs=stmt.executeQuery("select *from student");
+			System.out.println(rs);
+			while(rs.next())
+			{
+				for(int i=1; i<=3; i++)
+				{
+					System.out.println(rs.getString(i));
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+
+	}
+
+}
+=====================================================================
+Appn3: Write a JDBC programm to retriew student record by using studentId
+---------------------------------------------------------------------------
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Scanner;
+public class SelectStudent {
+	public static void main(String[] args) {
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Enter Student Id");
+			int sid=sc.nextInt();
+			PreparedStatement ps=con.prepareStatement("select *from student where sid=?");
+			ps.setInt(1, sid);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				for(int i=1; i<=3; i++)
+				{
+					System.out.println(rs.getString(i));
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+
+	}
+
+}
+
+=================================================================
+Appn5: Write a JDBC Program for Login Pager operations
+------------------------------------------------------------
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Scanner;
+
+public class LoginCode {
+
+	public static void main(String[] args) {
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Enter Student Id and name");
+			int sid=sc.nextInt();
+			String name=sc.next();
+			PreparedStatement ps=con.prepareStatement("select *from student where sid=? and name=?");
+			ps.setInt(1, sid);
+			ps.setString(2, name);
+			ResultSet rs=ps.executeQuery();
+			if(rs.next())
+			{
+				System.out.println("You are successfully logined");
+				
+			}
+			else
+			{
+				System.out.println("Please insert valid sid and password");
+			}
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+
+	}
+
+	}
+
+
+
+=================================================================================
+Appn6: JDBC Program for Deposit Amount into Account Table
+
+mysql> create table account(acc_no int(38),balance int(38));
+Query OK, 0 rows affected, 2 warnings (0.41 sec)
+
+mysql> insert into account values(1001,3000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into account values(1002,5000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into account values(1003,7000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into account values(1004,700);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+
+
+mysql> select *from account;
++--------+---------+
+| acc_no | balance |
++--------+---------+
+|   1001 |    3000 |
+|   1002 |    5000 |
+|   1003 |    7000 |
+|   1004 |     700 |
++--------+---------+
+4 rows in set (0.02 sec)
+
+===============================================================================
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Scanner;
+
+public class DepositAmount {
+
+	public static void main(String[] args) {
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Enter Your Account");
+			int acc_no=sc.nextInt();
+			PreparedStatement ps=con.prepareStatement("select *from account where acc_no=?");
+			ps.setInt(1, acc_no);
+			ResultSet rs=ps.executeQuery();
+			int mybalance=0;
+			if(rs.next())
+			{
+				mybalance=rs.getInt(2);
+			}
+			System.out.println("My Account Number is="+acc_no);
+			System.out.println("My Original Balance is="+mybalance);
+			System.out.println("Enter your Deposit Amount");
+			int depisit_amt=sc.nextInt();
+			int balance=mybalance+depisit_amt;
+			
+			PreparedStatement ps2=con.prepareStatement("update account set balance=? where acc_no=?");
+			ps2.setInt(1, balance);
+			ps2.setInt(2,acc_no);
+			int i=ps2.executeUpdate();
+			System.out.println("Amount deposited In Your Account successfully");
+			System.out.println("After deposit Account Balance is="+balance);
+			con.close();
+		}
+			
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+
+	}
+	}
+
+
+
+
+output
+--------
+Enter Your Account
+1002
+My Account Number is=1002
+My Original Balance is=5000
+Enter your Deposit Amount
+8000
+Amount deposited In Your Account successfully
+After deposit Account Balance is=13000
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

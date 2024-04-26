@@ -1,0 +1,64 @@
+
+
+
+--> An interface is a fully abstract class. 
+It includes a group of abstract methods (methods without a body).
+
+--> We use the interface keyword to create an interface in Java
+--> You cannot instantiate an interface.
+--> An interface does not contain any constructors.
+--> All of the methods in an interface are abstract.
+--> An interface cannot contain instance fields. The only fields that can appear 
+in an interface must be declared both static and final.
+
+****--> An interface is not extended by a class; it is implemented by a class.
+--> An interface can extend multiple interfaces.
+
+--> after jdk 1.8 version interface having a default and static methods.
+--> Since jdk 1.9 ,we can have private methods in an interface.
+================================================================================
+--> To create interface by using interface keyword
+
+syntax:
+------
+
+class <class_name>
+{
+//variable
+// methods
+}
+
+------------------------------------
+interface <interface_name>
+{
+abstracted methods();
+}
+==========================================================================
+ex:
+---
+interface Bank
+{
+public abstract void deposit();
+public abstract void withdrawal();
+public abstract void mini_statement();
+}
+=======================================================================
+The Relation between classes and interface
+--------------------------------------------
+--> one class extends with another class.
+--> interface always implements with class.
+-->one  interface extends with another interface.
+--> one class to interface no extends and not implements.
+=====================================================================
+The main reasons of interfaces are
+--------------------------------------
+1. it is used to achieve abstraction.  (100%).  security
+2. In achieve multiple and hybrid inheritace (5%).
+3. To achieve method ovverriding.
+----------------------------------------------------------------------------
+
+
+
+
+
+

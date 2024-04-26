@@ -1,0 +1,359 @@
+Hiber Nate Application With JDK17 
+---------------------------------
+Hibernate XML based Configuration Required Jars Are
+-----------------------------------------------------
+create a maven project with out archetype
+and copy all jars from www.mvnrepository.com
+to pom.xml file between <dependencies> xml tag
+------------------------------------------------
+1.hibernate  (3.0) version
+2. commons-logging   --> 1.3.0
+3. dom4j  --> 1.6.1
+4. commons-collections --> 3.2.2
+5. ehcache  --> 2.10.9.2
+6. cglib   -->  2.2.2
+7. jta    --> 1.1
+8. mysql-connector-java   8.0.32
+==================================================
+Required Files Are
+--------------------
+Passenger.java
+--------------
+package com.chanti;
+
+import java.io.Serializable;
+
+public class Passenger implements Serializable{
+	
+	private int id;
+	private String name;
+	private long phone;
+	private String city;
+	public Passenger() {
+		// TODO Auto-generated constructor stub
+	}
+	public Passenger(int id, String name, long phone, String city) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+		this.city = city;
+	}
+	@Override
+	public String toString() {
+		return "Passenger [id=" + id + ", name=" + name + ", phone=" + phone + ", city=" + city + "]";
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public long getPhone() {
+		return phone;
+	}
+	public void setPhone(long phone) {
+		this.phone = phone;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+}
+------------------------------------------------------------------
+Passenger.hbm.xml
+------------------
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.chanti.Passenger" table="PSNGRS">
+		<id name="id"/>
+		<property name="name" />
+		<property name="phone" />
+		<property name="city" />
+	</class>
+</hibernate-mapping>
+===================================================================
+MYSQL.cfg.xml
+---------------
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- DB related properties START -->
+		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/hbdb</property>
+		<property name="connection.user">root</property>
+		<property name="connection.password">root</property>
+		<!-- Hibernate related properties START -->
+		<property name="show_sql">true </property>
+		<property name="sql_format">true </property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hbm2ddl.auto">update </property>
+		<!-- Mapping files list -->
+		<mapping resource="com/chanti/Passenger.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>
+==============================================================================
+App.java
+----------
+package com.chanti;
+
+import org.hibernate.*;
+import org.hibernate.cfg.*;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	//Loading configuration file into HB container
+		Configuration cfg = new Configuration();
+		cfg.configure("com/chanti/MySQL.cfg.xml"); 
+		//HB container creates high level object
+		SessionFactory factory = cfg.buildSessionFactory();
+		//Creating session between Java Application and Database
+		Session session = factory.openSession();
+		//Create a transaction
+		Transaction tx = session.beginTransaction();
+		//Creating persistence class object
+		Passenger passenger=new Passenger(501,"Ganesh",98490L,"Hyd");
+		//Call the DAO methods to save the passenger object into Database
+		session.save(passenger);
+		System.out.println("Passenger Object saved successfully.....!!");
+		//Commit the tx
+		tx.commit();
+		//Close the session and factory objects
+		session.close();
+		factory.close();
+    }
+}
+
+=====================================================
+POM.xml
+----------
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.chanti</groupId>
+	<artifactId>HibernateEx1</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>HibernateEx1</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<!--Junit dependency-->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!--mysql dependency-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version>
+		</dependency>
+		<!--HIBERNATE dependency-->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>2.10.9.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/cglib/cglib -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+	</dependencies>
+</project>
+========================================================================
+Error:
+=======
+
+InaccessibleObjectException: Unable to make protected final java.lang.Class java.lang.ClassLoader.defineClass(java.lang.String,byte[],int,int,java.security.ProtectionDomain) throws java.lang.ClassFormatError accessible: module java.base does not "opens java.lang" to unnamed module @511baa65
+
+Solution:
+=========
+
+# Add this is in VM arguments
+
+--add-opens java.base/java.lang=ALL-UNNAMED
+
+
+The above Line Code copy in Vm Arguments
+-------------------------------------
+App.java --> Run As---> Run Configuration---> Main--> VM Arguments -->Paste--> Save --> RUN
+
+--add-opens java.base/java.lang=ALL-UNNAMED
+
+------------------------------------------------------------------------------------------ 
+1. Create 
+2. insert
+3. Select Operation
+-----------------------
+SelectTest.java
+----------------
+
+package com.yakub;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+public class SelectTest {
+
+	public static void main(String[] args) {
+		//Loading configuration file into HB container
+		Configuration cfg = new Configuration();
+		cfg.configure("com/yakub/MySQL.cfg.xml"); 
+		//HB container creates high level object
+		SessionFactory factory = cfg.buildSessionFactory();
+		//Creating session between Java Application and Database
+		Session session = factory.openSession();
+		//Create a transaction
+		//Creating persistence class object
+		Product p=(Product)session.load(Product.class,101);
+		//Product p=(Product)session.get(Product.class,101);
+		System.out.println("Record Retrived Successfully");
+		System.out.println(p.getProdName());
+		System.out.println(p.toString());
+		//Close the session and factory objects
+		session.close();
+		factory.close();
+	}
+
+	
+}
+=============================================
+
+DeleteTest.java
+--------------------
+package com.yakub;
+
+import org.hibernate.*;
+import org.hibernate.cfg.*;
+
+public class DeleteTest {
+	public static void main(String arg[])
+	{
+	//Loading configuration file into HB container
+			Configuration cfg = new Configuration();
+			cfg.configure("com/yakub/MySQL.cfg.xml"); 
+			//HB container creates high level object
+			SessionFactory factory = cfg.buildSessionFactory();
+			//Creating session between Java Application and Database
+			Session session = factory.openSession();
+			
+			Transaction tx = session.beginTransaction();
+			Product p=(Product)session.get(Product.class,101);
+			session.delete(p);
+			System.out.println("Objeet Deleted Successfully");
+			tx.commit();
+			//Close the session and factory objects
+			session.close();
+			factory.close();
+}
+}
+
+=============================================================
+UpdateTest.java
+-----------------
+package com.yakub;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class UpdateTest {
+
+	public static void main(String[] args) {
+		Configuration cfg = new Configuration();
+		cfg.configure("com/yakub/MySQL.cfg.xml"); 
+		//HB container creates high level object
+		SessionFactory factory = cfg.buildSessionFactory();
+		//Creating session between Java Application and Database
+		Session session = factory.openSession();
+		
+		Transaction tx = session.beginTransaction();
+		Product p=(Product)session.get(Product.class,102);
+		p.setPrice(4000.99);
+		p.setProdName("Sony");
+		session.update(p);
+		System.out.println("Record Updated Successfully");
+		tx.commit();
+		//Close the session and factory objects
+		session.close();
+		factory.close();
+	}
+
+}
+===================================================================================================================
+
+
+
+
+
+
+
+
+
+
+

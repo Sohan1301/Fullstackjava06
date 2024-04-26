@@ -1,0 +1,252 @@
+JSP 
+--
+JSP stands for Java server pages
+--> the use of JSP is also developing web application
+--> JSP =HTML+java
+Here HTML purpose id to design web pages 
+java purpose is to write business logics in jsp file
+i.e JSP for designing
+JSP  file using for write business logic also.
+-------------------------------------------------------
+JSP=HTML+java
+  to design html code using html tags
+  --> to write java code inside jsp by using jsp scripting tags.
+
+--> JSP main purpose is prasentation logic or UI (user interface).
+--> JSP files allows you html tags and jsp tags also.
+--> html tags are designing purpose and jsp tags are to write business logic
+for our web application
+--> JSP Technology is a extension of servlet technolgy.
+ex:
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+import javax.servlet.jsp.*;
+import javax.servlet.jsp.jstl.*;
+---> JSP JSTL Tags and expression Language EL {value}.
+---------------------------------------------------------------------
+Advantages of JSP
+---------------------------------------------------------------------
+1) Extension to Servlet
+-->  In addition to, we can use implicit objects, predefined tags, 
+expression language 
+and JSP, that makes JSP development easy.
+
+2) Easy to maintain
+-------------------
+--> JSP can be easily managed because we can easily separate our 
+business logic with presentation logic. 
+In Servlet technology, 
+we mix our business logic with the presentation logic.
+3) Less code than Servlet
+======================================================================
+Servlet=java+html
+JSP=HTML+java
+JSP JSTL=<c:forEach>  
+EL {}
+=====================================================================
+Create a JSP web Application to Print electri city Bill
+---------------------------------------------------------------------
+Required Files are
+--------------------
+1. bill.jsp  (desining file)
+2. BillCode.jsp   --> business Logic
+3. web.xml    --> bill.jsp
+-----------------------------------------------
+
+bill.jsp
+-------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="BillCode.jsp" method="get">
+Consumer Id:<input type="text" name="cid"><p></p>
+Consumer Name:<input type="text" name="cname"><p></p>
+Current Reading:<input type="text" name="cr"><p></p>
+Previous Reading:<input type="text" name="pr"><p></p>
+<input type="submit" value="PrintBill">
+</form>
+</body>
+</html>
+=============================================
+BillCode.jsp
+-----------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="pink">
+<%
+long cid=Long.parseLong(request.getParameter("cid"));
+String name=request.getParameter("cname");
+int cr=Integer.parseInt(request.getParameter("cr"));
+int pr=Integer.parseInt(request.getParameter("pr"));
+int units=cr-pr;
+out.print("Consumer Id="+cid+"<br>");
+out.print("Consumer Name="+name+"<br>");
+out.print("Current Reading="+cr+"<br>");
+out.print("Previous Reading="+pr+"<br>");
+double totalBill=0.0;
+double serviceCharges=50.0;
+if(units<200)
+{
+	totalBill=(units*1.75)+serviceCharges;
+}
+out.print("Total bill="+totalBill);
+
+%>
+</body>
+</html>
+===========================================================
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+  <display-name>WebApplicationWithJSP-1</display-name>
+  <welcome-file-list>
+    <welcome-file>bill.jsp</welcome-file>
+    
+  </welcome-file-list>
+</web-app>
+========================================================
+------------------------------------------------------------
+JSP tag (Scripting elements)
+---------------------------------------------------------------
+In JSP, java code can be written inside the jsp page using the 
+scripting tags.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+JSP Scripting Tags
+-----------------------
+The scripting elements provides the ability to write java 
+code inside the jsp file.
+--> to write java code inside jsp file in 3 ways
+1. scriptlet tag:     	<%   java code   %>
+2.expression tag: 	<%=java expression %>
+3.declaration tag: 	<%! var and methods %>
+
+------------------------
+JSP scriptlet tag
+------------------
+--> A scriptlet tag is used to execute java source code in JSP.
+-->To write multiple lines of java code in jsp . then go with 
+scriptlet Tag.
+
+syntax:
+--------
+<% multilines java code %>
+
+
+
+
+
+
+ex: 
+-------------------------------------------------------
+<% 	
+int rollno=101;
+out.print("Welcome to java web application") ;
+out.print("My rollno="+rollno);
+%>
+--------------------------------------------------------
+
+
+ex2:
+----
+
+<html>  
+<body>  
+<form action="welcome.jsp">  
+Enter Your Name:<input type="text" name="uname">  
+<input type="submit" value="go"><br/>  
+</form>  
+</body>  
+</html>  
+
+welcome.jsp
+-----------
+
+<html>  
+<body>  
+<%  
+String name=request.getParameter("uname");  
+out.print("welcome "+name);  
+%> 
+ 
+</form>  
+</body>  
+</html>  
+---------------------------------------------------------
+JSP expression tag
+-------------------
+--> the use of expression tag is written to the output stream 
+of the response.
+ So you need not write out.print()method  to print data.
+ 
+ex:
+--
+Syntax
+------
+<%=  statement %>  
+
+EX:
+create jsp web appn for expression tag
+---------------------------------------
+ex:
+---
+<form action="LoginCode.jsp" method="post">
+User Name:<input type="text" name="uname"><p></p>
+password:<input type="text" name="psw"><p></p>
+<input type="submit" name="Login"><p></p>
+</form>
+--------------------------------------
+LoginCode.jsp
+-----------------
+<%="My User name is="+request.getParameter("uname") %>
+<%="My password is="+request.getParameter("psw") %>
+
+---------------------------------------------------------------
+JSP Declaration Tag
+----------------------
+The JSP declaration tag is used to declare fields
+( variables) and methods.
+The code written inside the jsp declaration tag 
+is placed outside the service() method of auto generated servlet.
+So it doesn't get memory at each request.
+
+Syntax
+--------
+<%!  field or method() declaration %>  
+==============================================================
+JSP web Application for declaration tags with variables
+---------------------------------------------------------
+<%! int rollNo=120; %>
+<%! String name="sandeep"; %>
+<%! double salary=12000.99; %>
+<%="My RollNo="+rollNo %>
+<%="My Name="+name %>
+<%
+out.print("My Salary="+salary);
+%>
+==========================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+

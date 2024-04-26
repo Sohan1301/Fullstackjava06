@@ -1,0 +1,88 @@
+Statement Interface: to esecute static sql queries in Data base
+PreparedStatement: to execute dynamic sQL queries (?)   ******* 99%
+ResultSet: storedprocedures  (Dynamic SQL queries)  --> security
+==========================================================
+Servlet 
+------------
+Servlet Technology is used to create web applications. 
+Servlet technology uses Java language to create web applications.
+
+A Servlet is a Java program that runs on a Web server. 
+The basic aim of servlet is to develop web applications. 
+
+Servlet technology is robust and scalable because of java language. 
+There are many interfaces and classes in the Servlet 
+API such as Servlet, GenericServlet, HttpServlet, 
+ServletRequest, ServletResponse, etc.
+----------------------------------------------------------------------------------------------
+
+what is web application?
+===========================
+--> the application design with dynamic web pages ,run in browser
+through internet is known as web based application
+
+
+ex :
+www.amazon.com, www.bookmyshow.com,www.zomato.com..etc
+-------------------------------------------------------------------------------------------------
+basically web application are 2 types
+
+1. static web application
+2. dynamic web application
+---------------------------------------------------------------------
+1. static web application
+-------------------------------------
+The static web application directly delivers the content to the end 
+user’s browser without fetching any data from the server.
+ Most static web applications are having fixed data.
+
+Languages are used to develop static web applications?
+HTML, CSS are used to develop most static web applications.
+---------------------------------------------------------------------------------------------
+2. dynamic web application
+-----------------------------------------
+A web application that generates the data in real-time 
+based on the user’s request and server response, 
+is known as a dynamic web application.
+
+----------------------------------------------------
+what is browser
+----------------------
+--> the browser is application software ,which is used for
+to send httpreqeust to the server and get Response from
+server (.ie httpresponse).
+
+ex: mozillfirefox, chrome, safari..etc
+
+note: our. .html (HTML) .css (css) and javascript run in browser
+-------------------------------------------------------------------------------------------
+what is Server
+-------------------
+--> server also application software, which is used to takes
+httpRequest from client mechine and prepare response and send 
+back to browser i.e httpResponse
+
+ex:
+tomcat server
+jetty
+glassfish
+jboss
+
+note: .java (servlet class) and .jsp (JSP) files always run in server side 
+only
+-----------------------------------------------------------------------------------------
+HTTP
+---------
+--> http stands for hyper text transfor protocol
+--> the purpose HttP is to enabled connection from 
+client side mechine to server side mechine. and transfor data with 
+help of httprequset and httpresponse.
+
+
+
+
+
+
+
+
+

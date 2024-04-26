@@ -1,0 +1,352 @@
+Java String replace() method
+------------------------------
+
+The string replace() method replaces all occurrence of 
+first sequence of character with second sequence of character.
+Ex:
+
+public class CaseChange {
+
+	public static void main(String[] args) {
+		String s1="I hate Java and I hate python";
+		System.out.println(s1);
+		String s2=s1.replace("hate", "love");
+		System.out.println(s2);
+		System.out.println(s1);
+	}
+
+}
+
+========================================================================
+Java String compareTo
+The java string compareTo() method compares the given string with 
+current string lexicographically. It returns positive number, negative number or 0.
+euals()
+compareTo()
+3. == operator also
+s1 > s2 => positive number  
+s1 < s2 => negative number  
+s1 == s2 => 0 
+
+=============================================================
+ex2:
+
+public class CaseChange {
+
+	public static void main(String[] args) {
+		String s1="Hello Excelr";
+		String s2="Hello Excelr";
+		String s3="hello excelr";
+		String s4="reading";
+		System.out.println(s1.compareTo(s2));
+		System.out.println(s1.compareTo(s3));
+		System.out.println(s1.compareToIgnoreCase(s3));
+		System.out.println(s1.compareTo(s4));
+	}
+}
+================================================================
+Java String concat
+The java string concat() method combines 
+specified string at the end of this string. 
+It returns combined string. 
+It is like appending another string
+
+ex:
+---
+String firtsName="Gopal";
+String lastName="Krishna";
+SOP(firtsName.concat(lastName));
+SOP(firtsName+" "+lastName);
+
+===========================
+
+public class CaseChange {
+	public static void main(String[] args) {
+		String firtsName="Gopal";
+		String lastName="Krishna";
+		System.out.println(firtsName.concat(lastName));
+		System.out.println(firtsName+" "+lastName);
+	}
+}
+
+======================================================
+Java String isEmpty()
+---------------------
+The java string isEmpty() method checks if 
+this string is empty. 
+It returns true, 
+if length of string is 0 otherwise false. 
+ex:
+--
+
+public class CaseChange {
+	public static void main(String[] args) {
+		String firtsName="  ";
+		String lastName="";
+		System.out.println(firtsName.isBlank()); //true
+		System.out.println(lastName.isEmpty());//true
+	}
+}
+
+
+===============================================================
+2. StringBuffer
+3. StringBuilder
+
+
+--> java.lang.*;
+
+
+
+
+1. java.lang.StringBuufer class is used to create mutable and thread safe  objects.
+
+In other words ,this class is same java.lang.String 
+class except objects are mutable.
+
+it means StringBuffer Object values can change at run time
+
+--> It is not possible to create StringBuffer 
+Objects using string literls. So you have to use new keyword only.
+
+--> in string each and every character has a unique position that is called indexing
+here index start with 0 to n-1.
+
+--> String 16 bytes 
+
+--> The default storage capasity of string is 16 bytes.
+--> similarly StringBuffer also can store 16 byte (defualt) only.
+--> but depends on string size it will increase.
+eg:
+--> 16 byte (oldstorage*2)+2=34 byte capacity.
+
+--> StringBuffer class belongs to java.lang packages.
+
+
+syntax
+-----
+StringBuffer sb=new StringBuffer("H yakub ello");
+
+StringBuffer class implemented Methods
+------------------------------------------
+
+StringBuffer Methods
+---------------------
+1.append()
+2.insert()
+3.replace()
+4.delete()
+5.reverse()
+6. capacity()
+7.chatAt()
+8.length()
+9.substring()
+============================================================
+
+1.append()
+----------
+
+--> the append () method is used to concatenate  
+the given argument with the string.
+it can add new string on existing string.
+
+
+ex1:
+
+
+public class CaseChange {
+	public static void main(String[] args) {
+		StringBuffer sb=new StringBuffer("Mohan");
+        System.out.println("Before sb Object="+sb);
+       sb.append(" Krishna");
+       System.out.println("After sb Object="+sb);
+	}
+}
+
+-----------------------------------------------------------
+2.insert()
+----------
+--> the insert() method  is used to insert new string into existing string 
+with the specific position.
+
+
+public class CaseChange {
+	public static void main(String[] args) {
+		StringBuffer sb=new StringBuffer("Mohan");
+        System.out.println("Before sb Object="+sb);
+       sb.insert(1, " Excelr");
+       System.out.println("After sb Object="+sb);
+	}
+}
+
+================================================================
+3. replace():
+---------------
+the use of replace() method is  replaces the given string from 
+specified begining and ending of the string.
+
+eg3:
+public class Append 
+{
+public static void main(String args[])
+    {
+         StringBuffer sb=new StringBuffer("Rahul kumar"); // length 11  0 to 10
+        System.out.println("Before sb Object="+sb);
+        sb.replace(3,5,"sai");   
+        System.out.println("After sb Object="+sb);
+    }    
+}
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4. delete():
+--> the delete () method is used to delete existing string with specified indexing 
+
+public class Append 
+{
+public static void main(String args[])
+    {
+        StringBuffer sb=new StringBuffer("Mohan Krishna"); // length 5 0,1,2,3,4,5
+         System.out.println("Before sb Object="+sb);
+        sb.delete(3,7);   
+        System.out.println("After sb Object="+sb);
+    }    
+}
+
+++++++++++++++++++++++++++++++++++++++++++++
+5.reverse():
+--> the use of reverse() method is used to arrange given string in reverse order.
+
+
+Eg:
+public class Append 
+{
+public static void main(String args[])
+    {
+        StringBuffer sb=new StringBuffer("RAHUL NAYAK"); // length 5 0,1,2,3,4,5
+         System.out.println("Before sb Object="+sb);
+        sb.reverse();   
+        System.out.println("After sb Object="+sb);
+    }    
+}
+
++++++++++++++++++++++++++++++++++++++++++++++++
+6. capacity():
+
+---> the use of capacity method is to fined the string storage capacity 
+but by default capacity is 16 bytes.
+in case string size will increase size also increased 
+based on :
+
+(oldstring*2)+2--> (16*2)+2=34 byte storage capacity.
+========================================================
+eg2:
+----
+public class Capacity 
+{
+public static void main(String args[])
+    {
+        StringBuffer sb=new StringBuffer("Java is a good"); 
+        System.out.println(sb.capacity());
+           
+        System.out.println("After sb Object="+sb);
+    }    
+}
+================================================================================
+3. StrinBuilder
+---------------
+--> java.lang.StringBuilder class is used to create mutable and not-thread safe  objects.
+
+--> In other words ,this class is same java.lang.StringBuffer
+class objects and both are mutable.
+
+--> it means StrinBuilder Object values can change at run time
+
+--> It is not possible to create StrinBuilder
+Objects using string literls. So you have to use new keyword only.
+
+--> in string each and every character has a unique position that is called indexing
+here index start with 0 to n-1.
+--> By default String storage capacity is 16 bytes.
+
+============================================================================================
+StringBuilder Methods
+---------------------  
+along with String class methods +
+1.append()
+2.insert()
+3.replace()
+4.delete()
+5.reverse()
+6. capacity()
+7.chatAt()
+8.length()
+9.substring()
+============================================================================================
+
+StringBuilder sb="Ravi";  // not valid
+
+StringBuilder sb=new StringBuilder(RaviKumar");  // valid one
+
+ex:
+---
+==========================================================
+Difference Between String , StringBuffer And StringBuidler
+--------------------------------------------------------------
+String                 		StringBuffer                        StringBuilder
+-------                		-------------                        ---------------------
+1. Immutable                    1. mutable                           1. Mutable
+2. Thread-Safe                  2. Thread-Safe                       2. not Thread-Safe
+3. Objects can create           3.You can create String              3. You can create String 
+			          with new key word only.             with new key word only.
+either through String 
+literals.
+and by using new 
+key words
+ 
+4. Objects are stored           4. string objects are stored          4. string objects are stored
+in String pool as wel as          into Heap memory Only  (JVM)           into Heap memory area only.
+JVM  (heap memory area). 
+
+5. slower                       5. slower                             5. faster
+======================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

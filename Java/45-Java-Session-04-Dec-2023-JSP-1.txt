@@ -1,0 +1,421 @@
+JSP
+----
+--> JSP stands for Java server pages.
+--> to save jsp file with .jsp extention( ex: filename.jsp)
+--> Like Servlet ,jsp file also can run with in the server.
+--> Like Servlet Jsp also used to devlop web applications
+i.e static web appn and Dynamic web application.
+
+--> HTML+JAVA is a JSP. that means  a jsp page 
+will have a html code and java code. 
+--> Here HTML code for designing purpose and Java code for 
+Business logic (PL for data binding + business Logic + DAL(JDBC))
+
+--> ***JSP is used for User Interface/front-end 
+/presentation purpose.  
+
+--> JSP technology is used to create web application 
+just like Servlet technology with concise code.
+
+-->It is a (JSP) extension to Servlet because 
+it provides more functionality than servlet such as expression 
+language,  {EL} , JSTL, etc.
+-->JSTL stands for JavaServerPages Tag Library.
+--> A JSP page consists of HTML tags and JSP tags.
+
+--> The JSP pages are easier to maintain than Servlet because 
+we can separate designing (html) and development(java).
+
+
+
+ 
+
+Advantages of JSP over Servlet
+
+
+-----------------------------
+1) Extension to Servlet
+-->  In addition to, we can use implicit objects, predefined tags, 
+expression language 
+and JSP, that makes JSP development easy.
+
+2) Easy to maintain
+-------------------
+--> JSP can be easily managed because we can easily separate our 
+business logic with presentation logic. 
+In Servlet technology, 
+we mix our business logic with the presentation logic.
+
+3) Less code than Servlet
+
+
+++++++++++++++++++++++++++++++++++++++++++
+--------------------------------------------------------------------------
+Creating a simple JSP Page
+--------------------------
+to create jsp page here also we are using html tags only and save 
+the file
+with .jsp extension.
+
+ex:
+-----
+welcome.jsp
+--------------
+
+<html>  
+<body>  
+<% 
+out.print(" welcome To Jsp Web application"); 
+%>  
+</body>  
+</html>  
+
+------------------------------------------------
+--> ** --> using the scriptlet tag to put Java code in the JSP page. 
+
+syntax:
+--------
+<% 
+Here write your multiple line Java code
+ %>
+
+
+
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++
+
+------------------------------------------------------------------
+creating fisrt web application with jsp 
+
+ex:
+---
+------------------------------------------------------------
+JSP tag (Scripting elements)
+---------------------------------------------------------------
+In JSP, java code can be written inside the jsp page using the 
+scripting tags.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+JSP Scripting Tags
+-----------------------
+The scripting elements provides the ability to write java 
+code inside the jsp file.
+--> to write java code inside jsp file in 3 ways
+1. scriptlet tag:     	<%   java code   %>
+2.expression tag: 	<%=java expression %>
+3.declaration tag: 	<%! var and methods %>
+
+------------------------
+JSP scriptlet tag
+------------------
+--> A scriptlet tag is used to execute java source code in JSP.
+-->To write multiple lines of java code in jsp . then go with 
+scriptlet Tag.
+
+syntax:
+--------
+<% multilines java code %>
+
+
+
+
+
+
+ex: 
+-------------------------------------------------------
+<% 	
+int rollno=101;
+out.print("Welcome to java web application") ;
+out.print("My rollno="+rollno);
+%>
+--------------------------------------------------------
+
+
+ex2:
+----
+
+<html>  
+<body>  
+<form action="welcome.jsp">  
+Enter Your Name:<input type="text" name="uname">  
+<input type="submit" value="go"><br/>  
+</form>  
+</body>  
+</html>  
+
+welcome.jsp
+-----------
+
+<html>  
+<body>  
+<%  
+String name=request.getParameter("uname");  
+out.print("welcome "+name);  
+%> 
+ 
+</form>  
+</body>  
+</html>  
+---------------------------------------------------------
+JSP expression tag
+-------------------
+--> the use of expression tag is written to the output stream 
+of the response.
+ So you need not write out.print()method  to print data.
+ 
+ex:
+--
+Syntax
+------
+<%=  statement %>  
+
+
+
+
+
+
+EX:
+create jsp web appn for expression tag
+------------------------------------------------
+ex:
+---
+
+<form action="LoginCode.jsp" method="post">
+User Name:<input type="text" name="uname"><p></p>
+password:<input type="text" name="psw"><p></p>
+<input type="submit" name="Login"><p></p>
+</form>
+
+--------------------------------------
+LoginCode.jsp
+-----------------
+<%="My User name is="+request.getParameter("uname") %>
+<%="My password is="+request.getParameter("psw") %>
+
+
+
+
+welcome.jsp
+-------------
+
+<html>  
+<body>  
+<%= "Welcome"+request.getParameter("uname") %>  
+</body>  
+</html>  
+======================================================
+JSP Declaration Tag
+----------------------
+The JSP declaration tag is used to declare fields
+( variables) and methods.
+The code written inside the jsp declaration tag 
+is placed outside the service() method of auto generated servlet.
+So it doesn't get memory at each request.
+
+Syntax
+--------
+<%!  field or method() declaration %>  
+
+ex1:
+---
+<html>  
+<body>  
+
+<%!   int rollno=50;   %>    	// Declaration Tag
+<%= "My rollno is:"+rollno %>    // Expression Tag
+</body>  
+</html>  
+
+
+
+
+
+ex2:
+---
+Example of JSP declaration tag that declares method.
+
+<html>  
+<body>  
+
+<%!   
+even_odd(int n)
+{  
+if(n%2==0 )
+{
+<%="The Number is even" %> 
+}  
+else
+{
+<%="The Number is Odd" %>
+}
+} 
+%> 
+
+<%= even_odd(120) %>  
+
+</body>  
+</html> 
+
+---------------------------
+JSP Implicit Objects
+---------------------
+--> Which object created by JSP container
+with user request such type of objects is known as
+Implicit objects.
+ There are 9 jsp implicit objects. 
+--> These objects are created by the web container 
+(jsp container) that are available to all the jsp pages.
+
+Object			Type
+------			-----
+out			JspWriter    
+request			HttpServletRequest
+response		HttpServletResponse
+session			HttpSession
+page			Object
+config			ServletConfig
+application		ServletContext
+pageContext		PageContext
+exception		Throwable
+:--------------------------------------------------------------------------
+
+Example of response implicit object
+-----------------------------------
+
+index.html
+-----------
+
+<form action="welcome.jsp">  
+<input type="text" name="uname">  
+<input type="submit" value="go"><br/>  
+</form>  
+
+
+welcome.jsp
+<%   
+response.sendRedirect("page name");  
+%>  
+---------------------------------------------------------
+JSP /Page directives
+-------------------
+The Use of JSP directives is to declare packages
+and import Servlet classes and jsp pages.
+
+<%@ page import="java.util.Date" %>  
+<%@ page import="java.util.*" %>
+<%@ page import="java.sql.*" %>
+<%@page import="java.lang.*" %>
+<% @ page import="Login.jsp" %>  // JSP file
+<%@ page import="Login" %>   // servlet File
+
+
+
+
+  
+====================================
+
+
+
+================================================================
+exp1
+
+web application for Valid for vote or not?
+
+index.html
+--------------
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login Page</title>
+</head>
+<body>
+<center>
+<h1>Vote Validation Application</h1>
+<form action="login.jsp" method="post">
+Enter Your age:<input type="number" name="page"><p></p>
+<input type="submit" value="Check">
+</form>
+</center>
+</body>
+</html>
+
+============================================================
+Vote.jsp
+-----------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login Business Code</title>
+</head>
+<body>
+<%
+int age=Integer.parseInt(request.getParameter("page"));
+if( age>=18)
+{
+	out.print("Person valid for Vote");
+}
+else
+{
+	out.print("Person Not valid for Vote");
+}
+%>
+
+</body>
+</html>
+
+===============================================================
+web.xml
+-------------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>JSPWebApp1</display-name>
+  <welcome-file-list>
+    
+    <welcome-file>index.jsp</welcome-file>
+   
+  </welcome-file-list>
+</web-app>
+
+------------------------------------------------
+Create JSP web application for Pring User Registration Detials
+
+
+
+
+-------------------------------------------
+explicit Object:
+===============
+Which object creating by the programmer by using class 
+name such type of objects is known as explicit objects
+ex:
+----
+PrintWriter out=response.getWriter();
+HttpServletRequest request
+HttpServletResponse response
+Here out,request and respose are explicit objects.
+
+
+
+
+
+
+implicit object
+--------------------
+Which Object creating by JSP Container such objects is 
+known implicit objects
+
+ex: out,request,response.....etc
+
+
+
+
+

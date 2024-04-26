@@ -1,0 +1,329 @@
+Spring Core
+-------------
+1. IOC
+2. IOC -life cycle
+3. Dependecny Injection
+     a) settert injection
+      b) constructor injection
+     c) interface injection
+-------------------------------------------
+every spring application Required Files Are Jars
+------------------------------------------------
+1. BeanClass.java
+2. Spconfig.xml
+3. app.java ---> main(){...}
+------------------------------------
+Jars Are
+--------
+spring core
+spring conctext
+----------------------------------------
+How To Create a Maven Spring APPLICATION PROJECT IN 
+eclipse IDE
+---------------------------------------------------
+1. Create a new maven project 
+2. Add spring dependecies in maven project:
+spring core and spring context
+3. creating Bean class -(pojo class)
+4. creating configuration file spconfig.xml and Use
+Dependency Injection: setter injection
+5. Main class : which pull the object and use 
+---------------------------------------------------
+Steps to create Maven Spring Application in eclipse IDE
+Step1: Open eclipse IDE--> Goto--> File--> others
+in text box type maven---> maven project
+Next---> Next
+
+Step2: Here Select artfactId .i.e maven-archetype-quickstart
+
+org.apache.maven.archetyes:maven-archetype-quickstart 
+
+after select click on Next Button
+
+Stpe3: Here provide Group Id,ArtifactId  (which is spring application
+folder name) and pacakage name
+--> here group id name and package must be same
+Then click Finish
+===============================================================
+Create a Spring Application For Student details
+---------------------------------------------
+Required Files Are
+---------------------
+1. StudentBean.java
+2. spconfig.xml
+3. App.java
+-----------------------
+Requiredd jars Are
+---------------------
+Spring core
+spring context
+------------------------------------
+StudentBean.java
+------------------
+package com.excelr;
+
+public class StudentBean {
+
+	private int stdId;
+	private String stdName;
+	private double fee;
+	//PDC+PSM+PGM+BM
+	public StudentBean() {
+		super();
+	}
+	public int getStdId() {
+		return stdId;
+	}
+	public void setStdId(int stdId) {
+		this.stdId = stdId;
+	}
+	public String getStdName() {
+		return stdName;
+	}
+	public void setStdName(String stdName) {
+		this.stdName = stdName;
+	}
+	public double getFee() {
+		return fee;
+	}
+	public void setFee(double fee) {
+		this.fee = fee;
+	}
+	public void printStudent()
+	{
+		System.out.println(stdId);
+		System.out.println(stdName);
+		System.out.println(fee);
+	}
+	
+}
+
+================================================
+spconfig.xml
+----------------
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+  
+<bean class="com.excelr.StudentBean" id="stdObject"> 
+<!-- <property> Tag is called setter Injection--> 
+<property name="stdId" value="120"></property>  
+<property name="stdName" value="Rajender"></property> 
+<property name="fee" value="12000.99"></property> 
+</bean>  
+</beans>  
+=============================================
+App.java
+------------
+package com.excelr;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        ApplicationContext ctx=new ClassPathXmlApplicationContext("spconfig.xml");
+        StudentBean s1=(StudentBean)ctx.getBean("stdObject");
+        StudentBean s2=(StudentBean)ctx.getBean("stdObject");
+        StudentBean s3=(StudentBean)ctx.getBean("stdObject");
+        System.out.println(s1);
+        System.out.println(s2);
+        System.out.println(s3);
+        s1.printStudent();
+        
+    }
+}
+
+==============================================================
+Create a Spring Application For To Print Student Marks result
+--------------------------------------------------------------
+input :
+-----
+sid
+sname
+sub1
+sub2
+sub3
+-------------
+output
+-----------
+sid:101
+sname:Aryan
+sub1=90
+sub2=80
+sub3=70
+Total:270
+percentage:75.00
+Grade: A Grade
+result: Pass/Fail
+--------------------------------
+Required Files Are
+----------------------
+1. MarksBean.java
+2. spconfig.xml
+3.App.java
+----------------------
+Required Jarsa Are
+---------------------
+1. Spring core
+2. spring Context
+---------------------------
+MarksBean.java
+--------------
+package com.excelr;
+
+public class MarksBean {
+private int sid;
+private String sname;
+private int sub1;
+private int sub2;
+private int sub3;
+//PDC+PSM+PGM+BM
+public MarksBean() {
+	super();
+}
+public int getSid() {
+	return sid;
+}
+public void setSid(int sid) {
+	this.sid = sid;
+}
+public String getSname() {
+	return sname;
+}
+public void setSname(String sname) {
+	this.sname = sname;
+}
+public int getSub1() {
+	return sub1;
+}
+public void setSub1(int sub1) {
+	this.sub1 = sub1;
+}
+public int getSub2() {
+	return sub2;
+}
+public void setSub2(int sub2) {
+	this.sub2 = sub2;
+}
+public int getSub3() {
+	return sub3;
+}
+public void setSub3(int sub3) {
+	this.sub3 = sub3;
+}
+public void printMarks()
+{
+	int total=0;
+	double percentage=0.0;
+	String result=null,grade=null;
+	System.out.println(sid+"\t"+sname);
+	System.out.println(sub1+"\t"+sub2+"\t"+sub3);
+	total=sub1+sub2+sub3;
+	percentage=total/3;
+	if(percentage>=70)
+	{
+		grade="A Grade";
+	}
+	else if(percentage>=60)
+	{
+		grade="B Grade";
+	}
+	else if(percentage>=50)
+	{
+		grade="C Grade";
+	}
+	if(sub1>=35 && sub2>=35 && sub3>=35)
+	{
+		result="Pass";
+	}
+	else
+	{
+		result="Fail";
+	}
+	System.out.println("Total="+total);
+	System.out.println("Percentage="+percentage);
+	System.out.println("result="+result);
+	System.out.println("Grade="+grade);
+	
+}
+}
+
+============================================
+spconfig.xml
+===============
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+  
+<bean class="com.excelr.MarksBean" id="id1">  
+<property name="sid" value="1001"></property> 
+<property name="sname" value="Aryan"></property>  
+<property name="sub1" value="90"></property>  
+<property name="sub2" value="70"></property>  
+<property name="sub3" value="60"></property>   
+</bean>  
+  
+</beans> 
+================================================
+App.java
+-------------
+package com.excelr;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+       ApplicationContext ctx=new ClassPathXmlApplicationContext("spconfig.xml");
+       MarksBean m1=(MarksBean)ctx.getBean("id1");
+       m1.printMarks();
+    }
+}
+
+===========================================================
+Output
+------------
+1001	Aryan
+90	70	60
+Total=220
+Percentage=73.0
+result=Pass
+Grade=A Grade
+
+=========================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

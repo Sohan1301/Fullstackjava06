@@ -1,0 +1,446 @@
+Annotations Introduction
+==================================
+--> Annotations are replacement for XML files.
+--> Annotations are avoid meta data configuarations.
+--> The means avoid XML Tags.
+
+Let us see few points regarding annotations in 
+Spring/Spring Boot
+========================================================
+--> Annotations are introduced in java 
+along with JDK 1.5.
+---> annotations are used to provide META 
+data to the classes, variables, methods of java.
+
+--> In spring and Spring boot  annotations are given to 
+replacement of [ xml ] file configuration.
+ex: spconfig.xml
+-->While working with annotations 
+in spring and spring boot, we do not require any xml configuration file.
+***-->Every annotations is internally an Interface, 
+Annotation Start with @symbol.
+ex:
+@Autowired
+@Qualifier
+@Bean
+@Value
+========================
+
+Model class Annotations or Hibernate annotations
+----------------------------------------------
+1. @Entity
+2. @Table 
+3. @Id
+4.@Column
+ex:
+---
+@Entity
+@Table(name="employee-db")
+punlic class Employee
+{
+@Id
+@Column(name="eid")
+private int empId;
+@Column(name="ename")
+private String empName;
+private double salary;
+}
+Here @Entity and @ Table Are class Level Annotations
+@Id and @Column are Field (variables) Level annotations
+--> Annotations are used along with
+class, methods and variables and interfaces.
+=======================================================
+spring core Annotations
+-------------------------
+1. @Autowired
+2. @Qualifier
+3. @Required
+4. @Scope
+5. @Configuration +@Bean
+6. @Component={@Controller+@Service+Repository}
+7. @ComponentScan={@Configuration +@Component}
+8. @Value
+------------------------------------------------------
+@Autowired +@Qualifier
+---------------------------
+-->  The process of  inject the object dependency implicitly. 
+It internally uses setter or constructor 
+injection.from one bean class into
+another bean class. is known as Autowiring.
+
+--> The process of Inject one bean class object
+into another bean class is known autowiring.
+
+// in .xml use ref element inside xml tag 
+<property name="addr" ref bean="id1">
+// @Autowired   --> replacement of ref element is @Autowired
+--> @Autowired use along with variables,
+setters method and constrcutor.
+=============================================
+2. @Qualifier Annotation
+---------------------------------
+@Qualifier
+------------------
+There may be a situation when you create more 
+than one bean of the same type and want to 
+wire only one of them with a property. 
+
+In such cases, you can use the 
+@Qualifier annotation along with 
+@Autowired to remove the confusion by 
+specifying which exact bean will be wired.
+
+--> The @Qualifier annotation avoid object ambiquity. 
+in case one bean class having a 
+more than one object and want 
+autowire only one. then go with @Qualifier.
+--> @Qualifire always use along with @Autowired only.
+
+Note: by default our .xml file won't enable the annoations,
+to enable annotations in .xml file then we need to use
+<context:annotation-config/>  xml Tag.
+===========================================================
+Create a spring Application for @Autowired +@Qualifier
+--------------------------------------------------
+Required files Are
+-------------------
+1. AddressBean.java
+2.StudentBean.java
+3. spconfig.xml
+4.App.java
+=========================
+Required jars Are
+--------------------
+spring core
+spring context
+-------------------------
+AddressBean.java
+-------------------------
+
+package com.yakub;
+
+public class AddressBean {
+private int hno;
+private String cityName;
+private String state;
+//PDC+PSM+PGM+toString
+public AddressBean() {
+	super();
+}
+public int getHno() {
+	return hno;
+}
+public void setHno(int hno) {
+	this.hno = hno;
+}
+public String getCityName() {
+	return cityName;
+}
+public void setCityName(String cityName) {
+	this.cityName = cityName;
+}
+public String getState() {
+	return state;
+}
+public void setState(String state) {
+	this.state = state;
+}
+@Override
+public String toString() {
+	return "AddressBean [hno=" + hno + ", cityName=" + cityName + ", state=" + state + "]";
+}
+
+}
+=======================================
+StudentBean.java
+----------------------
+package com.yakub;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+public class StudentBean {
+private int stdId;
+private String stdName;
+private double fee;
+
+@Qualifier("id1")
+@Autowired
+private AddressBean addr;
+//PDC+PSM+PGM+BM
+
+public StudentBean() {
+	super();
+}
+
+public int getStdId() {
+	return stdId;
+}
+
+public void setStdId(int stdId) {
+	this.stdId = stdId;
+}
+
+public String getStdName() {
+	return stdName;
+}
+
+public void setStdName(String stdName) {
+	this.stdName = stdName;
+}
+
+public double getFee() {
+	return fee;
+}
+
+public void setFee(double fee) {
+	this.fee = fee;
+}
+
+public AddressBean getAddr() {
+	return addr;
+}
+
+public void setAddr(AddressBean addr) {
+	this.addr = addr;
+}
+public void printstudents()
+{
+	System.out.println(stdId);
+	System.out.println(stdName);
+	System.out.println(fee);
+	System.out.println(addr);
+}
+}
+
+===============================
+spconfig.xml
+-----------------
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context = "http://www.springframework.org/schema/context"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd">
+   <context:annotation-config/>
+
+
+   <bean id = "id1" class = "com.yakub.AddressBean">
+   <property name="hno" value="90"/>
+   <property name="cityName" value="Hyderabad"/>
+   <property name="state" value="Telangana"/>
+   </bean>
+   <bean id = "id3" class = "com.yakub.AddressBean">
+   <property name="hno" value="190"/>
+   <property name="cityName" value="vizag"/>
+   <property name="state" value="Ap"/>
+   </bean>
+
+   <bean id = "id2" class = "com.yakub.StudentBean">
+   <property name="stdId" value="11"/>
+   <property name="stdName" value="Aryan"/>
+   <property name="fee" value="9000.99"/>   
+   </bean>
+
+</beans>
+======================================
+App.java
+------------
+package com.yakub;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+      ApplicationContext ctx=new ClassPathXmlApplicationContext("spconfig.xml");
+      StudentBean s1=(StudentBean)ctx.getBean("id2");
+      s1.printstudents();
+      
+    }
+}
+================================================================
+3.@Required
+-----------
+def : This annotion used for to check validation in spring applcation
+.becouse of by default spring xml file won't have validation power 
+to enable validation then use @Required.
+--> @Required annotation is used to along 
+with variables and setter methods.
+----------------------------------------------------------------
+q: How many ways we can do bean configuration in Spring?
+
+1. By Using XMl Based config (.xml) file
+2. Java Based Configuration (.java) file
+3. Annotation Based Configuration
+----------------------------------------------------------------
+2. Java Based Configuration (.java) file
+============================================
+--> we are doing Java based Configuration means
+using with @Configuration+@Bean.
+
+--> Spring container can also take 
+cinfiguaration in java format insted of .xml.
+
+--> it is introduced in spring 3.x version.
+which works faster than XML and easy to writer 
+and use.
+--> Spring has provided two basic annotaions 
+for java configuaration.
+1. @Configuration  (org.springframework.context.annotation)
+2.@Bean   (org.springframework.context.annotation)
+=============================================================
+Preparation of Java Based Configuration for Required Files and Jars
+Are
+--------------------------------------------------------------------
+1. Beanclass.java
+2. JavaConfig.java  --> @Configuration+@Bean
+3. App.java   (IOC container file)
+------------------------------------------
+Required Jars Are
+---------------------
+1. spring core
+2. spring context
+----------------------------------------------------
+Preparation of Bean classes
+-----------------------------
+public class MyBean1
+{
+//PIV+PDC+PSM+PGM+BM
+}
+
+public class MyBean2
+{
+//PIV+PDC+PSM+PGM+BM
+}
+---------------------------------
+Preparation of Java Configuaration File
+----------------------------------------
+JavaConfig.java
+-------------------
+@Configuration
+public class JavaConfig
+{
+@Bean("id1")
+public MyBean1 getMyBean1()
+{
+MyBean1 mb1=new MyBean1();
+return mb1;
+}
+@Bean("id2")
+public MyBean2 getMyBean2()
+{
+MyBean2 mb2=new MyBean2();
+return mb2;
+}
+}
+==========================
+Prpeparation of App.java/ Spring IOC Container
+-----------------------------------------------
+App.java
+----------
+public class App
+{
+public static void main(String args[])
+{
+ApplicationContext ctx=new AnnotationConfigApplicationContext(JavaConfig.class);
+MyBean1 m1=(MyBean1)ctx.getBean("id1");
+MyBean2 m2=(MyBean2)ctx.getBean("id2");
+//processing your business Methods
+}
+}
+======================================================================
+Note:when we do java based configuration,
+To load Java Based configuration file into spring IOC container,
+by using AnnotationConfigApplicationContext implemented class in
+ApplicationContext interface.
+
+ApplicationContext ctx=new 
+AnnotationConfigApplicationContext(JavaConfig.class);
+
+--> when we configure bean with .xml based configuration , 
+to load .xml configuaration file into
+Spring IOC container use ClassPathXmlApplicationContext  
+implemented class in ApplicationContext interface.
+ApplicationContext ctx=new 
+ClassPathXmlApplicationContext("Springcfg.xml");
+================================================================
+@Configuration Annotation
+----------------------------
+Def:
+-----
+@Configuration annotation which indicates that the class has 
+@Bean defination methods.
+So Spring container can process the class and 
+generate spring beans to be used in the application.
+--> @Configuration annotation is a class Level Annotations.
+================================================================
+@Bean Annotation
+-----------------
+@Bean:
+Spring @Bean annotation tells that a method produces a bean 
+to be managed by spring container. it is a method level 
+annotation during java based configuaration
+(@Configuaration), The Method is executed and its return 
+value is registered as a bean with in the ApplicationContext 
+==================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

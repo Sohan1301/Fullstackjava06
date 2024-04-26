@@ -1,0 +1,322 @@
+4. write Jdbc program for to delete student record
+from Excelr Data Base?
+---------------------------------------------
+
+import java.sql.*;
+
+public class DeleteRecord {
+
+	public static void main(String[] args) {
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection
+					("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Statement stmt=con.createStatement();
+			int i=stmt.executeUpdate("delete from student where sid=102");
+			System.out.println(i+"Record Deleted......");
+			con.close();
+
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+	}
+
+}
+============================================================================================
+2. PreparedStatement
+
+
+---> PreparedStatement interface is a sub interface of Statement interface
+which is used to provide values to query at run time. (Dynamic inputs).
+--> PreparedStatement execute parametrazied queries.
+
+--> PreparedStatement ps=con.prepareStatement("insert into student values(?,?,?)");
+
+As you can see above example. we are passing parameters(?)
+for the values.
+its value will be set by calling the setters methods of PreparedStatement.
+-----------------------------------------------------------------------------
+Ex:
+---
+employee
+
+create table employee(eid int(38),name varchar(40),password varchar(40),
+email varchar(40));
+
+----------------------------------------------------------------------
+
+mysql> create table employee(eid int(38),name varchar(40),password varchar(40),
+    -> email varchar(40));
+Query OK, 0 rows affected, 1 warning (0.11 sec)
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| eid      | int         | YES  |     | NULL    |       |
+| name     | varchar(40) | YES  |     | NULL    |       |
+| password | varchar(40) | YES  |     | NULL    |       |
+| email    | varchar(40) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.05 sec)
+===================================================
+App1: 
+
+Write a JDBC code to insert employee Records by using PreparedStatement
+with Dynamic inputs.
+
+------------------------------------------------------------
+import java.sql.*;
+import java.util.*;
+public class InsertEmployees {
+
+	public static void main(String[] args) {
+		
+try
+{
+	Class.forName("com.mysql.cj.jdbc.Driver");
+	Connection con=DriverManager.getConnection
+			("jdbc:mysql://localhost:3306/excelrdb","root","root");
+	Scanner sc=new Scanner(System.in);
+	System.out.println("Enter eid,name,password and email");
+	int eid=sc.nextInt();
+	String name=sc.next();
+	String password=sc.next();
+	String email=sc.next();
+	PreparedStatement ps=con.prepareStatement("insert into employee values(?,?,?,?)");
+	ps.setInt(1, eid);
+	ps.setString(2, name);
+	ps.setString(3, password);
+	ps.setString(4, email);
+	int i=ps.executeUpdate();
+	System.out.println(i+"New Record inserted......");
+	con.close();
+}
+catch(Exception ex)
+{
+	System.out.println(ex);
+}
+	}
+
+}
+==============================================================
+Appn2:Update Employee Record dynamically with PreparedStatement
+----
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class UpadteEmployeeRecord {
+	public static void main(String[] args) {	
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection
+					("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Enter eid,name,password and email");
+			int eid=sc.nextInt();
+			String name=sc.next();
+			String password=sc.next();
+			String email=sc.next();
+			PreparedStatement ps=con.prepareStatement
+					("update employee set name=?,password=?,email=? where eid=?");
+			
+			ps.setString(1, name);
+			ps.setString(2, password);
+			ps.setString(3, email);
+			ps.setInt(4, eid);
+			int i=ps.executeUpdate();
+			System.out.println(i+"New Record inserted......");
+			con.close();
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+			}
+}
+=============================================================================================
+Appn3: Jdbc Program for Delete employee Record with PreparedStatement 
+by using dynamically.
+----------------------------------------------------------------------
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+public class DeleteEmployee {
+	public static void main(String[] args) {	
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection
+					("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Enter eid");
+			int eid=sc.nextInt();
+			PreparedStatement ps=con.prepareStatement("delete from employee where eid=?");
+			ps.setInt(1, eid);
+			int i=ps.executeUpdate();
+			System.out.println(i+"Record deleted successfully......");
+			con.close();
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+			}
+}
+
+=============================================================================
+mysql> create table products(pid int(38),pname varchar(40),price DECIMAL(38,2),quantity int(10),total  DECIMAL(38,2),discount DECIMAL(38,2),gst DECIMAL(38,2),invoice_bill DECIMAL(38,2));
+Query OK, 0 rows affected, 3 warnings (0.30 sec)
+
+mysql> desc product;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| pid          | int           | YES  |     | NULL    |       |
+| pname        | varchar(40)   | YES  |     | NULL    |       |
+| price        | decimal(38,2) | YES  |     | NULL    |       |
+| quantity     | int           | YES  |     | NULL    |       |
+| total        | int           | YES  |     | NULL    |       |
+| discount     | decimal(38,2) | YES  |     | NULL    |       |
+| gst          | decimal(38,2) | YES  |     | NULL    |       |
+| invoice_bill | decimal(38,2) | YES  |     | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+8 rows in set (0.06 sec)
+==============================================================================
+===========================================================================
+import java.sql.*;
+import java.util.Scanner;
+
+public class ProductInvoice {
+
+	public static void main(String[] args) {
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/excelrdb","root","root");
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Enter product ID,name ,price and quantity");
+			int pid=sc.nextInt();
+			String pname=sc.next();
+			double price=sc.nextDouble();
+			int quantity=sc.nextInt();
+			double total=0;
+			double discount=0.0,gst=0.0,invoice_bill=0.0;
+			total=price*quantity;
+			if(total<15000)
+			{
+				discount=(total*10)/100;
+				
+			}
+			else if(total>=15000 && total<30000)
+			{
+				discount=(total*15)/100;
+				
+			}
+			else if(total>=30000)
+			{
+				discount=(total*25)/100;
+				
+			}
+			gst=(total*18)/100;
+			invoice_bill=(total-discount)+gst;
+			PreparedStatement ps=con.prepareStatement("insert into products values(?,?,?,?,?,?,?,?)");
+			ps.setInt(1, pid);
+			ps.setString(2, pname);
+			ps.setDouble(3,price);
+			ps.setInt(4, quantity);
+			ps.setDouble(5,total);
+			ps.setDouble(6,discount);
+			ps.setDouble(7, gst);
+			ps.setDouble(8, invoice_bill);
+			int i=ps.executeUpdate();
+			System.out.println(i+"Product saved successfully");
+			con.close();	
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+	}
+
+}
+
+
+
+
+
+mysql> select *from products;
++------+------------+----------+----------+----------+----------+---------+--------------+
+| pid  | pname      | price    | quantity | total    | discount | gst     | invoice_bill |
++------+------------+----------+----------+----------+----------+---------+--------------+
+|  102 | delllaptab | 45000.00 |        1 | 45000.00 | 11250.00 | 8100.00 |     41850.00 |
++------+------------+----------+----------+----------+----------+---------+--------------+
+1 row in set (0.02 sec)
+
+
+===================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

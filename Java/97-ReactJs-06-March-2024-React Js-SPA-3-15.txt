@@ -1,0 +1,212 @@
+React Router (Single Page Application)
+--------------------------------------
+SPA-3
+-----
+npm install
+npm install react-router
+npm install react-router-dom@6
+==================================
+src-->Componets
+-----------------
+Dell.jsx
+Hp.jsx
+Lenovo.jsx
+
+Iphone.jsx
+Samsung.jsx
+Vivo.jsx
+
+Mobile.jsx
+Electronic.jsx
+
+App.jsx (Parent.jsx)
+
+main.jsx
+index.html
+==============================
+React <Outlet> Tag
+import {Outlet} from 'react-router-dom'
+
+An <Outlet> should be used in parent route elements to 
+render their child route elements. 
+This allows nested UI to show up when child routes are rendered. 
+If the parent route matched exactly, 
+it will render a child index route or nothing if there is no index route.
+===================================================================
+Dell.jsx
+========
+const Dell=()=>{
+    return(
+        <>
+            <h1>Dell Laptop Soon...!</h1>
+        </>
+    )
+}
+export default Dell;
+-------------------------------
+Hp.jsx
+----------
+const Hp=()=>{
+    return(
+        <>
+            <h1>Hp Laptop Soon...!</h1>
+        </>
+    )
+}
+export default Hp;
+
+============================
+Lenovo.jsx
+==========
+const Lenovo=()=>{
+    return(
+        <>
+            <h1>Lenovo Laptop Soon...!</h1>
+        </>
+    )
+}
+export default Lenovo;
+========================================
+IPhone.jsx
+-------------
+
+const IPhone=()=>{
+    return(
+        <>
+            <h1>IPhone Mobile Soon...!</h1>
+        </>
+    )
+}
+export default IPhone;
+
+============================
+Samsung.jsx
+------------
+const Samsung=()=>{
+    return(
+        <h1>Samsung mobile soon...!</h1>
+    )
+}
+export default Samsung;
+=====================================
+Vivo.jsx
+----------
+const Vivo=()=>{
+    return(
+        <>
+            <h1>Vivo Mobile Soon...!</h1>
+        </>
+    )
+}
+export default Vivo;
+================================
+Mobile.jsx
+----------
+import { Link,Outlet } from "react-router-dom";
+const Mobile=()=>{
+    return(
+        <>
+            <h1>Mobile Information soon...!</h1>
+            <Link to="mobile/iphone" style={{marginRight:100}}>IPhone</Link>
+            <Link to="mobile/vivo" style={{marginRight:100}}>Vivo</Link>
+            <Link to="mobile/samsung" style={{marginRight:100}}>Samsung</Link>
+            <br></br>
+            <Outlet></Outlet>
+        </>
+    )
+}
+export default Mobile;
+
+===========================================================
+Electronics.jsx
+-----------------
+
+import {Link,Outlet} from "react-router-dom";
+const Electronics=()=>{
+    return(
+        <>
+            <h1>Electronics Information</h1>
+            <Link to="electronics/dell" style={{marginRight:100}}>
+                Dell
+            </Link>
+            <Link to="electronics/hp" style={{marginRight:100}}>
+                Hp
+            </Link>
+            <Link to="electronics/lenovo" style={{marginRight:100}}>
+                Lenovo
+            </Link>
+            <br></br><br></br>
+            <Outlet></Outlet>
+        </>
+    )
+}
+export default Electronics;
+=================================================
+Parent.jsx
+=========
+import Electronics from "./Electronics"
+import Mobile from "./Mobile"
+import Dell from "./Dell"
+import Hp from "./Hp"
+import Lenovo from "./Lenovo"
+import IPhone from "./IPhone"
+import Vivo from "./Vivo"
+import Samsung from "./Samsung"
+import { Link,Routes,Route } from "react-router-dom"
+
+const Parent=()=>{
+    return(
+        <>
+            <Link to="" style={{marginRight:100}}>Electronics</Link>
+            <Link to="/mobile">Mobile</Link>
+            <br></br>
+            <Routes>
+                <Route path="/" element={<Electronics></Electronics>}>
+                    <Route index element={<Dell></Dell>}></Route>
+                    <Route path='electronics/dell' element={<Dell></Dell>}></Route>
+                    <Route path="electronics/hp" element={<Hp></Hp>}></Route>
+                    <Route path="electronics/lenovo" element={<Lenovo></Lenovo>}></Route>
+                </Route>
+                <Route path="/mobile" element={<Mobile></Mobile>}>
+                    <Route index element={<IPhone></IPhone>}></Route>
+                    <Route path='mobile/iphone' element={<IPhone></IPhone>}></Route>
+                    <Route path="mobile/vivo" element={<Vivo></Vivo>}></Route>
+                    <Route path="mobile/samsung" element={<Samsung></Samsung>}></Route>
+                </Route>
+            </Routes>
+        </>
+    )
+}
+export default Parent;
+
+
+
+
+
+
+====================================================
+main.jsx
+=========
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+import Parent from './components/Parent.jsx'
+import { BrowserRouter } from 'react-router-dom'
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <BrowserRouter>
+        <Parent />
+    </BrowserRouter>
+)
+===============================================
+index.html
+-----------
+<div id="root"></div>
+=================================================
+
+
+
+
+
+
+
+

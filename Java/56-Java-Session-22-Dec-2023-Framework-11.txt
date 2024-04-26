@@ -1,0 +1,94 @@
+Spring JDBC (DAO)
+-----------------
+1. create table
+2. insertRecord
+3. updateRecord
+
+---------------------------
+public void deleteRecord()
+	{
+		int i=jt.update("delete from users where user_id=101");
+		System.out.println("Record deleted Successfully.......");
+	}
+====================================================================
+Select Operations
+-------------------
+--> to do select operation JdbcTemplate class given to us
+query() method
+
+query() having a many conventions
+---------------------------------
+queryForInt("select empId from users")
+queryForString("select empName from users")
+queryForDouble("select salary from users")
+queryForFloat("select salary from users")
+queryForList("select *from users");
+queryForSet("select *from users");
+
+============================================
+queryForList("select *from users");
+-------------------------------------
+case1: Fetch one User record
+-----------------------------------
+MobileBean
+-------------
+modelNo
+modelName
+companyName
+ram_size
+rom_size
+os_name
+process_name
+price
+IMEI_NO
+f_cam_size
+b_cam_size
+------------------------------
+create 
+insert 10 records
+update 3 records
+delete 1 records
+getOnerecord
+getAllrecords
+----------------------------
+Spring JDBC Application for Book Details Static CRUD Operation
+------------------------------------------------------------------
+bookId
+bookName
+isbn_no
+price
+author_name
+publishing_year
+publisher_Name
+----------------------------
+with above column name 
+create Table with Book
+insert Record   10 books Details
+update Record    2 Records 
+Delete  1 Record
+getOneBooK   --> select
+getAllBooks    --> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
