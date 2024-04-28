@@ -1,0 +1,261 @@
+we have 3 types of scriting tags
+--------------------------------------------
+1. script let <%  java code %>
+2. expression tag <%= variable name/staring %>
+3 declartion tag <%! variables/mathods %>
+----------------------------------------------
+jsp implicit objects
+--------------------------------------
+Employee emp=new Employee() //here emp is explict object
+requset.response,out,page, session,application, applicationconfig, exception
+=====================================================
+page directives
+-----------------------
+import new packages in our jsp pages
+--> <%@page import="java.sql.*">
+-------------------------------------------------------------------------------------------------
+create a jsp web application for cutomer crud application with 
+my sql data base
+----------------------------------------------------------------------------------------------
+mysql> use excelrdb;
+Database changed
+mysql> CREATE TABLE customers (
+    ->   cid int(40) ,
+    ->   firstname varchar(45) NOT NULL,
+    ->   lastname varchar(45) NOT NULL,
+    ->  street varchar(45) NOT NULL,
+    ->  address varchar(45) NOT NULL,
+    ->  city varchar(45) NOT NULL,
+    ->  state varchar(45) NOT NULL,
+    ->   email varchar(45) NOT NULL,
+    -> password varchar(45) NOT NULL,
+    ->  phone_number varchar(45) NOT NULL,
+    ->   PRIMARY KEY  (cid)
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected, 1 warning (0.17 sec)
+
+mysql> desc customers;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| cid          | int         | NO   | PRI | NULL    |       |
+| firstname    | varchar(45) | NO   |     | NULL    |       |
+| lastname     | varchar(45) | NO   |     | NULL    |       |
+| street       | varchar(45) | NO   |     | NULL    |       |
+| address      | varchar(45) | NO   |     | NULL    |       |
+| city         | varchar(45) | NO   |     | NULL    |       |
+| state        | varchar(45) | NO   |     | NULL    |       |
+| email        | varchar(45) | NO   |     | NULL    |       |
+| password     | varchar(45) | NO   |     | NULL    |       |
+| phone_number | varchar(45) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+10 rows in set (0.03 sec)
+
+mysql>
+================================================
+home.jsp
+--------------
+<body>
+<center>
+<h1 style="color:red">CUSTOMER MANAGEMENT SYSTEM</h1>
+<a href="addUser.jsp">AddNewUSerDetail</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="login.jsp">Login</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="viewUsers.jsp">ListOfAllUsers</a>
+</center>
+</body>
+</html>
+=====================================================
+addUser.jsp
+---------------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body bgcolor="pink">
+<h1 style="color:green">New Customer Registration Form</h1>
+<table border="0">
+<form action="Register.jsp" method="post">
+<tr>
+<td><input type="text" name="cid" placeholder="customer id"></td>
+</tr>
+<tr>
+<td><input type="text" name="fname" placeholder="enter first name"></td>
+<td><input type="text" name="lname" placeholder="enter last name"></td>
+</tr>
+<tr>
+<td><input type="text" name="street" placeholder="street name"></td>
+<td><input type="text" name="address" placeholder="enter address"></td>
+</tr>
+<tr>
+<td><input type="text" name="city" placeholder="enter city"></td>
+<td><input type="text" name="state" placeholder="enter state "></td>
+</tr>
+<tr>
+<td><input type="email" name="mail" placeholder="enter email"></td>
+<td><input type="password" name="password" placeholder="enter password "></td>
+</tr>
+<tr>
+<td><input type="text" name="mno" placeholder="enter mobile number"></td>
+<td><input type="submit" value="SaveCustomer"></td>
+</tr>
+</form>
+</table>
+
+</body>
+</html>
+===============================================================
+
+Register.jsp
+---------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ page import="java.sql.*" %>
+
+<%
+try
+{
+int cid=Integer.parseInt(request.getParameter("cid"));
+String firstname=request.getParameter("fname");
+String lastname=request.getParameter("lname");
+String street=request.getParameter("street");
+String address=request.getParameter("address");
+String city=request.getParameter("city");
+String state=request.getParameter("state");
+String email=request.getParameter("mail");
+String password=request.getParameter("password");
+long mobile_no=Long.parseLong(request.getParameter("mno"));
+Class.forName("oracle.jdbc.driver.OracleDriver");
+Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","mndb","mndb");
+PreparedStatement ps=con.prepareStatement("insert into customer1 values(?,?,?,?,?,?,?,?,?,?)");
+ps.setInt(1,cid);
+ps.setString(2, firstname);
+ps.setString(3, lastname);
+ps.setString(4, street);
+ps.setString(5, address);
+ps.setString(6, city);
+ps.setString(7, state);
+ps.setString(8, email);
+ps.setString(9, password);
+ps.setLong(10, mobile_no);
+int i=ps.executeUpdate();
+out.print(i+"New Customer has been register successfully....");
+}
+catch(Exception ex)
+{
+	ex.printStackTrace();
+}
+
+%>
+
+=============================================================
+login.jsp
+-----------------
+<table border="1">
+<h1 style="color:red">Login Form</h1>
+<form action="LoginCode.jsp" method="post">
+<tr>
+<td>Login Id</td>
+<td><input type="text" name="uid"></td>
+</tr>
+<tr>
+<td>Password</td>
+<td><input type="password" name="password"></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="submit" value="Login">
+</tr>
+</form>
+</table>
+============================================
+
+LoginCode.jsp
+---------------------
+<%@ page import="java.sql.*" %>
+<%
+try
+{
+
+String email=request.getParameter("uid");
+String password=request.getParameter("password");
+
+Class.forName("oracle.jdbc.driver.OracleDriver");
+Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","mndb","mndb");
+PreparedStatement ps=con.prepareStatement("select *from customer1 where email=? and password=?");
+ps.setString(1, email);
+ps.setString(2, password);
+ResultSet rs=ps.executeQuery();
+if(rs.next())
+{
+	response.sendRedirect("success.jsp");
+}
+else
+{
+	out.print("<h2 style='color:red'>Please Insert Valid Mail id and Password</h2>");
+}
+con.close();
+}
+catch(Exception ex)
+{
+	ex.printStackTrace();
+}
+
+%>
+
+===========================================================
+ViewUsers.jsp
+-----------------------
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+    <%@page import="java.sql.*" %>
+
+<body>
+<%
+try
+{
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+	Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","mndb","mndb");
+
+Statement ps=con.createStatement();
+ResultSet rs=ps.executeQuery("select * from customer1");
+
+ResultSetMetaData rss=rs.getMetaData();
+out.print("<table border='1'>");
+int n=rss.getColumnCount();   
+
+for(int i=1;i<=n;i++)    
+	
+out.println("<td> <font color=blue size=3> "+"<br>"+rss.getColumnName(i));
+	
+	out.println("<tr>");
+	
+	while(rs.next())
+	{
+	for(int i=1;i<=n;i++)
+		
+	out.println("<td><br> "+rs.getString(i));
+	out.println("<tr>");
+	}
+	out.println("</table> </body> </html>");
+	
+}
+catch(Exception ex)
+{
+	out.println(ex);
+}
+%>
+<a href="index.jsp">Back</a>
+</body>
+</html>
+===========================================================================
+
+
+
+
+
+
+
