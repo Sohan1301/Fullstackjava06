@@ -1,0 +1,151 @@
+Session Management Techiniques
+------------------------------------------------
+Protocol:
+-----------
+A protocol is a standard or set of rules.
+which can be used for enabling communication between two 
+machines (Client and server).
+--------------------------------------------------------------------------------------
+The protocol are 2 types
+--------------------------------------------------------------------------------------
+1. stateless protocol   (http)
+2. state full protocol   (FTP) file transefor Protocol
+
+
+
+
+
+
+--> By Using HTTP Protocol
+communicate client mechine 
+to server mechine and send request and getting reponse.
+
+HttpRequest    --> request
+HttpResponse  --> response
+Here Sent Request To server in 3 ways
+-----------------------------------------------
+1. By using url           ex: www.gamil.com
+2. By using Hyper Link    ex:  Serach 
+<a href="www.amazon.com">Amazon</a>
+ 3. By using submit button. 
+<input type="submit" value="Submit">   
+------------------------------------------------
+1. stateless protocol:
+-------------------------
+--> A protocol is said to be stateless, if the server has 
+no information about the prior request sent by the client.
+--> In a stateless protocol the server cannot 
+distinguish a request from the 
+other request given by the same 
+client in a series of client server interactions. 
+--> In a stateless the server will consider every 
+request from the client as the fresh request or new request.
+ex:http (hyper text transfor protocol)
+--> All the web based applications are stateless i.e 
+they do not remember the client information after the 
+response is generated.whenever a client sends a 
+request to the server, a connection will be established, 
+and the server will receive the request ,process the request sends 
+the response to the client and once the response is 
+sent to the client the connection which is established 
+will be removed.
+
+2) Statefull protocol: 
+---------------------------
+A protocol is said to be statefull, if the server has the 
+information of the prior requests sent by the client. 
+it will save forther request..
+
+Ex: FTP. File Transfer Protocol.
+ex: file downloading application are 
+StateFull protocal appn
+www.movierulz.com
+
+
+
+
+
+
+--------------------------------------------------------
+
+In a statefull protocol, the server will use the data coming from the
+ previous requests while processing the 
+current request. In a statefull protocol, the server will use the 
+same connection in a series of client 
+server interactions. The statefull protocol is also 
+called as connection oriented protocol.
+
+
+
+
+To maintaine the state between clinet 
+mechine to server mechine 
+in servlet and Jsp technologies by using 
+----------------------------------------------------
+Session Management Techiniques
+---------------------------------
+These are 
+1. Hidden form fields
+2. Cookie
+3. Session
+4. URL Rewriting
+
+---------------------------
+1) Hidden form field:
+---------------------------- 
+We can make the server to remember the 
+client information
+using html hidden field.
+Syntax:
+--------- 
+<input type="hidden" name='name' value='value' />
+--> The data specified in the hidden form field can 
+be sent to 
+the next resource only by the request i.e. by clicking the 
+submit button. It cannot be done with the help 
+of a hyper link.
+In such case, we store the information in the hidden 
+field and get it from another servlet / jsp. 
+This approach is better if we have to submit form in 
+all the pages and we don't want to depend on the browser.
+
+=================================================
+hidden form filed application
+--------------------------------------------
+reg.jsp
+------------------
+<form action="S1.jsp" method="post">
+Name:<input type="text" name="uname"><p></p>
+Password:<input type="password" name="psw"><p></p>
+<input type="submit" value="Next"><p></p>
+</form>
+================================================
+S1.jsp
+-------------
+<%
+
+String name=request.getParameter("uname");
+String password=request.getParameter("psw");
+out.print("Welcome:"+name+"<br>");
+out.print("My Password:"+password+"<br>");
+
+%>
+<form action="S2.jsp">
+<input type="hidden" name="uname" value=<%=name %>>
+<input type="hidden" name="passsword" value=<%=password %>>
+Email:<input type="email" name="mail">
+<input type="submit" value="Sumbit">
+</form>
+====================================================
+S2.jsp
+============
+<%
+String name=request.getParameter("uname");
+String password=request.getParameter("password");
+String email=request.getParameter("mail");
+out.print("Hell:="+name);
+out.print("My password:="+password);
+out.print("My mail:="+email);
+
+%>
+=============================================================
