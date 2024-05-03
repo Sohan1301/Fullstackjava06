@@ -1,0 +1,363 @@
+--**--working with frame work is nothing but a 
+working with jar and war files--**
+
+
+
+JAR: Java archive file-- Dev StandAlone Appn
+war: web archive file --Dev  Web based appn
+EAR: Enterprice Archive File --Dynamic Web Appn
+Every Java Web Application required S/W
+are
+-------------------------------
+1. JDK.exe     java software
+2. IDE(  eclipse IDE) .exe   --> editing java code
+3. Tomcat server.exe    ---->run server codes
+4. browser.exe   --> run static resourcses
+5. oracle.exe   --> for Storage purpose
+-------------------------------------------------------------
+=====================================
+
+Based on fuctionality A java Application
+/Project will be divided into three layers.
+1. UI --> Prasentation Layer   (View layer)  ( .jsp files)
+2. Business Logic / Service Layer  )  --> .java code  (Controller)
+3. Data Access/ Presistance Layer  ( Model Layer)
+
+--> Take Diagram
+
+
+
+
+
+-------------------------------------------------------------
+The ene-to end Communication between a user and  
+database  will be like following.
+1. Presentation Layer:  Receives a user input and applies 
+validation if require.
+2. If validation are success then presentation layer 
+transfers user data to the business Logic layer.
+3. BLL executes business Logic based on 
+business rules of on Organization.
+4. BLL transfer data to Data Access Layer.
+5. DAL Will store a user data in a database.
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------
+Introdcution of HiberNate
+-----------------------------------
+In old Projects the data is transfered from one Layer to another Layer 
+in the form of values with this approach the no.of  trips between  
+a layer to layer are increased.a performance of an application has reduced.
+
+--> To increase the performance of an application data will be 
+transfered from one layer to another layer in thr form of
+Objects.
+
+--> In DAL when JDBC API is used then it can't directly 
+transfer an object to a DB.
+--> A java Developer has to convert an object into values and then 
+values can be stored in DB using JDBC API.
+
+--> When a BL requires some data from DB then DAL Reads 
+values from DB using jdbc and then converts to an object 
+and transfer that object  to the BL.
+
+--> Its a burden on Developer to convert an object into values 
+and values into 
+objects.
+--> in order to reduce burden on a developer "ORM Tools" 
+came into the picture. or ORM Framework are introduced.
+
+--> The ORM tool internally takes care of converting an 
+object into values and 
+values into objects, by without providing burden on developers.
+
+
+--> An ORM Tool is a mediator between a java project and 
+database, transfers objects between a project and database.
+--> A object is inserts in DB Means, store of an object is stored in DB.
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+Why Framework
+-----------------
+as a developer every time writing some 
+common codes for above 3 layers.
+To avoid  common code for each and every
+ web appn by using FRAME WORK.
+--> Every real time project contains atleast some 
+common functionalities.
+--> If developers are defining the code for 
+implementing common fucntionalities 
+for each project separately then there are 
+some problems.
+==================================================
+--> it makes a burden on developer.
+--> it makes dealy to deliver a project to the client .
+--> project deployement cost is increased and 
+Takes more Times.
+in order to overcome above problem frame 
+work come to picture.
+
+
+
+
+
+
+
+=============================
+FrameWork Advantages
+-------------------
+--> FM provides the code for common functionality as 
+pre defined, it reduces burden on Devloper.
+--> Developer  can deliver project with in time.
+--> A project maintance is easy.
+****--> Rapid devlopment. 
+--> More secure code.
+--> Simpler testing and debugging. 
+--> Avoiding duplicate code.
+****--> Able to focus on writing code specific to the project.
+================================================================
+2.What is Framework
+-----------------------------
+A frame work is a set of jar and war files, each jar 
+and war contains a set of pre defined interfaces,classes and  
+methods they are given to provide some common
+functionality of a Java Project.
+--> In other words a frame work is a abstraction 
+Layer on top of existing Technoloy.
+
+
+
+
+
+
+
+
+
+4. Types of Framework
+-------------------------------
+--> In java Frame work are divided into Two Types
+1. INVASIVE  FRAMEWORK.
+2. NON-INVASIVE FRAMEWORK.   
+
+1. INVASIVE  FRAMEWORK:
+---------------------------------------
+Invasive means, it will force the programmers to 
+create their classes by extending or 
+implementing from pre-defined classes or 
+interfaces provided by that frame work. 
+Ex:
+---
+Servlet and Struts
+
+Exp1:
+-------
+public class Myservlet extends HttpServlet
+{
+doPost(HSR request,HSR response)
+{
+//PL  (input statements)
+//BL  ( processing statements)
+//DAL   (jdbc ---5 lines code)
+//PL  (out put statement)
+}
+}
+-----------------------------------------------
+Approach2:
+----------------
+public class Myservlet implemets Servlet
+{
+service(SR request,SR response)
+{
+//PL
+//BL
+//DAL
+//PL
+}
+}
+NON-INVASIVE FRAME WORK
+-------------------------------------------------
+Non-Invasive means it wont forces the programmer to 
+extend or implement its own classes or interfaces.
+EX:
+-----
+Hibernate
+Spring 
+Spring Boot
+
+Above 3 Frame works  design with POJO and POJI model.
+POJO stands for Plain OLD Java Object
+POJI stands: plain Old Java interface
+---------------------------------------------------------------
+---------------------------------------------------------------
+--> Finally In Java Has a 3 Frame works
+1. Hibernate
+2. Spring 
+3. Spring Boot
+====================================================
+
+
+
+
+
+
+
+
+
+
+
+========================================
+1. INVASIVE  FRAMEWORK
+=========================
+
+
+ex:
+-----
+Servlet, struts, and JSF  
+
+public class MyServlet extends HttpServlet
+{
+protected void doPost(_,_);
+{
+}
+}
+
+public class MyServlet implements Servlet
+{
+protected void doPost(_,_);
+{
+}
+}
+
+id said to be a NON-INVASIVE Framework
+
+
+2. NON-INVASIVE FRAMEWORK.
+++++++++++++++++++++++++++++++++
+ex:
+---
+hibernate, spring and spring boot.....etc
+
+
+
+
+
++++++++++++++++++++++++++++++++++
+POJO
+----------------
+--> POJO stands for Plain Old Java Object. 
+--> It is an ordinary object, which is not bound by any 
+special restriction. 
+--> The POJO file does not require any special classpath. 
+--> It increases the readability & re-usability 
+of a Java program.
+--> POJOs are now widely accepted due to their 
+easy maintenance. They are easy to read and write. 
+--> It is not tied to any Java Framework; 
+any Java Program can use it.
+
+
+Rules for POJO class
+----------------------------
+--> class must be public.
+--> It must have a public default constructor.
+--> It may have the arguments constructor.
+--> All objects must have some public Getters and 
+Setters to access the object values by other Java Programs.
+--> all instance variables should be 
+private for improved security  of the project.
+--> A POJO class should not extend predefined classes.
+It should not implement pre specified interfaces.
+
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++
+_________________________________________________
+
+Spring Introduction
+--------------------------
+--> Spring is a light weight and open source 
+framework created by Rod Johnson in 2003. 
+
+--> Spring framework is said to be a 
+non-invasive means it doesn’t force a programmer to extend or 
+implement their class from any predefined class 
+or interface given by Spring API.
+-->Spring is light weight framework 
+because of its POJO and POJI  model.
+
+*****--> Spring Framework made J2EE 
+application (web application) development 
+with less code. focus on Business Logic Only.
+
+--> Spring having this much of demand because of the 
+following 3 reasons….
+Simplicity
+Testability
+Loose  coupling
+fast
+productivity
+secured
+
+Spring Farme word official web site is 
+www.spring.io
+==============================
+
+
+
+
+
+_________________________________
+Spring Modules, What Are Spring Modules
+---------------------------------------------------------
+to develop stand alone appn and web based application
+with Spring by using following modules
+---------------------------------------------------------
+Spring framework is divided into 6 modules only
+----------------------------------------------
+1.Spring Core Module
+2.Spring DAO Module [ Spring JDBC ]
+3.Spring ORM module
+4.Spring AOP [ Aspect Oriented Programming ]
+5.Spring Context [ J2EE ]
+6.Spring WEB-MVC Module
+
+
+
+
+==============================================================
+Actually in spring 1.x, web, mvc are given as separate modules…...
+
+Spring and Spring Boot Framework versions
+-----------------------------------------
+Spring 1.x
+spring 2.x            
+spring 3.x
+spring 4.x
+spring 5.x  
+spring 6.x 
+***current version of Spring is 6.x
+---------------------------------------------------
+Spring Boot Versions
+--------------------------------
+Spring Boot 1.x
+Spring Boot 2.x
+Spring Boot 3.x
+-----------------------------------------
+
+
+
+
+
