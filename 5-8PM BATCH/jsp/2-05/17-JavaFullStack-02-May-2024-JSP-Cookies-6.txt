@@ -1,0 +1,267 @@
+jsp web application for session object 
+--------------------------------------------------
+login.jsp    ( design file)
+LoginCode.jsp   (server file)
+UserHome.jsp   (server file)
+================================
+login.jsp
+-----------
+<form action="LoginCode.jsp" method="post">
+Name:<input type="text" name="uname"><p></p>
+Password:<input type="password" name="psw"><p></p>
+<input type="submit" value="Next"><p></p>
+</form>
+-------------------------------------------------------------
+LoginCode.jsp
+-----------------------
+
+<%
+String name=request.getParameter("uname");
+String password=request.getParameter("psw");
+out.print("My  name is="+name);
+out.print("My  password is="+password);
+session=request.getSession();
+session.setAttribute("myname", name);
+%>
+
+<a href="UserHome.jsp">Submit</a>
+========================================================
+UserHome.jsp
+---------------------
+
+
+<%
+String name=(String)session.getAttribute("myname");
+out.print("hell:"+name);
+%>
+========================================================
+
+CREATE TABLE members (
+  id int(10) unsigned NOT NULL auto_increment,
+  first_name varchar(45) NOT NULL,
+  last_name varchar(45) NOT NULL,
+  email varchar(45) NOT NULL,
+  uname varchar(45) NOT NULL,
+  password varchar(45) NOT NULL,
+  regdate date NOT NULL,
+  PRIMARY KEY  (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+===========================================================
+Cookies in Servlet and JSP
+------------------------
+A cookie is a small piece of information that is persisted between 
+the multiple client requests.
+A cookie has a name, a single value, and optional attributes such as a
+comment, path and domain qualifiers, a maximum age, 
+and a version number.
+
+How Cookie works
+-----------------
+By default, each request is considered as a new request. 
+In cookies technique, we add cookie with response from the servlet. 
+So cookie is stored in the cache of the browser. 
+
+After that if request is sent by the user, cookie is added 
+with request by default. 
+Thus, we recognize the user as the old user.
+
+Types of Cookie
+---------------
+There are 2 types of cookies in servlets.
+Non-persistent cookie.  
+Persistent cookie.
+
+Non-persistent cookie
+----------------------
+It is valid for single session only. It is removed each time when 
+user closes the browser.
+
+Persistent cookie
+------------------
+It is valid for multiple session . It is not removed each time when 
+user closes the browser. It is removed only if user logout or signout.
+
+Advantage of Cookies
+-----------------------------
+--> Simplest technique of maintaining the state.
+--> Cookies are maintained at client side.
+--------------------------------------------------------------------
+Cookie class
+------------
+javax.servlet.http.Cookie class provides the functionality 
+of using cookies.
+
+It provides a lot of useful methods for cookies.
+To create a cookie we take the help of Cookie class.
+The cookie classs available javax.servlet.http.Cookie
+
+syntax:
+----------
+Cookie ck=new Cookie(String name,String value);
+Once The cookie is created , we can send the cookie to the 
+client along with the response by using addCookie() method  
+
+syntax for adding cookie
+----------------------------------
+response.addCookie(ck);
+
+---------------------------
+Syntax for reading cookie to response
+---------------------------------------------
+Cookie[] cks=request.getCookies()
+
+=====================================
+Methods of Cookie class
+-----------------------
+public void setComment(String purpose): 
+----------------------------------------------------
+This method is used for setting up comments in the cookie. 
+This is basically used for describing the purpose of the cookie.
+
+public String getComment(): 
+-------------------------------------
+Returns the comment describing the purpose of this cookie, 
+or null if the cookie has no comment.
+
+public void setMaxAge(int timeintervel):   
+---------------------------------------------
+--> Sets the maximum age of the cookie in seconds.
+cookie.setMaxAge(60*60); 
+public int getMaxAge():  
+--> Gets the maximum age in seconds of this Cookie.
+*** By default, -1 is returned, which indicates that the cookie 
+will persist until browser shutdown.
+
+public String getName(): 
+--------------------------------
+Returns the name of the cookie. The name cannot be changed after 
+creation.
+
+public void setValue(String newValue): Assigns a new 
+value to this Cookie.
+
+public String getValue(): Gets the current value of this Cookie.
+
+---------------------------------------------------------------
+Cookie Webb
+----------------
+index.html
+------------
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Index</title>
+</head>
+<body>
+<form action="S1">
+ User Name:<input type="text" name="userName"/><br/>
+ Password:<input type="password" name="userPassword"/><br/>
+ 
+ <input type="submit" value="submit"/>
+</form>
+</body>
+</html>
+
+====================================================
+web.xml
+-----------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+  <display-name>HiddenFormFiled</display-name>
+  <welcome-file-list>
+  <welcome-file>index.html</welcome-file>  
+   <!-- <welcome-file>S1</welcome-file>-->
+ 
+  </welcome-file-list>
+</web-app>
+
+===================================================
+S1.java
+------------------
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/S1")
+public class S1 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try{
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
+			String name = request.getParameter("userName");
+			String password = request.getParameter("userPassword");
+			out .print("Hello "+name);
+			out .print("Your Password is: "+password); 
+			//Creating two cookies
+			Cookie c1=new Cookie("userName",name);
+			Cookie c2=new Cookie("userPassword",password);
+			//Adding the cookies to response header
+			response.addCookie(c1);
+			response.addCookie(c2);		
+			//creating submit button  
+			out.print("<form action='S2'>");  
+			out.print("<input type='submit' value='go'>");  
+			out.print("</form>");  
+			out.close();
+			
+		}catch(Exception exp){
+			System.out.println(exp);
+		}
+	}
+
+}
+
+==========================================================
+s2.java
+---------------------------
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/S2")
+public class S2 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try{
+			response.setContentType("text/html");
+			PrintWriter pwriter = response.getWriter();	
+			//Reading cookies
+			Cookie c[]=request.getCookies(); 
+			//Displaying User name value from cookie
+			pwriter.print("Name: "+c[0].getValue()); 
+			//Displaying user password value from cookie
+			pwriter.print("Password: "+c[1].getValue());
+			pwriter.close();
+		}catch(Exception exp){
+			System.out.println(exp);
+		}
+	}
+
+}
+==================================================================
+
+JSP APPLICATION WITH COOKIES
+------------------------------------------------
+
