@@ -1,0 +1,215 @@
+Data Base : hbdb
+-------------------------------------------
+user name : root
+password: root ( your password)
+-------------------------------------------------------
+Product.java
+Product.hbm.xml
+hibernate.cfg.xml
+ProductTest.java
+-----------------------------------------------------------
+Product.java
+---------------------
+package com.excler;
+
+public class Product {
+private int pid;
+private String pname;
+private double price;
+//PDC+PPC+PSM+PGM+toString()
+public Product(int pid, String pname, double price) {
+	super();
+	this.pid = pid;
+	this.pname = pname;
+	this.price = price;
+}
+public int getPid() {
+	return pid;
+}
+public void setPid(int pid) {
+	this.pid = pid;
+}
+public String getPname() {
+	return pname;
+}
+public void setPname(String pname) {
+	this.pname = pname;
+}
+public double getPrice() {
+	return price;
+}
+public void setPrice(double price) {
+	this.price = price;
+}
+@Override
+public String toString() {
+	return "Product [pid=" + pid + ", pname=" + pname + ", price=" + price + "]";
+}
+
+}
+
+==========================================
+Product.hbm.xml
+----------------------------
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.excler.Product" table="product">
+		<id name="pid"/>
+		<property name="pname" />
+		<property name="price" />
+		
+	</class>
+</hibernate-mapping>
+==============================================
+hibernate.cfg.xml
+------------------------------
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- DB related properties START -->
+		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/hbdb</property>
+		<property name="connection.user">root</property>
+		<property name="connection.password">root</property>
+		<!-- Hibernate related properties START -->
+		<property name="show_sql">true </property>
+		<property name="sql_format">true </property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hbm2ddl.auto">update</property>
+		<!-- Mapping files list -->
+		<mapping resource="com/excler/Product.hbm.xml"/>
+	</session-factory>
+</hibernate-configuration>
+========================================================================
+ProductInsertTest.java
+-----------------------------------
+package com.excler;
+import org.hibernate.*;
+import org.hibernate.cfg.*;
+public class ProductCreateInsert {
+
+	public static void main(String[] args) {
+		Configuration cfg=new Configuration();
+		cfg.configure("com/excler/hibernate.cfg.xml");
+		SessionFactory factory=cfg.buildSessionFactory();
+		Session session=factory.openSession();
+		Product p1=new Product(103,"iphone",9000.99);
+		Transaction ts=session.beginTransaction();
+		session.save(p1); //create the table and insert one record
+		ts.commit();
+		System.out.println("new Table is created and record also inserted");
+		session.close();
+	factory.close();
+	
+	}
+
+}
+===================================
+pom.xml
+----------------
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.chanti</groupId>
+	<artifactId>HibernateEx1</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>HibernateEx1</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<!--Junit dependency-->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!--mysql dependency-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version>
+		</dependency>
+		<!--HIBERNATE dependency-->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>2.10.9.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/cglib/cglib -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+	</dependencies>
+</project>
+=============================================================
+POJO class
+---------------
+Mobiles
+-------------
+modelNo
+modelName
+company_name
+os_name
+ram_size
+rom_size
+processor_name
+price
+imei_no
+-------------------------------------------------
+create
+insert  (10) records
+--------------------------------------------------
+
+
