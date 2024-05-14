@@ -1,0 +1,210 @@
+Annotations
+-------------------
+what annotations
+hibernate application with annotations
+1. create table
+2. insert records in data base tables
+3. update
+4. delete
+5. select one record from data base 
+annotations
+-----------------------------------------------------------
+table Relations
+----------------------------------
+1. onetoOne
+2. OneToMany
+3. manyToOne
+4. ManyTomany
+---------------------------------------------------------------
+One-to-Many:  according to database terminology, 
+one row of table related with multiple rows of other table.
+
+======================================================
+Example Application for One-To-Many relations with annotations
+-------------------------------------------------------------------------------------------------
+1. Customers.java  --> @Entity+@Id+@Table+@Column
+2. Vendor.java -->@Entity+@Id+@Table+@Column  +@OneToMany 
+3. ForOurLogic.java  (test Class)
+4. hibernate.cfg.xml  (Db conn Code+Dailect properties+mapping file Info)
+=====================================================================
+Customers.java
+--------------------------
+
+package str;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Customers")
+public class Customers{
+
+	@Id
+	@Column(name = "custid")
+	private int customerId;
+
+	@Column(name = "custName", length=10)
+	private String customerName;
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+}
+===============================================================
+Vendor.java
+--------------------
+
+package str;
+
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Vendor")
+
+public class Vendor{
+
+	@Id
+	@Column(name = "vid")
+	private int vendorId;
+
+	@Column(name = "vname", length=10)
+	private String vendorName;
+
+	@OneToMany(fetch=FetchType.LAZY, targetEntity=Customers.class, cascade=CascadeType.ALL)
+	@JoinColumn(name = "venid", referencedColumnName="vid")
+
+	private Set children;
+
+	public int getVendorId() {
+		return vendorId;
+	}
+
+	public void setVendorId(int vendorId) {
+		this.vendorId = vendorId;
+	}
+
+	public String getVendorName() {
+		return vendorName;
+	}
+
+	public void setVendorName(String vendorName) {
+		this.vendorName = vendorName;
+	}
+
+	public Set getChildren() {
+		return children;
+	}
+
+	public void setChildren(Set children) {
+		this.children = children;
+	}	
+
+}
+
+
+==================================================
+hibernate.cfg.xml
+=================
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>
+<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver
+</property>
+<property name="connection.url">jdbc:oracle:thin:@www.java4s.com:1521:XE</property>
+<property name="connection.username">system</property>
+<property name="connection.password">admin</property>
+
+<property name="dialect">org.hibernate.dialect.OracleDialect</property>
+<property name="show_sql">true</property>
+<property name="hbm2ddl.auto">update</property>
+
+<mapping></mapping>
+<mapping></mapping>
+</session-factory>
+</hibernate-configuration>
+=====================================================
+Logic.java
+----------------
+package str;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.cfg.Configuration;
+
+public class ForOurLogic { 
+
+	public static void main(String[] args)
+	{
+
+		Configuration cfg = new Configuration();
+		cfg.configure("hibernate.cfg.xml"); 
+
+		SessionFactory factory = new AnnotationConfiguration().configure().buildSessionFactory();
+		Session session = factory.openSession();		
+
+	      Vendor v=new Vendor();
+	      v.setVendorId(100);
+	      v.setVendorName("java4s");
+
+	      Customers c1=new Customers();
+	      c1.setCustomerId(500);
+	      c1.setCustomerName("customer1");
+
+	      Customers c2=new Customers();
+	      c2.setCustomerId(501);
+	      c2.setCustomerName("customer2");
+
+	      Set s=new HashSet();
+	      s.add(c1);
+	      s.add(c2);
+
+	      v.setChildren(s);
+
+	      Transaction tx=session.beginTransaction();
+	           session.save(v);
+	      tx.commit();
+
+		session.close();
+		System.out.println("One to Many Annotatios Done...!!!!!!");
+		factory.close();
+	}
+
+}
+
+
+
+
+

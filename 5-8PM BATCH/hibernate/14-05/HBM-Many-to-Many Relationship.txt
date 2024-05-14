@@ -1,0 +1,164 @@
+Many To Many Mapping Using Annotations
+---------------------------------------
+Files required….
+---------------------
+
+Categories.java   (POJO class)  --> @Entity,@Table,@Id,@Clumn
+Item.java       (POJO class)  --> @Entity,@Table,@Id,@Clumn +@ManyToMany
+
+hibernate.cfg.xml     (configuration File)
+ForOurLogic.java      ( Logic File)
+
+
+++++++++++++++++++++++++++++++++++++++++++++
+Categories.java
+-----------------
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="categories")
+public class Categories
+{
+	@Id
+	@Column(name="catid")
+	 private int categoryId;
+
+	@Column(name="catname",length=10)
+	private String categoryName;
+
+	@ManyToMany(targetEntity=Item.class,cascade=CascadeType.ALL)
+
+	@JoinTable(name="categories_items",joinColumns=@JoinColumn(name="cat_id_fk",referencedColumnName="catid"),inverseJoinColumns=@JoinColumn(name="item_id_fk",referencedColumnName="itemid"))
+
+	private Set items;
+
+//PDC+PSM+PGM
+	public int getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+	public Set getItems() {
+		return items;
+	}
+	public void setItems(Set items) {
+		this.items = items;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryname) {
+		this.categoryName = categoryname;
+	}
+
+}
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Item.java
+--------------
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+
+
+@Entity
+@Table(name="items")
+public class Item
+{
+	@Id
+	@Column(name="itemid")
+	private int itemId;
+
+	@Column(name="itemname",length=10)
+	private String itemName;
+
+	@ManyToMany(targetEntity=Categories.class,mappedBy="items")
+	private Set  categories;
+
+	public Set getCategories() {
+		return categories;
+	}
+	public void setCategories(Set  categories) {
+		this.categories = categories;
+	}
+	public int getItemId() {
+		return itemId;
+	}
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+}
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ForOurLogic.java
+------------------------------------------
+import java.util.HashSet;
+import java.util.Set;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class ForOurLogic { 
+
+	public static void main(String args[])
+	{
+		Configuration cfg = new Configuration();
+		cfg.configure("hibernate.cfg.xml"); 
+
+		SessionFactory factory = new Configuration().configure().buildSessionFactory();
+		Session ses = factory.openSession();	
+
+		Categories c1 = new Categories();
+		c1.setCategoryId(1);
+		c1.setCategoryName("cat 1");
+
+		Categories c2=new Categories();
+		c2.setCategoryId(2);
+		c2.setCategoryName("cat 2");
+
+		Item i1=new Item();
+		Item i2 = new Item();
+
+		i1.setItemId(101);
+		i1.setItemName("item1");
+
+		i2.setItemId(102);
+		i2.setItemName("item2");
+
+		Set  s =new HashSet();
+		s.add(i1);
+		s.add(i2);
+
+		c1.setItems(s);
+		c2.setItems(s);
+
+		Transaction tx = ses.beginTransaction();
+		ses.save(c1);
+		ses.save(c2);
+		tx.commit();
+		System.out.println("Man to Many using annotations been done...!!!!!");
+		ses.close();
+	}
+
+}

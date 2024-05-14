@@ -1,0 +1,364 @@
+These configurations contain the mapping information 
+that provides different functionalities to Java classes. 
+Generally, we provide database related mappings in the 
+configuration file. Hibernate facilitates to provide 
+the configurations either in an XML file (like hibernate.cfg.xml) or 
+properties file (like hibernate.properties).z
+
+SessionFactory:
+
+SessionFactory is an Interface which is present in 
+org.hibernate package and it is used to create Session Object.
+--> It is immutable and thread-safe in nature.and it is a singletone object
+
+
+Session:
+
+Session is an interface which is present in org.hibernate package. 
+Session object is created based upon SessionFactory object i.e. factory.
+It opens the Connection/Session with Database software 
+through Hibernate Framework.
+It is a light-weight object and it is not thread-safe.
+Session object is used to perform CRUD operations.
+
+
+Transaction object is used whenever we perform any operation and 
+based upon that operation there is some change in database.
+Transaction object is used to give the instruction to the database 
+to make the changes that happen because of 
+operation as a permanent by using commit() method.
+
+-----------------------------------------------------------------------
+in hiber nate mapping can do in 2 ways
+---------------------------------------------------------------
+1. XML File based mapping (Product.hbm.xml)
+2. Annotations
+------------------------------------------------------------------------
+Hibernate Annotations
+------------------------------------
+Annotations Introduction
+==================================
+--> Annotations are replacement for XML files.
+--> Annotations are avoid meta data configuarations.
+--> The means avoid XML Tags.
+
+Let us see few points regarding annotations in 
+Spring/Spring Boot
+========================================================
+--> Annotations are introduced in java 
+along with JDK 1.5.
+---> annotations are used to provide META 
+data to the classes, variables, methods of java.
+--> In spring and Spring boot  annotations are given to 
+replacement of [ xml ] file configuration.
+ex: spconfig.xml
+-->While working with annotations 
+in spring and spring boot, we do not 
+require any xml configuration file.
+******-->Every annotations is internally an Interface, 
+Annotation Start with @ symbol.
+
+========================
+POJO class Annotations or Hibernate annotations
+----------------------------------------------
+1. @Entity
+2. @Table 
+3. @Id
+4.@Column
+ex:
+---
+@Entity
+@Table(name="employee")
+punlic class Employee
+{
+@Id
+@Column(name="eid")
+private int empId;
+@Column(name="ename")
+private String empName;
+private double salary;
+}
+Here @Entity and @ Table Are class Level Annotations
+@Id and @Column are Field (variables) Level annotations
+--> Annotations are used along with
+class, methods and variables and interfaces.
+=======================================================
+Create a Hibernate Application for create and insert operations with Annotations
+-----------------------------------------------------------------------------------------------------------------------
+1. Passenger.java  --> @Entity+@Id+@Table+@Column
+2. hibernate.cfg.xml   (db conn+dailect+mapping file)
+3. Test.java (main(){..................})
+--------------------------------------------------------------------------------
+pom.xml
+-----------------
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.chanti</groupId>
+	<artifactId>HibernateEx1</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>HibernateEx1</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<!--Junit dependency-->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!--mysql dependency-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version>
+		</dependency>
+		<!--HIBERNATE dependency-->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate -->
+		<!--<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.0</version>
+		</dependency>-->
+		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sf.ehcache/ehcache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>2.10.9.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/cglib/cglib -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>javax.persistence-api</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+		<!--
+		https://mvnrepository.com/artifact/org.hibernate/hibernate-annotations -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.4.0.GA</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javassist/javassist -->
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.12.1.GA</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>JBoss repository</id>
+			<url>http://repository.jboss.com/maven2/</url>
+		</repository>
+	</repositories>
+</project>
+===========================================================
+Passenger.java
+-----------------------
+package com.excelr;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class Passenger {
+
+	@Id
+	@Column(name="pid")
+	private int passenger_id;
+	private String pname;
+	private String startTime;
+	private String endTime;
+	private double ticketfair;
+	//PDC+PPC+PSM+PGM+toString()
+	public Passenger() {
+		super();
+	}
+	public Passenger(int passenger_id, String pname, String startTime, String endTime, double ticketfair) {
+		super();
+		this.passenger_id = passenger_id;
+		this.pname = pname;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.ticketfair = ticketfair;
+	}
+	public int getPassenger_id() {
+		return passenger_id;
+	}
+	public void setPassenger_id(int passenger_id) {
+		this.passenger_id = passenger_id;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public String getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+	public double getTicketfair() {
+		return ticketfair;
+	}
+	public void setTicketfair(double ticketfair) {
+		this.ticketfair = ticketfair;
+	}
+	@Override
+	public String toString() {
+		return "Passenger [passenger_id=" + passenger_id + ", pname=" + pname + ", startTime=" + startTime
+				+ ", endTime=" + endTime + ", ticketfair=" + ticketfair + "]";
+	}
+	
+	
+}
+=======================================================================
+hibernate.cfg.xml
+-------------------------------
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- DB related properties START -->
+		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/hbdb</property>
+		<property name="connection.user">root</property>
+		<property name="connection.password">root</property>
+		<!-- Hibernate related properties START -->
+		<property name="show_sql">true </property>
+		<property name="sql_format">true </property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hbm2ddl.auto">update</property>
+		<!-- Mapping files list -->
+		<mapping class="com.excelr.Passenger" />
+	</session-factory>
+</hibernate-configuration>
+========================================================================
+
+Test_Save1.java
+------------------------
+
+package com.excelr;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+public class Test_Save1 
+{
+    public static void main( String[] args )
+    {
+    	//Loading configuration file into HB container
+    	AnnotationConfiguration cfg = new AnnotationConfiguration();
+		cfg.configure("com/excelr/hibernate.cfg.xml"); 
+		//HB container creates high level object
+		SessionFactory factory = cfg.buildSessionFactory();
+		//Creating session between Java Application and Database
+		Session session = factory.openSession();
+		//Create a transaction
+		Transaction tx = session.beginTransaction();
+		//Creating persistence class object
+		Passenger passenger=new Passenger(501,"Ganesh","9am","2pm",250.00);
+		//Call the DAO methods to save the passenger object into Database
+		session.save(passenger);
+		System.out.println("Passenger Object saved successfully.....!!");
+		//Commit the tx
+		tx.commit();
+		//Close the session and factory objects
+		session.close();
+		factory.close();
+    }
+}
+
+===========================================================================
+
+Passenger Object saved successfully.....!!
+Hibernate: insert into Passenger (endTime, pname, startTime, ticketfair, pid) values (?, ?, ?, ?, ?)
+
+===============================================================
+Result
+-------------
+mysql> use hbdb;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_hbdb |
++----------------+
+| passenger      |
+| product        |
++----------------+
+2 rows in set (0.02 sec)
+
+mysql> select *from passenger;
++-----+---------+--------+-----------+------------+
+| pid | endTime | pname  | startTime | ticketfair |
++-----+---------+--------+-----------+------------+
+| 501 | 2pm     | Ganesh | 9am       |        250 |
++-----+---------+--------+-----------+------------+
+1 row in set (0.00 sec)
+
+mysql>
+===========================================================
+
+
+
+
+
