@@ -1,0 +1,195 @@
+Hibernate One To One Mapping Using Annotations
+----------------------------------------------------------------------
+Required Files Are
+-----------------------------
+Address.java
+Student.java
+hibernate.cfg.xml
+ClientForSave.java
+========================
+Address .java
+-------------------------------------------
+package str;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Address")
+public class Address {
+	@Id
+	@Column(name="addrid")
+	private  int addressId;
+
+	@Column(name="place",length=10)
+	private String place;
+
+	@OneToOne(targetEntity=Student.class,cascade=CascadeType.ALL)
+	@JoinColumn(name="stu_id",referencedColumnName="sid")
+	private  Student  parent;
+
+	public int getAddressId() {
+		return addressId;
+	}
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
+	}
+	public String getPlace() {
+		return place;
+	}
+	public void setPlace(String place) {
+		this.place = place;
+	}
+	public Student getParent() {
+		return parent;
+	}
+	public void setParent(Student parent) {
+		this.parent = parent;
+	}
+}
+=============================================================
+Student.java
+-----------------------
+package str;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="students")
+public class Student {
+	@Id
+	@Column(name="sid")
+	private int studentId;
+
+	@Column(name="sname", length=10)
+	private String studentName;
+
+	@Column(name="grp",length=10)
+	private String grp;
+
+	public String getGrp() {
+		return grp;
+	}
+	public void setGrp(String grp) {
+		this.grp = grp;
+	}
+	public int getStudentId() {
+		return studentId;
+	}
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+	public String getStudentName() {
+		return studentName;
+	}
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+}
+=========================================================
+hibernate.cfg.xml
+-----------------------------
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>
+<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver
+</property>
+<property name="connection.url">jdbc:oracle:thin:@www.java4s.com:1521:XE</property>
+<property name="connection.username">system</property>
+<property name="connection.password">admin</property>
+
+<property name="dialect">org.hibernate.dialect.OracleDialect</property>
+<property name="show_sql">true</property>
+<property name="hbm2ddl.auto">update</property>
+
+<mapping></mapping>
+=======================================================
+App.java
+---------------
+package str;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class ClientForSave {
+	public  static  void main(String args[])
+	{
+
+		Configuration cfg=new Configuration();
+	    cfg.configure("hibernate.cfg.xml");	        
+
+	    SessionFactory factory = cfg.buildSessionFactory();
+	    Session session = factory.openSession();
+
+		Student  s = new Student();
+		s.setStudentId(101);
+		s.setStudentName("James");
+		s.setGrp("mpc");
+
+		Address  ad = new Address();
+		ad.setAddressId(1);
+		ad.setPlace("Carolina");
+
+		ad.setParent(s);
+		Transaction  tx = session.beginTransaction();
+		session.save(ad);
+		tx.commit();
+		session.close();
+		System.out.println("One to One with annotations is done..!!!!");
+		factory.close();
+	}
+}
+========================================================================
+package com.chanti;
+
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
+
+public class Test_ReadAll 
+{
+    public static void main( String[] args )
+    {
+    	//Loading configuration file into HB container
+    	AnnotationConfiguration cfg = new AnnotationConfiguration();
+		cfg.configure("com/chanti/MySQL.cfg.xml"); 
+		//HB container creates high level object
+		SessionFactory factory = cfg.buildSessionFactory();
+		//Creating session between Java Application and Database
+		Session session = factory.openSession();
+		//Create a transaction
+		Transaction tx = session.beginTransaction();
+	
+		Criteria criteria = session.createCriteria(Passenger.class);
+		List<Passenger> list = criteria.list();
+		for(Passenger passenger:list) {
+			System.out.println(passenger);
+		}
+		
+		//Commit the tx
+		tx.commit();
+		//Close the session and factory objects
+		session.close();
+		factory.close();
+    }
+}
+===================================================
