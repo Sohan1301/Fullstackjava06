@@ -1,0 +1,159 @@
+Spring Framework
+------------------
+Spring Introduction
+--------------------------
+--> Spring is a light weight and open source 
+framework created by Rod Johnson in 2003. 
+
+--> Spring framework is said to be a 
+non-invasive means it doesn’t force a programmer 
+to extend or implement their class from any predefined class 
+or interface given by Spring API.
+
+-->Spring is light weight framework because of its 
+POJO and POJI  model.
+
+*****--> Spring Framework made J2EE 
+application (web application) development 
+with less code. focus on Business Logic Only.
+
+Spring having this much of demand because of the 
+following five reasons….
+open source
+ligght weight
+security
+scalability
+Simplicity
+Testability
+Loose Coupling
+
+
+Spring Frame work official web site is 
+www.spring.io
+https://spring.io/why-spring
+
+
+
+
+
+------------------------------------------
+Spring frame work version
+------------------------------
+spring 1.x  
+spring 2.x
+spring 3.x   stable vesrion 
+spring 4.x
+spring 5.x
+spring 6.x   
+ The current version of spring framewrok is 6.x  --> 8 months back  
+
+------------------------------------------------
+Spring boot vesrions
+-----------------------
+the spring boot versions are 3 
+1. spring boot 1.x 
+2. spring boot 2.x   
+3. spring boot 3. x   --> 8th back realesed
+==========================================================================
+The use of spring frame work is to develop stand alone and web application
+But develop stand alone and web application spring having a 6 modules
+
+1. spring core --********
+2. spring JDBC (DAO)
+3. Spring ORM  
+4. Spring AOP  (Aspect oriented Programming)
+5. Spring J2EE
+6 Spring WEB_MVC    --> ***** 
+--------------------------------------------------------------
+Prerequiesites for Spring Core from Core Java:
+--------------------------------------------------------------
+1.Class types
+	1.Singleton class
+	2.Default  clas  (proto type class)
+2.How many ways we can create an object for class?
+Ans: for any java class we can create object in 4 ways
+a) by using instance varibale
+b) by using class method
+c) by using setter method
+d)by using constructor
+
+3.Constructor Vs Setter
+4.List, Set, Map  Properties interfaces 
+from collection Frame work?
+=====================================================
+2.How many ways we can create an object for class?
+Ans: for any java class we can create and inject object into class 4 ways
+1. by using instance variables
+2. by using class method
+3. by using constructor method
+4. by using setter methods
+---------------------------------------------------------------------------------
+1. by using instance variables
+-------------------------------------------
+public class Student
+{
+int stdid;
+String stdname;
+
+public static void main(String args)
+{
+Student obj=new Student(); // creating object
+obj.stdid=120;
+obj.stdname="rohith";  // initailize object onto class 
+System.out.print(obj.stdid+"\t"+obj.stdname); // process objet /calling business method
+}
+}
+===================================================
+Core java class Object Life cycle
+--------------------------------------------------------------------------------------
+1. object creating with class name by using new key word
+by the programmer.
+2. after created object to inilialize object into class by the programmer.
+3. processing object into class by the programmer
+4. destroyee the object (Garbage Collector) JVM 
+=======================================================
+2. by using class method
+-----------------------------
+public class Student
+{
+int stdid;
+String stdname;
+public void insert(int stdid,String stdname)
+{
+this.stdid=stdid;
+this.stdname-stdname;
+}
+public void printSrudent()
+{
+SOP(stdid+"\t"+stdname);
+}
+public static void main(String args[])
+{
+// creating object
+Student s1-new Student();
+//initialize object
+s1.insert(120,"amulya");
+//prcessing method
+s1.printStudent();
+}
+}
+
+
+
+
+=================================================
+To Devlop Spring Stand Alone and Spring web Applications in 
+Spring Frame work Having a 6 Modules
+
+1.Spring Core
+2. Spring JDBC(DAO)
+3. Spring ORM
+4.Spring AOP (Aspect Oriented Programming Language)
+5. Spring J2EE
+6 Spring WEB_MVC
+===================================================
+
+
+
+
+
