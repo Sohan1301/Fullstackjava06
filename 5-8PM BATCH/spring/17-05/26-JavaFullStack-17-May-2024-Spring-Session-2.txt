@@ -1,0 +1,163 @@
+we can Inject object into class 4 ways
+---------------------------------------------------------
+1. By Using instance variables
+2. By using class method
+3. by using constructors
+4. by using setters method
+---------------------------------------------------------
+3. by using constructors
+---------------------------------------
+public class Employee
+{
+int empId;
+String empName;
+public Employee(int empId,String empName)
+{
+this.empId=empId;
+this.empName=empName;
+}
+public void printEmployee()
+{
+//bl
+SOP(empId+"\t"+empName);
+}
+public static void main(String args)
+{
+// create an object + initializing an object
+Employee e1=new Employee(101,"aryan");
+//call business method /processing methods
+e1.printEmployee();
+}
+}
+=====================================
+4. by using setters method
+-------------------------------------------------------------
+public class Employee
+{
+int empId;
+String empName;
+public void setEmpId(int empId)
+{
+this.empId=empId;
+}
+public void setEmpName(String empName)
+{
+this.empName=empName;
+}
+public int getEmpId()
+{
+//empId++;  BL
+
+return empId;
+}
+public String getEmpName()
+{
+return empName;
+}
+public static void main(String args)
+{
+// creating object
+Employee e1=new Employee();
+// initializing an object
+e1.setEmpId=123;
+e1.setEmpName="rohith";
+//processing object
+SOP(e1.getEmpId()+"\t"+e1.getEmpName());
+}
+}
+=====================================================
+1.Class types:
+==============
+1.Singleton class	: 
+A class allow you to create single object --> (Customized): 
+2.default class	
+: A class allow you to create multiple object--> (Default)
+(prototype class)
+
+Singleton class in Java
+-------------------------------
+--> A Singleton class in Java allows only one instance to be created 
+and provides global access to all other classes through this 
+single object or instance. 
+--> The primary purpose of Singleton 
+class is to restrict the limit of 
+the number of object creation to only one. 
+--> The memory space wastage does not 
+occur with the use of singleton 
+class because it restricts the instance creation. 
+--> As the object creation will take place only once instead of 
+creating it each time a new request is made.
+
+Preparation of Singleton class:
+--------------------------------------
+Rule1: Create private static final object for current class
+Rule2: Create private constructor
+Rule3: Create public static method which returns step1 object.
+ex:
+-----
+public class Singleton
+{
+//R1
+private static final Singleton obj=new Singleton();
+//R2
+private Singleton() {  }
+//R3
+public static Singleton getSingleton()
+{
+return obj;
+}
+public static void main(String args[])
+{
+Singletone s1=Singleton.getSingleton();  
+Singletone s2=Singleton.getSingleton();  
+Singletone s3=Singleton.getSingleton();  
+// Here s1,s2, and s3 are stored in single memory area only 
+}
+============================================
+Defference between setters Vs Constructors
+-------------------------------------------------------------
+[7:16 pm, 17/05/2024] +91 83099 86138: In core Java, both setters and constructors are used to initialize objects, but they have distinct purposes and characteristics. Here’s a detailed comparison between the two:
+
+Constructors
+Purpose: Constructors are special methods used to initialize objects when they are created.
+Name: The name of the constructor is always the same as the class name.
+No Return Type: Constructors do not have a return type, not even void.
+Invocation: Constructors are called automatically when a new instance of an object is created using the new keyword.
+Overloading: Multiple constructors can be defined in a class, each with different parameter lists (constructor overloading).
+Initialization: Constructors are primarily used to set up the initial state of an object, ensuring that the object is in a valid state when it is created.
+[7:16 pm, 17/05/2024] +91 83099 86138: Setters
+Purpose: Setters (also known as mutator methods) are used to modify the state of an existing object.
+Name: Setters typically follow the naming convention of setX, where X is the name of the field they set.
+Return Type: Setters have a void return type because they do not return a value.
+Invocation: Setters are called explicitly on an existing object to change its state.
+Single Responsibility: Each setter method is responsible for setting the value of a single field.
+Usage: Setters are used when you need to change the value of a field after the object has been created.
+[7:17 pm, 17/05/2024] +91 83099 86138: Key Differences
+Timing: Constructors are called once when the object is created, while setters can be called multiple times after the object has been created.
+Purpose: Constructors are used to initialize the entire object, whereas setters are used to modify individual fields.
+Invocation: Constructors are invoked implicitly during object creation; setters are invoked explicitly on existing objects.
+Syntax: Constructors share the class name and do not have a return type; setters follow a naming convention and return void.
+Example Usage Scenario
+Constructors: Use a constructor to ensure that an object is always created with valid initial values. 
+For example, if an object requires certain fields to be set before it can be used, a constructor can enforce this.
+Setters: Use setters to change the values of fields after the object has been created. This is useful for objects that need to allow modifications to their state over time.
+In practice, constructors and setters often work together. 
+A constructor provides the necessary initial setup, and setters allow for flexibility and modifications as needed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

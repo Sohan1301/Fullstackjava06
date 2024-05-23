@@ -1,0 +1,165 @@
+IOC
+--------
+
+--> Spring IoC Container is the core of Spring Framework. 
+It creates the objects, configures and assembles 
+their dependencies, manages their entire life cycle. 
+-->The Container uses Dependency Injection(DI) 
+to manage the components that make up the 
+application. 
+-->It gets the information about the 
+objects from a configuration file(XML) 
+or Java Code or Java Annotations and Java POJO class. 
+These objects are called Beans.
+ Since 
+the Controlling of Java objects and their 
+lifecycle is not done by the developers, 
+hence the name Inversion Of Control. 
+-------------------------------
+IOC-Life Cycle
+----------------
+The process of creating implicit object by spring container,
+initialize object into bean class,processing object
+and destroyee the object is known as IOC-Life Cycle.
+======================================================
+Dependecny Injection
+---------------------
+--> The process of inject implicit object in to bean class,
+by using setter methods and constructors methods is knows as 
+dependency injection
+--> Dependecny Injection are 3 types
+-----------------------------------
+1.) setter injection -->  <property>
+2.) constuctor injection -->  <constructor-arg>
+3.) interface injection  (POJI) 
+ 
+1.) setter injection
+-----------------------
+Def: The process of inject implicit object into bean class
+with the help of setters methods  is knows setter injection.
+
+--> to inject object into bean class with setters in .xml 
+configuration with <property> xml tag.
+
+2.) constuctor injection
+------------------------
+Def: The process of inject implicit object into bean class
+with the help of constructors methods  
+is knows constuctor injection.
+--> to inject object into bean class with constuctor in .xml 
+configuration with <constructor-arg> xml tag.
+==================================================
+============================================
+Every spring application required files and jars
+-------------------------------------------------------------------------
+1. BeanClass.jav   (POJO) class
+2. configuartion    (.xml) config
+      we can do bean configuration in 3 ways
+    a) xml based configuration(.xml) file
+    b) java based configutaion ( .java) file
+    c) annotaion based configuration
+3. App.java ( main(){...................}) app.java class having a Spring ioc container
+=======================================================
+required Jars are
+------------------------
+1. spring core
+2. spring context
+
+the above 2 jars copy from www.mvnrepository.com to paste
+in pom.xml file between <dependencies> XML tag
+==========================================================
+preparation of bean class
+===========================
+Rules
+----------
+1. class must be public
+2. all instance variables are private
+3. must having a default consctructor
+4. may or may not parametrazied constructors
+5. must all public settres and getters methods
+6. pojo/bean class won't force you ,extends or implements
+with existing class or interface
+----------------------------------------------------------------------------------------------
+preparation of xml based configuration file
+-------------------------------------------------------------
+1. in xml file defined bean class name and object name
+2. for object injection use with setters methods/constructor methods
+ for setters use <property> xml tag
+for constructor <constructor-arg> xml tag
+----------------------------------------------------------------------------------------------------
+syntax for xml file
+------------------------------
+spconfig.xml
+-------------------------
+<xml >
+<DTD>
+<beans>
+<bean class="BeanclassName" id="beanclasobjectname">
+<property name="propertyName1" value="propertyValue1"></property>
+<property name="propertyName2" value="propertyValue2"/>
+<property name="propertyName" value="propertyValue"/>
+
+</bean>
+</beans>
+===========================================================
+Preparation of App.java (test class) 
+---------------------------------------------------
+1. load configutaion file into Spring IoC container and create the object
+2. usind Dependency injection mechanism inject Object into bean class
+3. Call Busines methods
+
+Syntax
+-----------
+
+public class App
+{
+public static void main(String args)
+{
+ApplicationContext ctx=new ClassPathXmlApplicationContext("spconfig.xml");
+BeanClass cb=(BeanClass)ctx.getBean("beanclassObjectname");
+cb.callBusinessmethod();
+}
+}
+=============================================================
+Steps to create spring application with maven tool in eclipse IDE
+-----------------------------------------------------------------------------------------------
+1. create a maven project
+2. add required dependecies ( spring core and spring context)
+3. create a bean class (POJO) class
+4. Create a Confogutaion file (.xml) file
+5. create main class pull the object and call your business method
+------------------------------------------------------------------------------------------------------
+Note: while creating a maven spring and spring boot maven project
+enable internet connection to your PC.
+--------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

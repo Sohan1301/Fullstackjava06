@@ -1,0 +1,47 @@
+Prerquisites for spring core form core java
+=======================================
+1. class types
+    a) singleton class
+   b) default class( prototype class
+2. ways to create object and inject object into class
+3. setters methods vs contructor
+4. List,set,Map and Properties from collection F/w
+--------------------------------------------------------------------------
+what is collection
+-----------------------------
+collection is group of object store in a single entity.
+--------------------------------------------------------------------
+java PL collection f/w
+-----------------------------------
+predefined interfaces, classes and methods
+---------------------------------------------------------------------
+interfaces are
+-----------------------
+Collection
+List
+set
+sortedSet
+NavigableSet
+Queue
+Map
+SortedMap
+NavigableSortedmap
+------------------------------------
+Implemented classes Are ---> java.util.*
+---------------------------------------------------------
+ArrayList
+Linkedlist
+vector
+Stack
+hashSet
+linkedhashSet
+treeSet
+HashMap
+Linkedhashmap
+treemap
+.....etc
+-----------------------------------------------------
+
+
+
+

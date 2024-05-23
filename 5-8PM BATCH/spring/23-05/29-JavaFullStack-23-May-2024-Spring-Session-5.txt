@@ -1,0 +1,268 @@
+creating spring maven project in eclipse ide
+-------------------------------------------------------------
+1. create a maven project
+2. add required dependencies(spring core, spring context)
+3. creating bean class (POJO)
+4. creating configuation file(.xml)
+5. create main method pull the object call business methods
+-------------------------------------------------------------------------------------------
+1. create a maven project
+2. add required dependencies(spring core, spring context)
+----------------------------------------------------------------------------------
+StudentBean.java
+-------------------------
+package com.excler;
+
+public class StudentBean {
+	private int stdId;
+	private String stdName;
+	private double fee;
+	//PDC+PSM+PGM+BM
+	public StudentBean() {
+		super();
+	}
+	public int getStdId() {
+		return stdId;
+	}
+	public void setStdId(int stdId) {
+		this.stdId = stdId;
+	}
+	public String getStdName() {
+		return stdName;
+	}
+	public void setStdName(String stdName) {
+		this.stdName = stdName;
+	}
+	public double getFee() {
+		return fee;
+	}
+	public void setFee(double fee) {
+		this.fee = fee;<?xml version="1.0" encoding="UTF-8"?>  
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+  
+<bean class="com.excler.StudentBean" id="id1">
+<!--<property> tag is called setter injection  -->
+<property name="stdId" value="120"/>
+<property name="stdName" value="rohith"/>
+<property name="fee" value="12000.999"/>
+</bean> 
+</beans>  
+=======================================================
+App.java
+------------
+package com.excler;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+       ApplicationContext ctx=new ClassPathXmlApplicationContext("spconfig.xml");
+       StudentBean s1=(StudentBean)ctx.getBean("id1");  // initailization
+       s1.printStudent();// call bm
+    }
+}
+
+=================================================================
+
+Dependency Injection
+-----------------------------------
+public class MyBean1
+{
+}`
+public class MyBean2
+{
+private boolean bool;
+private char ch;
+private short ss;
+private byte b;
+private int i;
+private long l;
+private float f;
+private double d;
+private String str;
+private MyBean1 myBeanObj;
+private List<> myList;
+private Set<> mySet;
+private Map<K,V> myMap;
+private Properties myProperties;
+}
+DI ijnection mechansm are 
+Setter injection + Constructor injection
+================================================
+
+->To inject  object into bean class 
+with settetr injection and constructor injcetion
+in 14 ways
+--> Basically dependency injection 
+mechanism are
+setters and constructor injection
+--> with setter and costructor we can 
+inject object 14 ways
+1.  Dependecny  injection  In the form of primitives  --> 8 type
+2.  Dependecny  injection   in the form of string --> 1
+3.  Dependecny  injection  in the form of Object. --> 1
+4.  Dependecny injection in the form of Collections.--> 4
+======================================================
+Create a spring Application  for Dependency Inject in the form fo Objects
+constructor Injection
+=================================================================
+reuired Files are
+---------------------
+1. AddressBean.java 
+2. EmployeeBean.java
+3. spconfig.xml
+4. App.java 
+------------------------------------------------------
+Required Jars are
+--------------------------
+1. spring core
+2. spring context
+=======================================================
+
+AddressBean.java
+--------------------------
+package com.excler;
+
+public class AddressBean {
+private int hno;
+private String city;
+private String state;
+//PDC+PPC+toString()
+public AddressBean() {
+	super();
+}
+public AddressBean(int hno, String city, String state) {
+	super();
+	this.hno = hno;
+	this.city = city;
+	this.state = state;
+}
+@Override
+public String toString() {
+	return "AddressBean [hno=" + hno + ", city=" + city + ", state=" + state + "]";
+}
+
+}
+===================================================
+EmployeeBean.java
+---------------------------
+package com.excler;
+
+public class EmployeeBean {
+private int empId;
+private String empName;
+//DI in the form of object
+private AddressBean addr;
+//PDC+PPC+BM
+public EmployeeBean() {
+	super();
+}
+public EmployeeBean(int empId, String empName, AddressBean addr) {
+	super();
+	this.empId = empId;
+	this.empName = empName;
+	this.addr = addr;
+}
+public void printEmployee()
+{
+	System.out.println(empId);
+	System.out.println(empName);
+	System.out.println(addr);
+}
+
+}
+==============================================
+spconfig.xml
+----------------------
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+  
+<bean class="com.excler.AddressBean" id="id1">
+<!--<constructor-arg> tag is called constructor injection  -->
+<constructor-arg value="120"/>
+<constructor-arg value="HyD"/>
+<constructor-arg value="TS"/>
+</bean> 
+<bean class="com.excler.EmployeeBean" id="id2">
+<!--<constructor-arg> tag is called constructor injection  -->
+<constructor-arg value="999"/>
+<constructor-arg value="rohith"/>
+<constructor-arg ref="id1"/>
+</bean> 
+</beans>  
+========================================================
+App.java
+---------------
+package com.excler;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+       ApplicationContext ctx=new ClassPathXmlApplicationContext("spconfig.xml");
+       EmployeeBean emp=(EmployeeBean)ctx.getBean("id2");  
+   emp.printEmployee();
+    }
+}
+===================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	}
+	public void printStudent()
+	{
+		System.out.println(stdId);
+	System.out.println(stdName);
+	System.out.println(fee);
+	}
+}
+==========================================
+spconfig.xml
+--------------------
