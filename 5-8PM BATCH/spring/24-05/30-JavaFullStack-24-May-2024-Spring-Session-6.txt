@@ -1,0 +1,235 @@
+Dependency injection Mechanism
+---------------------------------------------------
+di: setters+constructors
+--------------------------------------
+14 properties
+8 primitives
+1 string
+1 object ---> di in the form object
+4 collection Objects
+--------------------------------------------------------------------
+DI in the form 4 collection objects
+--------------------------------------------------------
+1. List
+2. Set
+3. Map
+4. Properties
+-------------------------------------------------------------
+to Provide List Object values from xml configuration files
+by using 
+<list>
+<value>valu1</value>
+<value>valu2</value>
+<value>valu3</value>
+</list>
+---------------------------------------------------------------------------------------
+to Provide Set Object values from xml configuration  files
+by using 
+<set>
+<value>valu1</value>
+<value>valu2</value>
+<value>valu3</value>
+</set>
+----------------------------------------------------------------------
+to Provide Map Object values from xml configuration  files
+by using 
+<map>
+<entry key="keyName1" value="value1"/>
+<entry key="keyName2" value="value2"/>
+<entry key="keyName3" value="value1"/>
+</map>
+------------------------------------------------------------
+to Provide Properties Object values from xml configuration  files
+by using 
+<props>
+<prop key="keyName">value</prop>
+<prop key="keyName">value</prop>
+</props>
+======================================================
+Example Application for DI in the form 4 Collection objects
+-------------------------------------------------------------------------------------
+ExcelrStudentDetails
+---------------------------------
+private List<String> studentNames;
+private Set<Integer> studentRollNos;
+private Map<String, Integer> branchDetails;
+private Properties brachInfos;
+---------------------------------------------------------------------------
+Required files are
+---------------------
+1. ExcelrStudentBean.java
+private List<String> studentNames;
+private Set<Integer> studentRollNos;
+private Map<String, Integer> branchDetails;
+private Properties brachInfos;
+2. spconfig.xml
+3. App.java
+----------------------------------------------------
+Required Jars Are
+--------------------------
+1. spring core
+2. spring context
+----------------------------------------------------
+ ExcelrStudentBean.java
+----------------------------------------------------------
+
+package com.excler;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+
+public class ExcelrStudentBean {
+	private List<String> studentNames;
+	private Set<Integer> studentRollNos;
+	private Map<String, Integer> branchDetails;
+	private Properties brachInfos;
+	//PDC+PPC+BM
+	public ExcelrStudentBean() {
+		super();
+	}
+	public ExcelrStudentBean(List<String> studentNames, Set<Integer> studentRollNos, Map<String, Integer> branchDetails,
+			Properties brachInfos) {
+		super();
+		this.studentNames = studentNames;
+		this.studentRollNos = studentRollNos;
+		this.branchDetails = branchDetails;
+		this.brachInfos = brachInfos;
+	}
+	public void printStudentNames()
+	{
+		for(String studentName:studentNames) {
+			if(studentName.startsWith("A"))
+			System.out.println(studentName);
+		}
+	}
+	public void printStudentRollNos()
+	{
+		System.out.println("====STUDENT ROLL NOS=========");
+		for(Integer studentRollNo:studentRollNos)
+		{
+			System.out.println(studentRollNo);
+		}
+	}
+	public void printBranchDetails()
+	{
+		System.out.println("====BRANCH DETAILS=========");
+		for(Map.Entry<String, Integer> entrty:branchDetails.entrySet())
+		{
+			if(entrty.getKey().equals("CSE"))
+			System.out.println(entrty.getKey()+"\t"+entrty.getValue());
+		}
+	}
+	public void printBranchInfos()
+	{
+		System.out.println("----------BRANCH INFO ARE------------");
+		Set<String> keys = brachInfos.stringPropertyNames();
+	    for (String key : keys) {
+	      System.out.println(key + "-->" + brachInfos.getProperty(key));
+	    }
+	}
+}
+=============================================================
+spconfi.xml
+------------------
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">  
+  
+<bean class="com.excler.ExcelrStudentBean" id="id1">
+
+<constructor-arg>
+<list> 
+<value>Ankitha</value>
+<value>Amulya</value>
+<value>Rohith</value>
+<value>Sohan Sai</value>
+<value>VasuDesu</value>
+<value>Amulya</value>
+</list>
+</constructor-arg>
+
+<constructor-arg>
+<set> 
+<value>111</value>
+<value>222</value>
+<value>333</value>
+<value>222</value>
+<value>444</value>
+<value>5555</value>
+</set>
+</constructor-arg>
+
+<constructor-arg>
+<map> 
+<entry key="CSE" value="120"/>
+<entry key="EEE" value="160"/>
+<entry key="IT" value="120"/>
+<entry key="MECH" value="120"/>
+</map>
+</constructor-arg>
+
+<constructor-arg>
+<props> 
+<prop key="CSE">Yakub</prop> 
+<prop key="EEE">Samba Shiv Rao</prop> 
+<prop key="IT">Venkat</prop>
+<prop key="MECH">Sharath</prop>
+</props>
+</constructor-arg>
+</bean> 
+</beans>  
+=======================================================
+App.java
+-----------------
+package com.excler;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+       ApplicationContext ctx=new ClassPathXmlApplicationContext("spconfig.xml");
+       ExcelrStudentBean esb=(ExcelrStudentBean)ctx.getBean("id1");  
+       esb.printStudentNames();//print all student names
+       esb.printStudentRollNos();// print all studentRollNos 
+       esb.printBranchDetails();// print branch Details
+       esb.printBranchInfos();
+    }
+}
+=======================================================================
+output
+------------------
+Ankitha
+Amulya
+Amulya
+====STUDENT ROLL NOS=========
+111
+222
+333
+444
+5555
+====BRANCH DETAILS=========
+CSE	120
+----------BRANCH INFO ARE------------
+CSE-->Yakub
+EEE-->Samba Shiv Rao
+MECH-->Sharath
+IT-->Venkat
+
+===================================================================
+
+
+
+
+
+
+
