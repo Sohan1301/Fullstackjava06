@@ -1,0 +1,209 @@
+Create a Spring boot web application to print WelCome Message in view File(.jsp)
+-----------------------------------------------------------------------------------------------------------------
+Reuired Files Are
+===============
+1. MyController.java   ---> @Controller
+2. application.properties --> portNoCode+viewResolverCode
+3.home.jsp  file   
+4. Application.java ---> @SpringBootApplication
+===========================================
+Required Jars Are
+===============
+1.spring web
+2. tomcat jasper 
+============================================
+3.home.jsp  file   
+===============
+<h1 style="color:red">Welcome To Spring Boot Web Application</h1>
+=============================================================
+MyController.java
+===================
+package com.excelr.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+public class MyController {
+
+	@RequestMapping("/homeUrl")
+	public String homePage()
+	{
+		return "home";// here home is jsp file
+	}
+}
+
+===========================================
+application.properties
+===================
+spring.application.name=302-SpringBootWebApplication-2
+server.port:9000
+
+#viewResolver code
+spring.mvc.view.prefix=/views/
+spring.mvc.view.suffix=.jsp
+===================================================
+Application.java
+===============
+============================================================================
+Create a Spring  Boot Web APpliccation for Multiple Views and view to view Communication
+===============================================================================
+Reuired Files Are
+==============
+1. MyController.java --> @Controller
+2. application.properties -->portNoCode+viewResolverCode
+3. JSP files 
+    a) home.jsp
+   b) about.jsp
+  c) contact.jsp
+ d) login.jsp
+e) reg.jsp
+4. Application.java ---> @SpringBootApplication
+
+===========================================================
+1. Spring web
+2. tomcat jasper
+============================================================
+MyController.java  ----> @Controller
+---------------------------------------------------
+package com.excelr.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+public class MyController {
+
+	@RequestMapping("/")
+	public String homePage()
+	{
+		return "home";// here home is jsp file
+	}
+	@RequestMapping("/about")
+	public String aboutPage()
+	{
+		return "about";
+	}
+	@RequestMapping("/contact")
+	public String contactPage()
+	{
+		return "contact";
+	}
+	@RequestMapping("/login")
+	public String loginPage()
+	{
+		return "login";
+	}
+	@RequestMapping("/register")
+	public String registerForm()
+	{
+		return "reg";
+	}
+}
+
+=================================================
+application.properties
+===================
+spring.application.name=302-SpringBootWebApplication-2
+server.port:9000
+
+#viewResolver code
+spring.mvc.view.prefix=/views/
+spring.mvc.view.suffix=.jsp
+==================================================
+home.jsp
+==========
+<h1 style="color:red">Welcome To Spring Boot Web Application</h1>
+<a href="/">Home</a>  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/about">About</a>&nbsp; &nbsp; &nbsp; &nbsp;
+
+<a href="/contact">Contact</a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/login">Login</a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/register">Register</a>&nbsp; &nbsp; &nbsp; &nbsp;
+
+====================================================================
+about.jsp
+==========
+<h1 style="color:green">Welcome To About Page</h1>
+<a href="/">Home</a>  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/about">About</a>&nbsp; &nbsp; &nbsp; &nbsp;
+
+<a href="/contact">Contact</a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/login">Login</a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/register">Register</a>&nbsp; &nbsp; &nbsp; &nbsp;
+===================================================================
+contact.jsp
+==============
+<h1 style="color:grey">Welcome To Contact Page</h1>
+<a href="/">Home</a>  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/about">About</a>&nbsp; &nbsp; &nbsp; &nbsp;
+
+<a href="/contact">Contact</a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/login">Login</a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/register">Register</a>&nbsp; &nbsp; &nbsp; &nbsp;
+=================================================================
+login.jsp
+=========
+<h1 style="color:green">Welcome To Login Page</h1>
+<a href="/">Home</a>  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/about">About</a>&nbsp; &nbsp; &nbsp; &nbsp;
+
+<a href="/contact">Contact</a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/login">Login</a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/register">Register</a>&nbsp; &nbsp; &nbsp; &nbsp;
+<p></p>
+<form>
+Name:<input type="text" name="uname"><p></p>
+Name:<input type="password" name="psw"><p></p>
+<input type="submit" value="Login"><p></p>
+
+</form>
+====================================================================
+reg.jsp
+========
+<h1 style="color:blue">Welcome To Registration Page</h1>
+
+<a href="/">Home</a>  &nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/about">About</a>&nbsp; &nbsp; &nbsp; &nbsp;
+
+<a href="/contact">Contact</a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/login">Login</a>&nbsp; &nbsp; &nbsp; &nbsp;
+<a href="/register">Register</a>&nbsp; &nbsp; &nbsp; &nbsp;
+===============================================================
+Application.java
+=============
+package com.excelr;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+
+==============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

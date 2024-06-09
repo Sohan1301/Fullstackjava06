@@ -1,0 +1,183 @@
+---------------------------------------------------------------------------
+@Controller:
+---------------------
+--> @Controller annotation is used to create a conntroller class.
+--> @Controller annotation is a Class level annotation to handle 
+the http request and Http response and return the 
+model object to view (.jsp) file.
+--> In Spring and Spring Boot controller can prepare in following way.
+
+
+
+
+ex:
+---
+@Controller        // Dev Web Appn in Spring
+public class MyController
+{
+public String myMethod()
+{
+return "home","name","yakub";
+//return "viewName","modelKey","modelValues";
+}
+}
+
+ex2:
+----
+@RestController    // Dev Rest API Appn in Spring Boot
+pubic class MyController
+{
+public String myMethod()
+{
+return "home","name","yakub";
+}
+}
+===============================================
+@Service
+--------------
+--> @Service is a annotation, which is used to create service class.
+--> @Service annotation is class level annotation , used
+to prepare for all business logic for Spring and Spring 
+Boot Applications.
+
+ex:
+----
+@Service 
+public class Myservice
+{
+public void myMethod()
+{
+// Business Logic    
+}
+}
+
+-----------------------------------------------------------------
+@Repository  (POJI)
+---------------------------
+--> @Repository annotation is used to create repository interface.
+--> @Repository annotation is interface level annotation. 
+to perform CRUD operations with data base.
+
+ex:
+----
+@Repository
+interface MyRepo extends CrudRepository/JpaRepository
+{
+}
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2.How  to create View  Layer ?
+----------------------------
+spring.mvc.view.prefix=/views/
+spring.mvc.view.suffix=.jsp
+
+The DispatcherServlet Identifies views with the help
+InternalResourceViewResolver class. (ViewResolver)
+it having a two properties.
+1. prefix   hold the folder informnation
+2. suffix hold the file information with file extension. (.jsp)
+
+ex:
+-----
+application.preperties
+-----------------------------
+#serverport number code
+server.port:2000
+
+#viewResolver code
+spring.mvc.view.prefix=/views/
+spring.mvc.view.suffix=.jsp
+
+#DriverManagerDataSource class (4 Properties)
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/db_name
+spring.datasource.username=root
+spring.datasource.password=root
+==========================================================
+To develop Spring Boot Web appn Required Files and Jars are
+---------------------------------------------------------------
+1. ModelClass.java or EntityClass.java   --> @Entity+ @Table+@Id+@Column
+2. Repository.java   (I)  --> @Repository
+3. ServiceClass.java   (C)  --> @Service
+4. CotrollerClass.java  (C)  --> @Controller
+5. application.properties  --> port No+viewResolver+Db Connection statements
+6. Application.java (C) main {....} ---> @SpringBootApplication
+7. .jsp files {designing +Display Results}
+============================================================
+ReQuired Jars Are
+----------------------------------------------------------
+1. spring web 
+2. spring data jpa 
+3. Spring boot DevTools
+4. MySql driver/Oracle Driver/H2 Driver
+==========================================================
+--------------------------------------------------------------------------
+Required jars Are:
+----------------------
+1. Spring web
+2. spring data jpa
+3. dev tools
+4. ojdbc6.jar/mysql connector.jar
+----------------------------------------------------------------
+----------------------------------------------------------------
+3.How to create Model Layer ?
+
+
+	Spring with Jdbc (DMDS + JT)  or Spring with Hibernate  (DMDS + HT)
+========================================================================
+Steps To Create Spring Boot Application
+Basically spring boot Application create in 2 ways
+---------------------------------------------------
+1. By Using Spring Initializer
+2. By using STS Tool 
+---------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+1. By Using spring.initilizer     
+----------------------------------
+1. visit http://start.spring.io/ web site   
+or spring.initilizer  (https://start.spring.io/)
+2. Select Your project artifacts
+3. Add required starters/dependencies (jar files)
+4. Download ready made maven/gradle project in .zip file.
+5. Extract the zip file.
+6. Import that project into eclipse /intellij  IDE.
+7. do maven clean & run Your application.
+
+=================================================================
+Spring Boot Web Application to display Welcome message on web browser
+================================================================
+1.MyController.java   --> @Controller
+2. application.properties --> portNoCode
+3.Application.java --> @SpringBootApplication
+===================================
+Spring Jars Are
+--------------------
+Spring web
+=================
+1.MyController.java 
+==================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
