@@ -1,0 +1,278 @@
+Java  based confiuration 
+--------------------------------------
+exampla  application for java based confiuration
+------------------------------------------------------------------
+1. AddressBean.java
+2.  EmployeeBean.java
+3. Javaconfi.java  -->  @Confiurtion+@Bean
+4. App.java  
+---------------------------------------------------
+jars are 
+-----------
+sprin core
+sprin  context
+----------------------------------------------------------
+EmployeeBean.java
+==================
+
+package com.excelr;
+
+public class EmployeeBean {
+private int eid;
+private String ename;
+private double salary;
+//DI in te form of object
+private AddressBean addr;
+//PDC+PSM+PM+BM
+public EmployeeBean() {
+	super();
+}
+
+public EmployeeBean(int eid, String ename, double salary, AddressBean addr) {
+	super();
+	this.eid = eid;
+	this.ename = ename;
+	this.salary = salary;
+	this.addr = addr;
+}
+public void printEmployee()
+{
+	System.out.println(eid);
+	System.out.println(ename);
+	System.out.println(salary);
+	System.out.println(addr);
+}
+}
+===========================================================
+AddressBean.java
+===================
+package com.excelr;
+
+public class AddressBean {
+private int no;
+private String city;
+private String state;
+//PDC+PSM+PM+toString
+public AddressBean() {
+	super();
+}
+public int getNo() {
+	return no;
+}
+public void setNo(int no) {
+	this.no = no;
+}
+public String getCity() {
+	return city;
+}
+public void setCity(String city) {
+	this.city = city;
+}
+public String getState() {
+	return state;
+}
+public void setState(String state) {
+	this.state = state;
+}
+@Override
+public String toString() {
+	return "AddressBean [no=" + no + ", city=" + city + ", state=" + state + "]";
+}
+
+}
+===================================================================
+ProductBean.java
+================
+
+
+package com.excelr;
+
+public class ProductBean {
+private int pid;
+private String pname;
+private double price;
+private int quantity;
+//PDC+PPC+BM
+public ProductBean() {
+	super();
+}
+
+public ProductBean(int pid, String pname, double price, int quantity) {
+	super();
+	this.pid = pid;
+	this.pname = pname;
+	this.price = price;
+	this.quantity = quantity;
+}
+
+public void printProduct()
+{
+	double total=0.0,discount=0.0,invoice_bill=0.0;
+	System.out.println(pid);
+	System.out.println(pname);
+	System.out.println(price);
+	System.out.println(quantity);
+	total=price*quantity;
+	if(total<3000)
+	{
+		discount=(total*15)/100;
+		
+	}
+	else if(total>=3000)
+	{
+		discount=(total*25)/100;
+		
+	}
+	
+	invoice_bill=total-discount;
+	System.out.println(total);
+	System.out.println(discount);
+	System.out.println(invoice_bill);
+}
+}
+===================================================
+JavaConfig .java
+===============
+
+package com.excelr;
+
+import java.util.Scanner;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+
+@Configuration
+public class JavaConfig {
+
+	@Bean("id1")
+	public EmployeeBean getEmployee()
+	{
+		AddressBean addr=new AddressBean();
+		addr.setNo(20001);
+		addr.setCity("CyberTower");
+		addr.setState("CyberTower");
+		Scanner sc=new Scanner(System.in);
+		System.out.println("enter id,name and salary values");
+		int eid=sc.nextInt();
+		String ename=sc.next();
+		double salary=sc.nextDouble();
+		EmployeeBean empBean=new EmployeeBean(eid,ename,salary,addr);
+		System.out.println("tis is a  java confi file");
+		
+		return empBean;
+		
+	}
+	@Bean("id2")
+	@Scope("prototype")
+	//@Scope("singleton")
+	public ProductBean getProductBean()
+	{
+		ProductBean p1=new ProductBean(901,"lenovo",45000.99,1);
+		return p1;
+		
+	}
+	}
+		
+=====================================================================
+App.java
+=========
+
+package com.excelr;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        ApplicationContext ctx=new 
+        		AnnotationConfigApplicationContext(JavaConfig.class);
+        
+       EmployeeBean e1=(EmployeeBean)ctx.getBean("id1");
+       e1.printEmployee();
+       ProductBean pb=(ProductBean)ctx.getBean("id2");
+       ProductBean pb2=(ProductBean)ctx.getBean("id2");
+       System.out.println(pb);
+       System.out.println(pb2);
+       pb.printProduct();
+       
+    }
+    
+}
+=========================================
+Bean Scopes using XML 'scope' element:
+======================================
+
+The purpose @Scope Annotation is
+We can tell to container that what type of 
+object need to create.
+
+Syntax:
+-------
+<bean class="BeanClassName"  id="objectName"  scope="YOURSCOPE">
+
+Ex1:
+	  <bean class="com.tech.AdditionBean" id="ob1" scope="singleton"> 
+Ex2:
+	 <bean class="com.tech.AdditionBean" id="ob1" scope="prototype"> 
+Ex3:
+	<bean class="com.tech.AdditionBean" id="ob1" scope="request"> 
+Ex4:
+	<bean class="com.tech.AdditionBean" id="ob1" scope="session"> 
+Ex5:
+	<bean class="com.tech.AdditionBean" id="ob1" scope="global-session"> 
+
+@Scope("singletone")
+@Scope ("prototype")
+@Scope ("request")
+@Scope ("session")
+@Scope ("global-session")
+
+****--> @Scope Annotion is used along with @Bean and 
+@Component level annotaions.
+Note: by Default Spring container create "singleton object" only.
+=======================================================================
+Note:
+--> when we configure bean with java based configuration , 
+to load java configuaration file into
+Spring IOC container use AnnotationConfigApplicationContext  
+implemented class in ApplicationContext interface.
+ApplicationContext ctx=new 
+AnnotationConfigApplicationContext(BeanConfigurator.class);
+
+
+
+
+--> when we configure bean with .xml based configuration , 
+to load .xml configuaration file into
+Spring IOC container use ClassPathXmlApplicationContext  
+implemented class in ApplicationContext
+interface.
+ApplicationContext ctx=new 
+ClassPathXmlApplicationContext("springcfg.xml");
+
+
+
+@Bean:
+Spring @Bean annotation tells that a method produces a bean 
+to be managed by spring container. it is a method level 
+annotation during java based configuaration
+(@Configuaration), 
+The Method is executed and its return value
+is registered as a bean with in the ApplicationContext 
+or BeanFactory.
+
+
+@Configuration:
+----------------------
+@Configuration annotation which indicates that the class has 
+@Bean defination methods.
+So Spring container can process the calss and 
+generate spring beans to be used in the application.
+--> it is  a class level annotaion which  indicates
+java based configuaration.
+========================================================================

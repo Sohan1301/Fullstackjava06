@@ -1,0 +1,351 @@
+Spring Core Annotation
+-----------------------
+1. @Autowired
+2. @Qualifier
+3. @Scope
+4.@Configuration+@Bean
+5.@Component={@Controller+@Service+@Repository}
+6.@ComponentScan={@Component+@Configuration}
+7. @Value
+===================================================
+1. @Autowired
+2. @Qualifier
+=======================================================
+1. What is Annotations?
+-----------------------
+--> annotations are replacement of xml file configuration
+--> annotations are avoid mete data configurations
+ex:
+====
+spconfig.xml
+==============
+<beans>
+<bean class="BeanClassName" id="id1">---> @Bean
+</bean>
+
+--> we are using annotations in spring and spring boot
+not required to create .xml file.
+ex: spconfig.xml  --> not required
+====================================================================
+1. @Autowired
+2. @Qualifier
+=========================================================================
+public class Address
+{
+private int hno;
+private String city;
+private String state;
+//PDC+PSM+PGM+toString
+}
+
+
+public class Employee
+{
+private int eid;
+private String ename;
+@Autowired
+private AddressBean addr;
+//PDC+PSM+PGM+BM
+}
+
+====================================
+spconfig.xml
+===============
+
+<beans>
+<bean class="AddressBean" id="id1">
+<property name="hno" value="120"/>
+<property name="city" value="hyd"/>
+<property name="state" value="TS"/>
+</bean>
+
+<bean class="EmployeeBean" id="id2">
+<property name="eid" value="333"/>
+<property name="ename" value="rohith"/>
+</bean>
+</beans>
+
+=================================
+@Autowiring
+-------------------
+Def: the process of inject object implicit dependency  from one bean class to another bean class
+with the help of setters, constructors, intance variables is called Autowiring.
+
+--> the process of inject one bean class object inject into another bean class
+is called autowireing.
+
+--> @Autowired Annotation use along with setters methods.constructors and intance variables.
+
+ex:
+===
+<property name="addr" ref="id1"/> ---> line replace with @Autowired
+
+========================================================================================
+@Scope Annotations
+--------------------
+Def: 
+
+If we have more than one bean of the same type and want to wire only one of 
+them then use the @Qualifier annotation along with 
+@Autowired to specify which exact bean will be wired.
+
+--> if you create a more than one object form same bean ,and want inject only one object along 
+with @Autowired then go with @Qualifier annotation.
+i.e remove the object ambiquite.
+
+--> @Qualifier use along with @Autowired annotation
+=====================================================================================
+
+Example Application for @Autowired + @Qualifier
+---------------------------------------------------
+Required Files ARe
+
+---------------------
+1. AddressBean.java
+2. EmployeeBean.java
+3.spconfig.xml
+4.App.java
+---------------------------
+Required JArs are
+-----------------------
+1. spring core
+2. spring context
+================================
+AddressBean.java
+------------------
+public class AddressBean
+{
+private int hno;
+private String city;
+private String state;
+//PDC+PSM+PGM+toString
+}
+=========================================
+EmployeeBean.java
+------------------
+package com.excelr;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+public class EmployeeBean {
+	private int eid;
+	private String ename;
+	@Autowired
+	@Qualifier("tempararyAddress")
+	private AddressBean addr;
+	//PDC+PSM+PGM+BM
+
+public void printEmployee()
+{
+	System.out.println(eid);
+	System.out.println(ename);
+	System.out.println(addr);
+}
+}
+=========================================================
+spconfig.xml
+===============
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+   xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context = "http://www.springframework.org/schema/context"
+   xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+   <context:annotation-config/>
+  <bean class="com.excelr.AddressBean" id="perminateAddress">
+<property name="hno" value="120"/>
+<property name="city" value="hyd"/>
+<property name="state" value="TS"/>
+</bean>
+<bean class="com.excelr.AddressBean" id="tempararyAddress">
+<property name="hno" value="300"/>
+<property name="city" value="delhi"/>
+<property name="state" value="NewDelhi"/>
+</bean>
+
+<bean class="com.excelr.EmployeeBean" id="id2">
+<property name="eid" value="333"/>
+<property name="ename" value="rohith"/>
+</bean>
+
+</beans>
+=================================================
+App.java
+-----------
+package com.excelr;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+       ApplicationContext ctx=new ClassPathXmlApplicationContext("spconfig.xml");
+       EmployeeBean eb1=(EmployeeBean)ctx.getBean("id2");
+       eb1.printEmployee();
+    }
+}
+============================================================================
+output
+=========
+333
+rohith
+AddressBean [hno=300, city=delhi, state=NewDelhi]
+========================================================================
+Note: to enable annotations in xml configuration file then use  <context:annotation-config/> xml tag.
+by deafult no annotation power to xml file.
+=====================================================================
+II. Bean configuration ways
+===========================
+Basically Bean configure into 3 ways 
+1. xml Based configuration (.xml) file
+2. Java Based Configuration (.java) --> @Configuration+@Bean
+3. Annotation Based Configuration
+------------------------------------------------------------------
+2. Java Based Configuration (.java) --> @Configuration+@Bean
+----------------------------------------------------------------
+--> In Spring we can use .java file also do configuration. compare with xml file
+.java file is very easy.
+--> This configuration introduced in spring 3.x version later.
+--> Java Configuration means @Configuration+@Bean Annotaions.
+@Configuration : org.springframework.annotaion.Configuration
+@Bean:org.springframework.annotaion.Configuration
+====================================================================================
+Preparation Of Java Based Configuration Files
+--------------------------------------------------
+1. Beanclass.java
+2. JavaConfiguration File (.java) @Configuartion+@Bean
+3. App.java  
+=================================================
+Required Jars Are
+-------------------
+spring core
+spring context
+======================
+Preparation of Bean class
+============================
+public class MyBean1
+{
+//PIV
+//PDC+PSM+PGM+BM
+}
+
+public class MyBean2
+{
+//PIV
+//PDC+PSM+PGM+BM
+}
+
+=========================================
+Preparation of JavaConfigurator file
+--------------------------------------
+JavaConfig.java
+---------------------
+@Configuration
+public class JavaConfig
+{
+@Bean("id1")
+public MyBean1 getMyBean1()
+{
+MyBean1 mb1=new MyBean1();
+return mb1;
+}
+
+@Bean("id2")
+public MyBean2 getMyBean2()
+{
+return new MyBean2();
+}
+}
+====================================
+Preparation of App.java
+========================
+public class App
+{
+PSVM()
+{
+ApplicationContext ctx=new AnnotationConfigApplicationContext(JavaConfig.class);
+MyBean1 myBean1=(MyBean1)ctx.getBean("id1");
+
+MyBean2 myBean2=(MyBean2)ctx.getBean("id2");
+myBean1.callBusinessMethod();
+myBean2.callBusinessMethod();
+}
+}
+=================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

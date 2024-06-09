@@ -1,0 +1,150 @@
+Spring Framework
+=================
+spring having a 6 modules
+1. Spring core        VI
+2.spring jdbc (DAO)
+3. spring ORM (hibernate)
+4. Spring AOP (Aspect Oriented PL)
+5. SPring j2EE
+6. Spring WEB_MVC
+---------------------------------------------------------
+6. Spring WEB_MVC
+==================================
+--> it is used to devlopweb application in spring and spring boot framework by using MVC pattren
+--> here Model -View-Controller 
+--> Even We are Spring WEB_MVC internally Dependecny injection and IOC is working.
+
+MVC
+------
+================
+Spring WEB_MVC ,web application execution Flow
+---------------------------------------------------------------------
+=====================================================
+Preparation of Controller classs
+-------------------------------------------------
+--> Basically controller class prepare in spring in 3 ways
+1) BY implements Controller Interface
+2) by extends AbstractCommandController Class
+3) By Using @Controller Annotation
+----------------------------------------------------------------------------------
+1.How to create a Controller Layer ?
+
+Approach1: By implementing Controller interface
+
+class MyController1  implements Controller
+{
+public ModelAndView  handleRequest(HSR request,HSR response){
+ModelAndView  obj=new ModelAndView("ViewName","ModelKey",ModelValue);
+//logic of Controller1
+return  obj;
+}
+}
+Here ModelAndView Object return 3 properties
+a) ViewName 
+Here View Name is nothing but .jsp file name/.html file name.
+b) ModelKey and c) ModelValue it is
+key:value pair like a Map object.
+***-> handleRequest() method is a Functional Interface 
+method in Controller Interface.
+
+
+
+Approach2: By extending AbstractCommandController  abstract class
+
+class MyController1  extends AbstractCommandController
+{
+ModelAndView  handle(HSR request,HSR response)
+{
+ModelAndView  obj=new ModelAndView("ViewName","ModelKey",ModelValue);
+//logic of Controller1
+return  obi;
+}
+}
+
+
+
+
+
+
+
+
+Approach3: Using @Controller annotation
+
+
+
+
+
+
+
+
+--------------------------------------------------------
+@Controller
+class MyController1  
+{
+public ModelAndView  myHandler(HSR request,HSR response) {
+ModelAndView  ob=new ModelAndView("ViewName","ModelKey",ModelValue);
+//logic of Controller1
+return  ob;
+}
+}
+
+
+
+
+
+
+
+
+
+======================================================
+Ex:
+@Controller
+public class MyController
+{
+
+public String home()
+{
+return "viewname","key","value";
+}
+}
+
+
+
+---------------------------------------------------------------------------
+@Controller:
+---------------------
+--> @Controller annotation is used to create a conntroller class.
+--> @Controller annotation is a Class level annotation to handle 
+the http request and Http response and return the 
+model object to view (.jsp) file.
+--> @Controller class is used for dev web application.
+--> In Spring and Spring Boot controller can prepare in following way
+
+ex:
+---
+@Controller        // Dev Web Appn in Spring
+public class MyController
+{
+public String myMethod()
+{
+return "home","name","yakub";
+//return "viewName","modelKey","modelValues";
+}
+}
+
+ex2:
+----
+@RestController    // Dev Rest API Appn in Spring Boot
+pubic class MyController
+{
+public String myMethod()
+{
+return "home","name","yakub";
+}
+}
+
+
+
+
+
+
