@@ -1,0 +1,303 @@
+Create a Spring boot CRUD Application for USER MANAGEMENT SYSTEM
+with MySQL Data Base
+=============================================================
+Required Files are
+---------------------------
+1. User.java  (PoJO) --> @Entity+@Id
+2. UserRepo.java (I) --> @Repository
+3. application.properties  --> portNocode+viewResolverCode+DB conn stmt+JPA Properties
+4. UserService.java (I)  CRUD abstracted Methods
+5. UserServiceImp.java (C) --> @Service 
+6. UserCotroller.java --> (C) --> @Controller
+7. Application.java --> @SpringBootApplication
+8.JSP Files
+       a) home.jsp
+       b) userreg.jsp  (user form)
+        c) success.jsp 
+         d) viewUser.jsp 
+         e) editUser.jsp
+===================================================
+Reuquired Jars/starters/dependencies
+-----------------------------------------------------------
+1. Spring web
+2. spring data jpa
+3. spring boot devTools
+4. MySql Driver
+5. tomcat jasper
+6. javax.servlet-api    (4.0)
+7. jakarta.servlet.jsp.jstl  (2.0)
+---------------------------------------------------------------------------------
+User.java
+=======
+
+@Entity
+public class User
+{
+@Id
+@GeneratedValue(startegy=Genetaion.Type=AUTO)
+private int id;
+private String name;
+private String password;
+private String email;
+private String gender;
+private String country;
+//PDC+PPC+PSM+PGM+toString()
+}
+============================================
+UserRepo.java
+===============
+@Repository
+public interface UserRepo extends CrudRepository<User,Integer>
+{
+}
+==============================================================
+application.properties
+--------------------------------
+server.port:9000
+# Database related properties
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/excelrdb?useSSL=false&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=root
+
+# Jpa properties/ HB related properties
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+=================================================
+UserService.java  (I)
+---------------------------------
+package com.excelr.service;
+
+import java.util.List;
+
+import com.excelr.model.User;
+
+public interface UserService {
+
+	public User saveUser(User user);
+	public User updateUser(User user);
+	public User getOneUser(int id);
+	public void deleteUser(int id);
+	public List<User> getAllUsers();
+	
+}
+============================================
+UserServiceImp.java
+-----------------------------
+
+package com.excelr.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.excelr.model.User;
+import com.excelr.repo.UserRepo;
+
+@Service
+public class UserServiceImp implements UserService {
+
+	@Autowired private UserRepo repo;
+	
+	@Override
+	public User saveUser(User user) {
+		return repo.save(user);
+	}
+	
+	@Override
+	public List<User> getAllUsers() {
+		List<User> listOfUsers=(List<User>) repo.findAll();
+		return listOfUsers;
+	}
+	
+	@Override
+	public void deleteUser(int id) {
+		repo.deleteById(id);
+
+	}
+	@Override
+	public User getOneUser(int id) {
+		User getOneRecord=repo.findById(id).get();
+		return getOneRecord;
+	}
+
+	@Override
+	public User updateUser(User user) {
+	User update=repo.save(user);
+		return update;
+	}
+}
+===========================================================
+UserController.java
+================
+
+package com.excelr.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.excelr.model.User;
+import com.excelr.service.UserServiceImp;
+
+@Controller
+public class UserController {
+
+	@Autowired UserServiceImp service;
+	@RequestMapping("/")
+	public String homePage()
+	{
+		return "home";
+	}
+	@RequestMapping("/userForm")
+	public String displayUserForm()
+	{
+		return "user_reg";
+	}
+	@RequestMapping("/submit")
+	public String saveUserFormData(User user,ModelMap model)
+	{
+		User saveData=service.saveUser(user);
+		return "success";
+		
+	}
+	
+	@RequestMapping("/viewAllUsers")
+	public String getAll(ModelMap model)
+	{
+		model.put("users", service.getAllUsers());
+		return "viewusers";
+	}
+@RequestMapping("/delete/{id}")
+	public String delete(@PathVariable int id)
+	{
+		service.deleteUser(id);
+		return "redirect:/viewAllUsers";
+	}
+	
+	@RequestMapping("/editUser/{id}")
+	public String editUserForm(@PathVariable int id,ModelMap model)
+	{
+		model.put("command", service.getOneUser(id));
+		return "editForm";
+	}
+	@RequestMapping("/updateandsave")
+	public String updateAndSaveUserDeatils(User user,ModelMap model)
+	{
+		User saveData=service.updateUser(user);
+		return "redirect:/viewAllUsers";
+	}
+	
+}
+====================================================
+home.jsp
+==========
+<html>
+    <center>
+<h1 style="color:red">USER MANAGEMENET SYSTEM</h1>
+<a href="/userForm">Add User</a> &NonBreakingSpace; 
+<a href="/viewAllUsers">ViewAllUsers</a> &NonBreakingSpace;
+    </center>
+</html>
+========================================================
+user_reg.jsp
+===========
+<h1 style="color: green;">Add New User Form</h1>
+<form action="/submit">
+Name:<input type="text" name="name"><p></p>
+Password:<input type="password" name="password"></p></p>
+Email:<input type="email" name="email"></p></p>
+Gender:<input type="radio" name="gender" value="male">male
+<input type="radio" name="gender" value="female">Female
+</p></p>
+Country:<input type="text" name="country"></p></p>
+<input type="submit" value="SaveUser">
+</form>
+===============================================================
+success.jsp
+==========
+<h2 style="color:greenyellow">User Successfully inserted</h2>
+===================================================
+viewusers.jsp
+===========
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<h1>Display All User Details</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>PASSWORD</th>
+        <th>EMAIL</th>
+        <th>GENDER</th>
+        <th>COUNTRY</th>
+        <th>EDIT</th>
+        <th>DELETE</th>
+    </tr>
+    <c:forEach var="user" items="${users}">  
+            <tr>
+                <td>${user.id}</td>
+                <td>${user.name}</td>
+                <td>${user.password}</td>
+                <td>${user.email}</td>
+                <td>${user.gender}</td>
+                <td>${user.country}</td>
+                <td><a href="/editUser/${user.id}">Edit</a></td>
+                <td><a href="/delete/${user.id}">Delete</a></td>
+            </tr>
+    </c:forEach>
+</table>
+================================================================
+editForm.jsp
+==============
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<html>
+<body>
+    <h2>Edit User Form</h2>
+ 
+    <form:form method="POST" action="/updateandsave">
+        <table>
+            <tr>
+                <td>Id:</td>
+                <td><form:hidden path="id" /></td>  
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td><form:input path="name" /></td>  
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><form:input path="password" /></td>  
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><form:input path="email" /></td>  
+            </tr>
+            <tr>
+                <td>Gender:</td>
+                <td><form:input path="gender" /></td>  
+            </tr>
+            <tr>
+                <td>Country:</td>
+                <td><form:input path="country" /></td>  
+            </tr>
+            <tr>
+                <td><input type="submit" name="submit" value="EditAndSave"></td>
+            </tr>
+            <tr>
+        </table>
+    </form:form>
+ 
+======================================================================
+
+
+
+
+
+
+
+

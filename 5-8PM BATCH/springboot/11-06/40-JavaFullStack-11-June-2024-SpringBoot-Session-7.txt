@@ -1,0 +1,311 @@
+Model layer in Spring Boot + DATA JPA (Hibernate(ORM)) implementation steps
+======================================================
+I.DB Connection : write inside the  
+-------------
+application.properties: file
+   i.e (Connection statements with datasourse object)
+
+	#Data Base related properties (4 properties)
+               #Hibernate Dialect related properties
+
+II.CRUD operations:
+Q1.How to construct model layer in Spring Boot ?
+
+Ans:
+Solution:	Spring Boot Data Jpa 
+(internally implemented on hibernate)
+
+1.CrudRepository interface --> 11 methods
+2.JpaRepository interface--> 11 methods
+
+Task:U want to perform CRUD operations on Student,
+Employee tables
+	Step1: Create Entity class--POJO class.java
+	
+	@Entity
+Table(name="student_table")
+	class	Student
+	{
+		@id
+		int	id;
+		String	name;
+		float	percentage;
+	//NPC,PC,toS,S+G
+	}
+
+
+	@Entity
+	class	Employee
+	{
+		@id
+		int	id;
+		String	name;
+		float	salary;
+		//PDC+PPC+PSM+PGM+toString()
+	}
+
+
+	Step2:	Create Repo interface which extends either 
+	CrudRepository/ Jpa Repository	
+
+	@Repository
+	interface	StudentRepo extends CrudRepository
+	{
+		//11 methods 	:save(Student), findAll(), findById(id),.......
+	}
+
+	@Repository
+	interface	EmployeeRepo extends JpaRepository
+	{
+		//11 methods   :save(Employee), findAll(), findById(id),.......
+	}
+============================================================
+Create Spring Boot Appliaction for Model Layer Implementation with Static CRUD
+===========================================================================
+Required Files Are
+=====================
+1. Employee.java   (pojo class) --> @Entity+@Id+@Table+@Column
+2. EmployeeRepo.java (I) --> @Repository
+3. application.properties --> portNoCode+Db Conn stmt+JPA Dailect Properties
+4. Application.java  --> @SpringBootApplication
+==================================================================
+Required Jars Are
+==================
+1. spring web
+2. spring data jpa
+3. spring boot devTools
+4. MySql Driver 
+======================================================
+Employee .java
+-----------------
+@Entity
+@Table(name="emptable")
+public class Employee {
+
+	@Id
+	@Column(name="eid")
+	private int empId;
+	@Column(name="ename")
+	private String empName;
+	private double salary;
+	private String designation;
+	//PDC+PPC+PSM+PGM+toString()
+
+	}
+=================================================
+EmployeeRepo.java
+================
+@Repository
+public interface EmployeeRepo extends CrudRepository<Employee, Integer> {
+
+}
+=================================================================
+application.properties
+------------------------------
+server.port:9000
+# Database related properties
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/excelrdb?useSSL=false&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=root
+
+# Jpa properties/ HB related properties
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+
+=========================================================
+Application.java
+==================
+package com.excelr;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.excelr.model.Employee;
+import com.excelr.repo.EmployeeRepo;
+
+@SpringBootApplication
+public class Application implements CommandLineRunner{
+	
+	@Autowired private EmployeeRepo repo;
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+//		Employee e1=new Employee(101,"rohith",9000.99,"SW");
+//		Employee e2=new Employee(102,"desuvasu",8000.99,"tester");
+//		Employee e3=new Employee(103,"vinay",99000.99,"HW");
+//		Employee e4=new Employee(104,"amulya",94000.99,"SW");
+//		repo.save(e1);
+//		repo.save(e2);
+//		repo.save(e3);
+//		repo.save(e4);	
+		
+//		List<Employee> emps=new LinkedList<>();
+//		emps.add(new Employee(105,"aryan",94000.99,"SW"));
+//		emps.add(new Employee(106,"ksv",94000.99,"SW"));
+//		emps.add(new Employee(107,"sonu",94000.99,"SW"));
+//		repo.saveAll(emps);
+//		System.out.println("New Employee Records insterted successfully..............");
+		
+		
+System.out.println("========GET ONE EMPLOYEE RECORD========");
+Employee getOne=repo.findById(107).get();
+System.out.println(getOne);
+
+System.out.println("=======GET ALL EMPLOYEE RECORDS=========");
+repo.findAll().forEach(getAllEmployee->{
+System.out.println(getAllEmployee);
+});
+
+System.out.println("=============DELETE RECORDS========");
+repo.deleteById(106);
+System.out.println("one Records Deleted.....................");
+
+
+System.out.println("=====UPDATE EMPLOYEEEE=============");
+Employee oldRecord=repo.findById(101).get();
+oldRecord.setEmpName("rohan");
+oldRecord.setDesignation("Tester");
+oldRecord.setSalary(35000.99);
+repo.save(oldRecord);
+System.out.println("Record Updated successfully...............");
+
+	}
+
+}
+
+==================================================================
+output
+==========
+mysql> desc emptable;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| eid         | int          | NO   | PRI | NULL    |       |
+| designation | varchar(255) | YES  |     | NULL    |       |
+| ename       | varchar(255) | YES  |     | NULL    |       |
+| salary      | double       | NO   |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+mysql> select *from emptable;
++-----+-------------+----------+----------+
+| eid | designation | ename    | salary   |
++-----+-------------+----------+----------+
+| 101 | SW          | rohith   |  9000.99 |
+| 102 | tester      | desuvasu |  8000.99 |
+| 103 | HW          | vinay    | 99000.99 |
+| 104 | SW          | amulya   | 94000.99 |
++-----+-------------+----------+----------+
+4 rows in set (0.01 sec)
+
+mysql> select *from emptable;
++-----+-------------+----------+----------+
+| eid | designation | ename    | salary   |
++-----+-------------+----------+----------+
+| 101 | SW          | rohith   |  9000.99 |
+| 102 | tester      | desuvasu |  8000.99 |
+| 103 | HW          | vinay    | 99000.99 |
+| 104 | SW          | amulya   | 94000.99 |
+| 105 | SW          | aryan    | 94000.99 |
+| 106 | SW          | ksv      | 94000.99 |
+| 107 | SW          | sonu     | 94000.99 |
++-----+-------------+----------+----------+
+7 rows in set (0.01 sec)
+
+mysql> select *from emptable;
++-----+-------------+----------+----------+
+| eid | designation | ename    | salary   |
++-----+-------------+----------+----------+
+| 101 | SW          | rohith   |  9000.99 |
+| 102 | tester      | desuvasu |  8000.99 |
+| 103 | HW          | vinay    | 99000.99 |
+| 104 | SW          | amulya   | 94000.99 |
+| 105 | SW          | aryan    | 94000.99 |
+| 107 | SW          | sonu     | 94000.99 |
++-----+-------------+----------+----------+
+6 rows in set (0.03 sec)
+
+mysql> select *from emptable;
++-----+-------------+----------+----------+
+| eid | designation | ename    | salary   |
++-----+-------------+----------+----------+
+| 101 | Tester      | rohan    | 35000.99 |
+| 102 | tester      | desuvasu |  8000.99 |
+| 103 | HW          | vinay    | 99000.99 |
+| 104 | SW          | amulya   | 94000.99 |
+| 105 | SW          | aryan    | 94000.99 |
+| 107 | SW          | sonu     | 94000.99 |
++-----+-------------+----------+----------+
+6 rows in set (0.00 sec)
+
+mysql>
+
+=======================================================
+create a spring boot statuc CRUD with Mysql DB with Data JPA
+====================================================
+TableName: mobile
+----------------------------
+Columns Are
+---------------
+modelNo
+modelName
+companyName
+ram_size
+rom_size
+os_name
+processor_name
+imei_no
+price
+f_cam_size
+b_cam_size
+=================================================
+1. create 
+2. insert 10 records
+3. getOneRecord
+4. getAllRecords
+5. deletOneRecord
+6. update 2 Records
+=======================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,374 @@
+Spring Boot Web Application Stduent Result Marks CRUD with MySQL DataBase
+
+Required Files Are
+-----------------------
+1. Student.java  --> @Entity+@Id+@GeneratedValue
+2. StudentRepo.java -->(I) @Repository
+3. StudentService.java --> (I) with Abstracted Methods
+
+public Student saveStudent(Student student);
+public Student updateStudent(Student student);
+public Student getOneStudent(int sid);
+public void deleteStudent(int sid);
+public List<Student> getAllStudent();
+
+4. StduentServiceImp.java --> (C) --> @Service
+5. StudentController.java --> @Controller
+6. application.properties --> portNoCode+viewResolverCode+DbConn stmt+JPA Properties
+7. Application.java --> @SpringBootApplication
+8.JSP files
+     a) home.jsp
+   b) stureg.jsp
+   c) success.jsp
+   d) viewstudent.jsp
+  e) editstudent.jsp
+==================================================================
+Required Jaras are
+-------------------------
+1. spring web
+2. spring data jpa
+3. spring boot DEV tools
+4. mysql Driver
+5. tomcat jasper
+6. javax.servlet-api
+7. jakartha.jsp.jstl-api
+==================================================================
+Student.java
+==========
+@Entity
+public class Student {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int sid;
+	private String name;
+	private String course;
+	private int html;
+	private int spring;
+	private int springboot;
+	private double total;
+	private double percentage;
+	private String grade;
+	private String result;
+	//pDC+PPC+PSM+PGM+toString()
+}
+========================================================
+StudentRepo.java
+===============
+package com.excelr.repo;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.excelr.model.Student;
+
+@Repository
+public interface StudentRepo extends JpaRepository<Student, Integer> {
+
+}
+
+==================================================================
+StudentService.java
+===================
+
+package com.excelr.service;
+
+import java.util.List;
+
+import com.excelr.model.Student;
+
+public interface StudentService {
+	public Student saveStudent(Student student);
+	public Student updateStudent(Student student);
+	public Student getOneStudent(int sid);
+	public void deleteStudent(int sid);
+	public List<Student> getAllStudent();
+}
+
+
+=======================================================================
+StudentServiceImp .java
+========================
+package com.excelr.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.excelr.model.Student;
+import com.excelr.repo.StudentRepo;
+
+@Service
+public class StudentServiceImp implements StudentService {
+
+	@Autowired private StudentRepo repo;
+	@Override
+	public Student saveStudent(Student student) {
+
+		double tot=0.0,per=0.0;
+		String gr=null,res=null;
+		tot=student.getHtml()+student.getSpring()+student.getSpringboot();
+		per=tot/3;
+		if(per>=70)
+		{
+			gr="A grade";
+		}
+		else if(per>=60)
+		{
+			gr="B grade";
+		}
+		else if(per>=50)
+		{
+			gr="C grade";
+		}
+		if(student.getHtml()>=35 && student.getSpring()>=35 && student.getSpringboot()>=35)
+		{
+			res="Pass";
+		}
+		else
+
+		{
+			res="Fail";
+		}
+		student.setTotal(tot);
+		student.setPercentage(per);
+		student.setGrade(gr);
+		student.setResult(res);
+		return repo.save(student);
+	}
+	@Override
+	public List<Student> getAllStudent() {
+		List<Student> listOfAllStudents=repo.findAll();
+		return listOfAllStudents;
+	}
+	
+	@Override
+	public Student getOneStudent(int sid) {
+		Student getOneStudent=repo.findById(sid).get();
+		return getOneStudent;
+	}
+	@Override
+	public Student updateStudent(Student student) {
+		double tot=0.0,per=0.0;
+		String gr=null,res=null;
+		tot=student.getHtml()+student.getSpring()+student.getSpringboot();
+		per=tot/3;
+		if(per>=70)
+		{
+			gr="A grade";
+		}
+		else if(per>=60)
+		{
+			gr="B grade";
+		}
+		else if(per>=50)
+		{
+			gr="C grade";
+		}
+		if(student.getHtml()>=35 && student.getSpring()>=35 && student.getSpringboot()>=35)
+		{
+			res="Pass";
+		}
+		else
+
+		{
+			res="Fail";
+		}
+		student.setTotal(tot);
+		student.setPercentage(per);
+		student.setGrade(gr);
+		student.setResult(res);
+		return repo.save(student);
+	}
+
+	@Override
+	public void deleteStudent(int sid) {
+		repo.deleteById(sid);
+	}
+}
+=======================================================================
+StudentController .java
+=======================
+package com.excelr.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.excelr.model.Student;
+import com.excelr.service.StudentService;
+
+@Controller
+public class StudentController {
+
+	@Autowired private StudentService service;
+	@RequestMapping("/")
+	public String homePage()
+	{
+		return "home";
+	}
+	@RequestMapping("/stuform")
+	public String studentRegForm()
+	{
+		return "stureg";
+	}
+	@RequestMapping("/submit")
+	public String submitStudentMarksDeatails(Student student,ModelMap model)
+	{
+		service.saveStudent(student);
+		return "success";
+	}
+	@RequestMapping("/viewAllStudents")
+	public String displayAllStudent(ModelMap model)
+	{
+		model.put("students",service.getAllStudent());
+		return "viewstudent";
+	}
+	@RequestMapping("/edit/{sid}")
+	public String editForm(@PathVariable int sid,ModelMap model)
+	{
+		model.put("command", service.getOneStudent(sid));
+		return "editfrom";
+	}
+	@RequestMapping("/updateandsave")
+	public String editSaveData(Student student,ModelMap model)
+	{
+		service.updateStudent(student);
+		return "redirect:/viewAllStudents";
+	}
+	@RequestMapping("/delete/{sid}")
+	public String delete(@PathVariable int sid)
+	{
+		service.deleteStudent(sid);
+		return "redirect:/viewAllStudents";
+	}
+}
+
+===============================================================
+home.jsp
+========
+<html>
+    <center>
+<h1 style="color:red">STUDENT RESULT CRUD APPLICATION</h1>
+<a href="/stuform">AddNewStudentMarks</a> &NonBreakingSpace; 
+<a href="/viewAllStudents">ViewAllStudentDetails</a> &NonBreakingSpace;
+    </center>
+</html>
+==================================================================
+stureg.jsp
+============
+
+<h1 style="color: green;">Add New Student Marks</h1>
+<form action="/submit">
+Name:<input type="text" name="name"><p></p>
+Course:<input type="text" name="course"></p></p>
+HTML Marks:<input type="text" name="html"></p></p>
+Spring Marks:<input type="text" name="spring"></p></p>
+Spring Boot Marks:<input type="text" name="springboot"></p></p>
+<input type="submit" value="SaveStudent">
+</form>
+====================================================
+sucess.jsp
+=========
+<h1 style="color: green;">One Student Marks has been inserted successfully</h1>
+========================================================================
+viewstudent.jsp
+============
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<h1>Display All Student Details</h1>
+<table border="1">
+    <tr>
+        <th>SID</th>
+        <th>NAME</th>
+        <th>COURSE</th>
+        <th>HTML</th>
+        <th>SPRING</th>
+        <th>SPRING BOOT</th>
+        <th>TOTAL</th>
+        <th>PERCENTAGE</th>
+        <th>GRADE</th>
+        <th>RESULT</th>
+        <th>EDIT</th>
+        <th>DELETE</th>
+    </tr>
+    <c:forEach var="student" items="${students}">  
+            <tr>
+                <td>${student.sid}</td>
+                <td>${student.name}</td>
+                <td>${student.course}</td>
+                <td>${student.html}</td>
+                <td>${student.spring}</td>
+                <td>${student.springboot}</td>
+                <td>${student.total}</td>
+                <td>${student.percentage}</td>
+                <td>${student.grade}</td>
+                <td>${student.result}</td>
+                <td><a href="/edit/${student.sid}">Edit</a></td>
+                <td><a href="/delete/${student.sid}">Delete</a></td>
+            </tr>
+    </c:forEach>
+    <a href="/stuform"">AddNewStudent</a>
+</table>
+====================================================
+editstudent.jsp
+==============
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<html>
+<body>
+    <h2>Edit Student Form</h2>
+ 
+    <form:form action="/updateandsave">
+        <table>
+            <tr>
+                <td>Id:</td>
+                <td><form:hidden path="sid" /></td>  
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td><form:input path="name" /></td>  
+            </tr>
+            <tr>
+                <td>Course:</td>
+                <td><form:input path="course" /></td>  
+            </tr>
+            <tr>
+                <td>HTML marks:</td>
+                <td><form:input path="html" /></td>  
+            </tr>
+            <tr>
+                <td>Spring Marks:</td>
+                <td><form:input path="spring" /></td>  
+            </tr>
+            <tr>
+                <td>Spring boot Marks:</td>
+                <td><form:input path="springboot" /></td>  
+            </tr>
+            <tr>
+                <td><input type="submit" name="submit" value="EditAndSave"></td>
+            </tr>
+            <tr>
+        </table>
+    </form:form>
+    <a href="/stufrom">AddNewUser</a>
+=====================================================================
+
+output
+======
+mysql> select *from student;
++-----+-------------------+---------+------+---------+--------------------+--------+--------+------------+-------+
+| sid | course            | grade   | html | name    | percentage         | result | spring | springboot | total |
++-----+-------------------+---------+------+---------+--------------------+--------+--------+------------+-------+
+|   1 | Java              | NULL    |   30 | sairam  | 31.666666666666668 | Fail   |     20 |         45 |    95 |
+|   2 | python full stack | A grade |   80 | rohith  |                 80 | Pass   |     90 |         70 |   240 |
+|   3 | Java Full Stack   | A grade |   90 | ankitha |                 80 | Pass   |     60 |         90 |   240 |
+|   4 | Java Full Stack   | A grade |   50 | vasu    |                 72 | Pass   |     80 |         86 |   216 |
+|   5 | Java Full Stack   | B grade |   80 | arya    |                 63 | Pass   |     45 |         64 |   189 |
++-----+-------------------+---------+------+---------+--------------------+--------+--------+------------+-------+
+5 rows in set (0.02 sec)
+
+mysql>
+==============================================================================
