@@ -1,0 +1,197 @@
+Monolithic architecture
+===================
+--> Monolithic architecture is created as a single massive 
+system with a single code base.
+
+--> A monolithic application, sometimes known as a "monolith," 
+is made up of a single massive codebase that 
+contains all of the program's components, 
+such as the backend, frontend, 
+and configuration. 
+Monoliths are usually seen as an older and more 
+conventional method of designing applications,
+
+--> although many businesses still need to start 
+using monolithic architecture. 
+Monolithic programs are typically 
+faster to create and deploy than applications based 
+on microservices architecture, and they may be 
+simpler to manage. 
+-->On the other hand, Monolithic programs might 
+suffer from a lack of scalability and the limitations 
+of maintaining a single gigantic codebase as the 
+program expands in size.
+
+
+https://www.scaler.com/topics/microservices-vs-monolithic-architecture/
+
+https://www.atlassian.com/microservices/microservices-architecture/
+microservices-vs-monolith#:~:text=A%20monolithic%20application%20is%20built,on%20a%20number%20of%20factors.
+
+
+
+
+Disadvantages of a monolithic architecture
+------------------------------------------
+
+Slower development speed – A large, monolithic 
+application makes development more complex and slower.
+
+
+Scalability – You can’t scale individual components.
+
+Reliability – If there’s an error in any module, 
+it could affect the entire application’s availability.
+
+Barrier to technology adoption – Any changes in the framework or 
+language affects the entire application, 
+making changes often expensive and time-consuming.
+
+Lack of flexibility – A monolith is constrained by the 
+technologies already used in the monolith.
+
+Deployment – A small change to a monolithic 
+application requires the redeployment of the entire monolith.
+
+
+
+
+
+
+------------------------------------------
+Advantages of Microservices
+=======================
+Agility:– Promote agile ways of working with 
+small teams that deploy frequently.
+
+Flexible scaling – If a microservice reaches 
+its load capacity, new instances 
+of that service can rapidly 
+be deployed to the accompanying 
+cluster to help relieve pressure. 
+We are now multi-tenanant and 
+stateless with customers spread 
+across multiple instances. 
+Now we can support much larger instance sizes. 
+
+Continuous deployment – We now have frequent 
+and faster release cycles. Before we 
+would push out updates once a week 
+and now we can do so about two to three times a day. 
+
+Highly maintainable and testable – Teams can 
+experiment with new features and roll back if 
+something doesn’t work. This makes it easier 
+to update code and accelerates time-to-
+market for new features. Plus, it is easy to isolate and fix faults and 
+bugs in individual services.
+
+Independently deployable – Since microservices are 
+individual units they allow for fast and easy 
+independent deployment of individual features. 
+
+Technology flexibility – Microservice architectures 
+allow teams the freedom to select the tools they desire. 
+
+High reliability – You can deploy changes for a specific service, 
+without the threat of bringing down the entire application.
+
+Happier teams – The Atlassian teams who work with microservices are a lot happier,
+ since they are more autonomous and can build and deploy 
+themselves without waiting weeks for a pull request to be approved. 
+====================================================================================
+Benefits Of Microservices
+---------------------------
+Simpler to deploy
+-----------------
+Deploy in literal pieces without 
+affecting other services.
+
+Simpler to understand
+---------------------
+Code is easier to follow since the function is 
+isolated and less dependent.
+
+Reusable across business
+-------------------------
+Share small services like payment or 
+login systems across the business.
+
+Faster defect isolation
+------------------------
+When a test fails or service goes 
+down, isolate it quickly.
+
+Minimized risk from change
+--------------------------
+Avoid locking in technologies or languages - 
+change on the fly with minimal risk.
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+Advantages of Microservices
+=======================
+Agility:– Promote agile ways of working with 
+small teams that deploy frequently.
+
+Flexible scaling – If a microservice reaches 
+its load capacity, new instances 
+of that service can rapidly 
+be deployed to the accompanying 
+cluster to help relieve pressure. 
+We are now multi-tenanant and 
+stateless with customers spread 
+across multiple instances. 
+Now we can support much larger instance sizes. 
+
+Continuous deployment – We now have frequent 
+and faster release cycles. Before we 
+would push out updates once a week 
+and now we can do so about two to three times a day. 
+
+Highly maintainable and testable – Teams can 
+experiment with new features and roll back if 
+something doesn’t work. This makes it easier 
+to update code and accelerates time-to-
+market for new features. Plus, it is easy to isolate and fix faults and 
+bugs in individual services.
+
+Independently deployable – Since microservices are 
+individual units they allow for fast and easy 
+independent deployment of individual features. 
+
+Technology flexibility – Microservice architectures 
+allow teams the freedom to select the tools they desire. 
+
+High reliability – You can deploy changes for a specific service, 
+without the threat of bringing down the entire application.
+
+Happier teams – The Atlassian teams who work with microservices are a lot happier,
+ since they are more autonomous and can build and deploy 
+themselves without waiting weeks for a pull request to be approved. 
+====================================================================================
+Benefits Of Microservices
+---------------------------
+Simpler to deploy
+-----------------
+Deploy in literal pieces without 
+affecting other services.
+
+Simpler to understand
+---------------------
+Code is easier to follow since the function is 
+isolated and less dependent.
+
+Reusable across business
+-------------------------
+Share small services like payment or 
+login systems across the business.
+
+Faster defect isolation
+------------------------
+When a test fails or service goes 
+down, isolate it quickly.
+
+Minimized risk from change
+--------------------------
+Avoid locking in technologies or languages - 
+change on the fly with minimal risk.

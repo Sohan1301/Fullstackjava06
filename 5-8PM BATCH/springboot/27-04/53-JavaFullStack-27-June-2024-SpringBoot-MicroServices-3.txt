@@ -1,0 +1,154 @@
+Spring Cloud Components
+------------------------------------
+1. Service Configuration/Service Registry
+2. Service Discovery
+3. Circuite Breaker: Hystrix+Resoulance4j
+4. Messaging and routing : Open Feign /kafka/ RobbitMQ)
+5. API gate way: Zull API /spring cloud api gate way
+6. Load Balancing and tracing : ZIPKIN tool
+7. CI pipelining and Testing : Jenkins / testing tool (Junit5/power mockitto)
+===================================================================
+Step1: create a Spring Boot REST API appn and Enable Eureka Cloud Server
+Eureka Cloud sever by default Running port No:8761
+Step1: Create a Payment-Service  (microservice application-1) RESTAPI Appn -1  :portNo:8001
+and configure payment service in eureka-cloud-server
+Step1: Create a Shopping-Service  (microservice application-2) RESTAPI Appn -2  :portNO:8002
+and configure payment service in eureka-cloud-server
+================================================================================
+Step1: create a Spring Boot REST API appn and Enable Eureka Cloud Server
+Eureka Cloud sever by default Running port No:8761
+-------------------------------------------------------------------------------------------------------------------------------------
+Required File Are
+-----------------------
+1. Application.java --> @SpringBootApplication+@EnableEurekaServer
+2. application.properties  
+3. application.yml   (file)    eureka cloud server configuration code
+-------------------------------------------------------------------------------------------------
+Reuired Jar Are
+==================
+1. Spring web
+2. spring boot dev Tools
+3. Eureka Cloud server
+==========================================================
+Application.java
+----------------------
+package com.excelr;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+
+@SpringBootApplication
+@EnableEurekaServer
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+===============================================================
+application.yml
+---------------------
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+server:
+  port: 8761
+spring:
+  application:
+    name : AMAZON-CLOUD-SERVER
+====================================================
+Step1: Create a Payment-Service  (microservice application-1) RESTAPI Appn -1  :portNo:8001
+and configure payment service in eureka-cloud-server
+============================================================================
+Required Files Are
+------------------------
+1. Application.java --> @SpringBootApplication+@EnableDiscoveryClient
+2.PaymentController.java  --> @RestController+@RequestMapping
+3.application.yml --> Here EurekaCloud Server Config Infromation+PyamentService Configuration
+============================================
+Required Jars Are
+----------------------------
+1. Spring web
+2. Spring Boot Dev Tools
+3. Eureka Discivery Client
+==================================================================
+Application.java
+----------------------
+package com.excelr;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+
+=======================================================
+PaymentController.java
+-------------------------------------
+package com.excelr.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/payment")
+public class PaymentController {
+
+	@GetMapping("/test")
+	public String testEndpoit()
+	{
+		return "Welcome To Payment Service REST API Application";
+	}
+	@GetMapping("/pay/{price}")
+	public String payGateWay(@PathVariable double price)
+	{
+		return "Your Payement"+price+"successfully paid";
+	}
+	
+}
+
+===================================================================
+application.yml
+==============
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serverUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+server:    
+  port: 8001
+spring:
+  application:
+    name : PAYMENT-SERVICE
+==============================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

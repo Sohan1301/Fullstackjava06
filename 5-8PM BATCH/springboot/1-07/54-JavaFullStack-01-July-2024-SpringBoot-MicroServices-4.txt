@@ -1,0 +1,236 @@
+Step3:Creating SHOPPING-SERVICE AND Configure into Eureka Cloud Server
+with port: 8002
+==================================================
+Required Files are
+--------------------------
+1. Application.java --> @SpringBootApplication+@EnableDiscoveryClient
+2. ShoppingController.java --> @RestController+ RestTemplate (Obj)
+3. application.yml --> portNoCode+ Shipping Service Configuration
+============================================
+Required Jars
+-------------------
+1. Spring web
+2. spring boot DevTools
+3. discovery Client
+--------------------------------------------------------------------------------------
+Application.java
+---------------------
+package com.excelr;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class Application {
+
+	@Bean
+	@LoadBalanced
+	public RestTemplate getRestTemplate()
+	{
+		return new RestTemplate();
+	}
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+}
+
+======================================================
+MyShoppingController.java
+----------------------------------------
+package com.excelr.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+@RestController
+@RequestMapping("/shopping")
+public class MyShoppingController {
+	
+	@Autowired RestTemplate restTemaplate;
+
+	@GetMapping("/test")
+	public String testMethod()
+	{
+		return "Welcome To SHopping Service";
+	}
+	
+	@GetMapping("/amazon-payment/{price}")
+	public String invokePaymentService(@PathVariable double price)
+	{
+		
+		//String url="http://localhost:8001/payment/pay/"+price; //1st way
+		String url="http://999-PAYMENT-SERVICE/payment/pay/"+price; //2st way
+		return restTemaplate.getForObject(url, String.class);
+	}
+}
+
+==================================================================
+application.yml
+-------------------------
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serverUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+server:    
+  port: 8002
+spring:
+  application:
+    name : SHOPPING-SERVICE
+===================================
+==================================================
+Create Spring Boot MicroServices Application for
+Citizen and Vaccination Services
+-----------------------------------------------
+Step1: create eureka-server  with 8761 port number
+Step2:create citizen-service with citizen data base
+and configure into Eureka Server :port no:8787
+step3: create vaccination-service and confgure into eureka-server with port no:8000
+--------------------------------------------
+Required Files Are
+------------------
+1. Citizen.java
+2.CitozenRepo.java
+3.CitizentController.java
+4.application.yml
+5. Application.java
+-----------------------
+Required Jars Are
+---------------------
+1. spring web 
+2. spring dev tools
+3. spring data jpa
+4. Mysql Connector
+5. Eureka Discivery Client
+-------------------------------------
+Citizen.java
+-------------
+@Entity
+public class Citizen {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	@Column
+	private String name;
+	@Column
+	private int vaccinationCenterId;
+//PDC+PPC+PSM+PGM+toString()
+}
+====================================================
+CitizenRepo.java
+----------------------------
+package com.ksv.repo;
+import java.util.*;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.ksv.entity.Citizen;
+
+public interface CitizenRepo extends JpaRepository<Citizen, Integer> {
+
+	public List<Citizen> findByVaccinationCenterId(Integer id);
+}
+
+==========================================================================
+CitizenController.java
+--------------------
+package com.ksv.controller;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ksv.entity.Citizen;
+import com.ksv.repo.CitizenRepo;
+
+@RestController
+@RequestMapping("/citizen")
+public class CitizenController {
+	
+	@Autowired
+	private CitizenRepo repo;
+
+	@GetMapping("/test")
+	public String test()
+	{
+		return ("Hello Welcome To CITIZEN Service");
+	}
+	@PostMapping("/add")
+	public ResponseEntity<Citizen> addCitizen(@RequestBody Citizen newCitizen)
+	{
+		Citizen citizen=repo.save(newCitizen);
+		return new ResponseEntity<>(citizen,HttpStatus.OK);
+	}
+	
+	@GetMapping("/id/{id}")
+	public ResponseEntity<List<Citizen>> getById(@PathVariable Integer id)
+	{
+		List<Citizen> listCitizen=repo.findByVaccinationCenterId(id);
+		return new ResponseEntity<>(listCitizen,HttpStatus.OK);
+	} 
+	
+}
+
+=-=============================================================
+application.properties
+--------------------
+server.port: 8001
+eureka.client.registerWithEureka: true
+eureka.client.fetchRegistry: true
+eureka.client.service-url.defaultZone: http://localhost:8761/eureka/
+eureka.client.service-url.defaultZone.instance.hostname: localhost
+     
+spring.datasource.url: jdbc:mysql://localhost:3306/bootdb
+spring.datasource.username: root
+spring.datasource.password: root
+spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
+
+spring.jpa.hibernate.ddl-auto: update
+spring.jpa.show-sql: true
+spring.jpa.database-platform: org.hibernate.dialect.MySQL8Dialect
+spring.application.name : CITIZEN-SERVICE
+
+=================================================================
+Application.java
+----------------
+
+package com.ksv;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+
+@SpringBootApplication
+@EnableEurekaClient
+public class CitizenServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(CitizenServiceApplication.class, args);
+	}
+
+}
+=============================================================
+
+
+
